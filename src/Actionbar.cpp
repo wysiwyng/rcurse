@@ -1,8 +1,6 @@
 #include "Actionbar.h"
 #include "Defs.h"
 
-
-// Initialize a main window (no parent)
 Actionbar::Actionbar(int nr_rows, int nr_cols, int row_0, int col_0) {
 	_w = newwin(nr_rows, nr_cols, row_0, col_0);
 	_height = nr_rows;
@@ -79,7 +77,6 @@ void Actionbar::remove_action(unsigned act_no) {
 	if(_active > _actions.size() - 1) _active = _actions.size() - 1;
 }
 
-// Refresh the window
 void Actionbar::refresh() {
 	if(!_needs_refresh) return;
 	_needs_refresh = false;
@@ -111,27 +108,22 @@ void Actionbar::refresh() {
 	wrefresh(_w);
 }
 
-// Get the window
 WINDOW* Actionbar::win() {
 	return _w;
 }
 
-// Get the height of the window
 int Actionbar::height() {
 	return _height;
 }
 
-// Get the width of the window
 int Actionbar::width() {
 	return _width;
 }
 
-// Get the row (y) position of the window
 int Actionbar::row() {
 	return _row;
 }
 
-// Get the row (y) position of the window
 int Actionbar::col() {
 	return _col;
 }

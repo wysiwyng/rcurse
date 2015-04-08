@@ -41,22 +41,18 @@ WINDOW* Statusbar::win() {
 	return _w;
 }
 
-// Get the height of the window
 int Statusbar::height() {
 	return _height;
 }
 
-// Get the width of the window
 int Statusbar::width() {
 	return _width;
 }
 
-// Get the row (y) position of the window
 int Statusbar::row() {
 	return _row;
 }
 
-// Get the row (y) position of the window
 int Statusbar::col() {
 	return _col;
 }

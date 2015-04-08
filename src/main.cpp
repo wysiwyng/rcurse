@@ -10,7 +10,6 @@
 #include "Game.h"
 #include "Defs.h"
 
-// Entry function for game
 int main() {
 	initscr();
 	clear();

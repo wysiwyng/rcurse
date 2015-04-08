@@ -1,7 +1,6 @@
 #include "Hud.h"
 #include "Defs.h"
 
-// Initialize a main window (no parent)
 Hud::Hud(int nr_rows, int nr_cols, int row_0, int col_0) {
 	_w = newwin(nr_rows, nr_cols, row_0, col_0);
 	_height = nr_rows;
@@ -41,7 +40,6 @@ void Hud::set_max_points(int amount)
 	_max_score = amount;
 }
 
-// Refresh the window
 void Hud::refresh() {
 	if(!_needs_refresh) return;
 	_needs_refresh = false;
@@ -62,27 +60,22 @@ void Hud::set_auto_center(bool ac) {
 	_auto_center = ac;
 }
 
-// Get the window
 WINDOW* Hud::win() {
 	return _w;
 }
 
-// Get the height of the window
 int Hud::height() {
 	return _height;
 }
 
-// Get the width of the window
 int Hud::width() {
 	return _width;
 }
 
-// Get the row (y) position of the window
 int Hud::row() {
 	return _row;
 }
 
-// Get the row (y) position of the window
 int Hud::col() {
 	return _col;
 }

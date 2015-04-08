@@ -8,15 +8,12 @@
 
 class Actionbar {
 private:
-	// Frame dimensions
 	int _height, _width;
-	// Frame position
 	int _row, _col;
 
 	bool _needs_refresh;
 	bool _needs_clear;
 
-	// Pointer to an ncurses WINDOW
 	WINDOW *_w;
 
 	unsigned _active;
@@ -25,21 +22,17 @@ private:
 	std::unordered_set<Action> _actions_set;
 
 public:
-	// Get the window
 	WINDOW *win();
-	// Initialize a main window (no parent)
+
 	Actionbar(int nr_rows, int nr_cols, int row_0, int col_0);
 
 	~Actionbar();
-	// Get the height of the window
+
 	int height();
-	// Get the width of the window
 	int width();
-	// Get the row (y) position of the window
 	int row();
-	// Get the row (y) position of the window
 	int col();
-	// Refresh the window
+
 	void refresh();
 
 	void add_action(Action act);
