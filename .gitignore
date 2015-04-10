@@ -4,3 +4,6 @@
 /release-linux/
 /release-sdl/
 /release-win/
+.cproject
+.project
+/.settings/language.settings.xml
