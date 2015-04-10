@@ -31,10 +31,10 @@ static char const * const texts[] = {
 		"--DIG"
 };
 
-Action::Action(int _action_no) {
-	_no= _action_no;
-	//_text = texts[_no];
-	_touched = false;
+Action::Action(int _action_no) :
+_no(_action_no),
+_touched(false)
+{
 
 }
 
