@@ -11,15 +11,11 @@
 
 Map::Map(int _pos_y, int _pos_x, int _size_y, int _size_x, const unsigned int &seed, double _factor_y, double _factor_x) :
 GameWindow(_size_y, _size_x, _pos_y, _pos_x),
-old_col(0),
-old_row(0),
+old_col(0), old_row(0),
 old_char(0),
-center_x(0),
-center_y(0),
-orig_x(0),
-orig_y(0),
-factor_y(_factor_y),
-factor_x(_factor_x),
+center_x(0), center_y(0),
+orig_x(0), orig_y(0),
+factor_y(_factor_y), factor_x(_factor_x),
 pn(seed)
 {
 
