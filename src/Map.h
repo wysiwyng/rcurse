@@ -8,36 +8,27 @@
 #ifndef MAP_H_
 #define MAP_H_
 
-#include <curses.h>
+#include <vector>
 #include "Character.h"
 #include "PerlinNoise.h"
-#include <vector>
 #include "Defs.h"
+#include "GameWindow.h"
 
-class Map {
+class Map : public GameWindow{
 private:
-	int height, width, pos_y, pos_x;
 	int old_col, old_row, old_char;
 
 	int center_x, center_y;
 	int orig_x, orig_y;
 
 	double factor_y, factor_x;
-	bool needs_refresh;
 	PerlinNoise pn;
-	WINDOW *w;
 
 	std::vector<Character*> characters;
 	char gen_from_perlin(int _ypos, int _xpos);
 public:
 	Map(int _pos_y, int _pos_x, int _size_y, int _size_x, const unsigned int &seed, double _factor_y, double _factor_x);
 	virtual ~Map();
-
-	WINDOW * win();
-	int get_height();
-	int get_width();
-	int get_ypos();
-	int get_xpos();
 
 	int get_old_col();
 	int get_old_row();

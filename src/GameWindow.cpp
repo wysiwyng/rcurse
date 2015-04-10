@@ -12,8 +12,8 @@ _height(nr_rows),
 _width(nr_cols),
 _row(row_0),
 _col(col_0),
-_needs_refresh(false),
-_needs_clear(false),
+_needs_refresh(true),
+_needs_clear(true),
 _w(newwin(_height, _width, _row, _col))
 {
 	wattrset(_w, A_BOLD);
@@ -21,7 +21,7 @@ _w(newwin(_height, _width, _row, _col))
 }
 
 GameWindow::~GameWindow() {
-	// TODO Auto-generated destructor stub
+	delwin(_w);
 }
 
 int GameWindow::height(){

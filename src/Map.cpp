@@ -17,10 +17,7 @@
 #define ARRAY
 
 Map::Map(int _pos_y, int _pos_x, int _size_y, int _size_x, const unsigned int &seed, double _factor_y, double _factor_x) :
-height(_size_y),
-width(_size_x),
-pos_y(_pos_y),
-pos_x(_pos_x),
+GameWindow(_size_y, _size_x, _pos_y, _pos_x),
 old_col(0),
 old_row(0),
 old_char(0),
@@ -30,16 +27,13 @@ orig_x(0),
 orig_y(0),
 factor_y(_factor_y),
 factor_x(_factor_x),
-needs_refresh(true),
-pn(seed),
-w(newwin(height, width, pos_y, pos_x))
+pn(seed)
 {
-
 
 }
 
 Map::~Map() {
-	delwin(w);
+
 }
 
 char Map::gen_from_perlin(int _ypos, int _xpos) {
@@ -104,16 +98,9 @@ char Map::gen_from_perlin(int _ypos, int _xpos) {
 #endif
 }
 
-int Map::get_height() {return height;}
-int Map::get_width() {return width;}
-int Map::get_xpos() {return pos_x;}
-int Map::get_ypos() {return pos_y;}
-
 int Map::get_old_char() {return old_char;}
 int Map::get_old_col() {return old_col;}
 int Map::get_old_row() {return old_row;}
-
-WINDOW* Map::win() {return w;}
 
 int Map::get_xcenter() {return center_x;}
 int Map::get_ycenter() {return center_y;}
@@ -125,14 +112,14 @@ void Map::init(int _row, int _col) {
 	orig_x = _col;
 	orig_y = _row;
 
-	for(int i = 0; i < height; i++) {
-		for(int j = 0; j < width; j++) {
+	for(int i = 0; i < _height; i++) {
+		for(int j = 0; j < _width; j++) {
 			int chr = gen_from_perlin(i + orig_y, j + orig_x);
-			Defs::set_color(w, chr);
-			mvwaddch(w, i, j, chr);
+			Defs::set_color(_w, chr);
+			mvwaddch(_w, i, j, chr);
 		}
 	}
-	needs_refresh = true;
+	_needs_refresh = true;
 }
 
 void Map::move(int _dy, int _dx) {
@@ -143,7 +130,7 @@ void Map::move(int _dy, int _dx) {
 }
 
 void Map::move_fast(int _dy, int _dx) {
-	if(_dy > height || _dx > width) {
+	if(_dy > _height || _dx > _width) {
 		this->move(_dy, _dx);
 		return;
 	}
@@ -151,26 +138,26 @@ void Map::move_fast(int _dy, int _dx) {
 	this->scroll_map(_dy, _dx);
 
 	for(int i = 0; i < std::abs(_dy); i++) {
-		for(int j = 0; j < width; j++) {
-			int temp = _dy > 0 ? orig_y + height - 1 - i : orig_y + i;
+		for(int j = 0; j < _width; j++) {
+			int temp = _dy > 0 ? orig_y + _height - 1 - i : orig_y + i;
 			char chr = this->gen_from_perlin(temp, orig_x + j);
-			Defs::set_color(w, chr);
-			mvwaddch(w, temp - orig_y, j, chr);
+			Defs::set_color(_w, chr);
+			mvwaddch(_w, temp - orig_y, j, chr);
 		}
 	}
 	for(int i = 0; i < std::abs(_dx); i++) {
-		for(int j = 0; j < height; j++) {
-			int temp = _dx > 0 ? orig_x + width - 1 - i : orig_x + i;
+		for(int j = 0; j < _height; j++) {
+			int temp = _dx > 0 ? orig_x + _width - 1 - i : orig_x + i;
 			int chr = this->gen_from_perlin(orig_y + j, temp);
-			Defs::set_color(w, chr);
-			mvwaddch(w, j, temp - orig_x, chr);
+			Defs::set_color(_w, chr);
+			mvwaddch(_w, j, temp - orig_x, chr);
 		}
 	}
 }
 
 void Map::center(int _ypos, int _xpos) {
-	int dy = _ypos - height / 2 - orig_y;
-	int dx = _xpos - width / 2 - orig_x;
+	int dy = _ypos - _height / 2 - orig_y;
+	int dx = _xpos - _width / 2 - orig_x;
 	this->move_fast(dy, dx);
 }
 
@@ -179,14 +166,14 @@ void Map::scroll_map(int dy, int dx) {
 	orig_y += dy;
 	int _dy = dy >= 0 ? dy : -dy;
 	int _dx = dx >= 0 ? dx : -dx;
-	for(int i = 0; i < height - _dy; i++) {
-		for(int j = 0; j < width - _dx; j++) {
-			char chr = mvwinch(w, dy >= 0 ? i + dy : height - i - _dy - 1, dx >= 0 ? j + dx : width - j - _dx - 1);
-			Defs::set_color(w, chr);
-			mvwaddch(w, dy >= 0 ? i : height - i - 1, dx >= 0 ? j : width - j - 1, chr);
+	for(int i = 0; i < _height - _dy; i++) {
+		for(int j = 0; j < _width - _dx; j++) {
+			char chr = mvwinch(_w, dy >= 0 ? i + dy : _height - i - _dy - 1, dx >= 0 ? j + dx : _width - j - _dx - 1);
+			Defs::set_color(_w, chr);
+			mvwaddch(_w, dy >= 0 ? i : _height - i - 1, dx >= 0 ? j : _width - j - 1, chr);
 		}
 	}
-	needs_refresh = true;
+	_needs_refresh = true;
 }
 
 void Map::refresh() {
@@ -194,21 +181,21 @@ void Map::refresh() {
 		Character tmp_char = **it;
 		if(!tmp_char.needs_redraw()) continue;
 		(**it).reset_redraw();
-		if(tmp_char.oldx() >= orig_x && tmp_char.oldy() >= orig_y && tmp_char.oldx() < orig_x + width && tmp_char.oldy() < orig_y + height) {
+		if(tmp_char.oldx() >= orig_x && tmp_char.oldy() >= orig_y && tmp_char.oldx() < orig_x + _width && tmp_char.oldy() < orig_y + _height) {
 			char chr = this->gen_from_perlin(tmp_char.oldy(), tmp_char.oldx());
-			Defs::set_color(w, chr);
-			mvwaddch(w, tmp_char.oldy() - orig_y, tmp_char.oldx() - orig_x, chr);
-			needs_refresh = true;
+			Defs::set_color(_w, chr);
+			mvwaddch(_w, tmp_char.oldy() - orig_y, tmp_char.oldx() - orig_x, chr);
+			_needs_refresh = true;
 		}
 
-		if(tmp_char.x() >= orig_x && tmp_char.y() >= orig_y && tmp_char.x() < orig_x + width && tmp_char.y() < orig_y + height) {
-			Defs::set_color(w, tmp_char.symbol());
-			mvwaddch(w, tmp_char.y() - orig_y, tmp_char.x() - orig_x, tmp_char.symbol());
-			needs_refresh = true;
+		if(tmp_char.x() >= orig_x && tmp_char.y() >= orig_y && tmp_char.x() < orig_x + _width && tmp_char.y() < orig_y + _height) {
+			Defs::set_color(_w, tmp_char.symbol());
+			mvwaddch(_w, tmp_char.y() - orig_y, tmp_char.x() - orig_x, tmp_char.symbol());
+			_needs_refresh = true;
 		} else (**it).set_redraw();
 	}
-	wrefresh(w);
-	needs_refresh = false;
+	wrefresh(_w);
+	_needs_refresh = false;
 }
 
 void Map::add(Character * x) {

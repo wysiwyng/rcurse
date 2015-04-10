@@ -1,24 +1,15 @@
 #include "Actionbar.h"
 #include "Defs.h"
 
-Actionbar::Actionbar(int nr_rows, int nr_cols, int row_0, int col_0) {
-	_w = newwin(nr_rows, nr_cols, row_0, col_0);
-	_height = nr_rows;
-	_width = nr_cols;
-	_row = row_0;
-	_col = col_0;
-
-	_active = 0;
-	_needs_refresh = true;
-	_needs_clear = true;
-
-	wattrset(_w, A_BOLD);
-	box(_w,0,0);
+Actionbar::Actionbar(int nr_rows, int nr_cols, int row_0, int col_0) :
+GameWindow(nr_rows, nr_cols, row_0, col_0),
+_active(0)
+{
 
 }
 
 Actionbar::~Actionbar() {
-	delwin(_w);
+
 }
 
 void Actionbar::add_action(Action act) {
@@ -31,11 +22,7 @@ void Actionbar::add_action(Action act) {
 
 void Actionbar::add_action(unsigned act_no) {
 	Action tmp(act_no);
-	if(_actions_set.count(tmp)) return;
-	_needs_refresh = true;
-	_needs_clear = true;
-	_actions_set.insert(tmp);
-	_actions.push_back(tmp);
+	add_action(tmp);
 }
 
 Action Actionbar::get_action() {
@@ -106,24 +93,4 @@ void Actionbar::refresh() {
 		}
 	}
 	wrefresh(_w);
-}
-
-WINDOW* Actionbar::win() {
-	return _w;
-}
-
-int Actionbar::height() {
-	return _height;
-}
-
-int Actionbar::width() {
-	return _width;
-}
-
-int Actionbar::row() {
-	return _row;
-}
-
-int Actionbar::col() {
-	return _col;
 }

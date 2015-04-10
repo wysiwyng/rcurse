@@ -5,16 +5,13 @@
  *      Author: karsten
  */
 
-#include <curses.h>
-#include <vector>
-#include <unordered_set>
-#include "Action.h"
-
 #ifndef SRC_GAMEWINDOW_H_
 #define SRC_GAMEWINDOW_H_
 
+#include <curses.h>
+
 class GameWindow {
-private:
+protected:
 	int _height, _width;
 	int _row, _col;
 

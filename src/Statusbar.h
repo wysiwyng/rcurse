@@ -8,26 +8,15 @@
 #ifndef STATUSBAR_H_
 #define STATUSBAR_H_
 
-#include <curses.h>
+#include "GameWindow.h"
 
-class Statusbar {
+class Statusbar : public GameWindow{
 private:
-	int _height, _width;
-	int _row, _col;
-
-	bool _needs_refresh;
-
 	const char* _text;
-
-	WINDOW *_w;
 public:
-	WINDOW *win();
 	Statusbar(int nr_rows, int nr_cols, int row_0, int col_0);
 	virtual ~Statusbar();
-	int height();
-	int width();
-	int row();
-	int col();
+
 	void refresh();
 	void set_status(const char* text, bool _refresh = true);
 };
