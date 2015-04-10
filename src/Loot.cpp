@@ -26,10 +26,12 @@ Loot* Loot::the_instance = 0;
 
 int Loot::generate_loot(int y, int x) {
 	if(digged(y, x)) return 0;
-	positions.insert({y, x});
+	position pos = {y, x};
+	positions.insert(pos);
 	return 1;
 }
 
 int Loot::digged(int y, int x) {
-	return positions.count({y, x});
+	position pos = {y, x};
+	return positions.count(pos);
 }
