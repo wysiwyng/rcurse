@@ -1,17 +1,10 @@
-/*
- * Map.cpp
- *
- *  Created on: Mar 4, 2015
- *      Author: wysiwyng
- */
-
+#include <cmath>
+#include <chrono>
 #include "Map.h"
 #include "PerlinNoise.h"
-#include "cmath"
-#include "iostream"
-#include <chrono>
 #include "lookup.h"
 #include "Loot.h"
+
 //#define DOUBLE
 //#define INT
 #define ARRAY

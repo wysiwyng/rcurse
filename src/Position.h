@@ -1,13 +1,5 @@
-/*
- * Position.h
- *
- *  Created on: Mar 15, 2015
- *      Author: wysiwyng
- */
-
-#ifndef SRC_POSITION_H_
-#define SRC_POSITION_H_
-
+#ifndef POSITION_H_
+#define POSITION_H_
 
 struct position{
 	int y;
@@ -29,4 +21,4 @@ struct hash<position> {
 }
 
 
-#endif /* SRC_POSITION_H_ */
+#endif /* POSITION_H_ */

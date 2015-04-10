@@ -1,7 +1,7 @@
-#include <vector>
-
 #ifndef PERLINNOISE_H
 #define PERLINNOISE_H
+
+#include <vector>
 
 class PerlinNoise {
 	std::vector<int> p;

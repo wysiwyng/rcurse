@@ -1,10 +1,3 @@
-/*
- * Map.h
- *
- *  Created on: Mar 4, 2015
- *      Author: wysiwyng
- */
-
 #ifndef MAP_H_
 #define MAP_H_
 

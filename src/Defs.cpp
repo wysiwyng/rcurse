@@ -1,12 +1,6 @@
-/*
- * Defs.cpp
- *
- *  Created on: Feb 22, 2015
- *      Author: wysiwyng
- */
+#include <curses.h>
 #include "Defs.h"
 #include "Loot.h"
-#include <curses.h>
 
 namespace Defs {
 

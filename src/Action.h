@@ -1,10 +1,3 @@
-/*
- * Action.h
- *
- *  Created on: Mar 2, 2015
- *      Author: wysiwyng
- */
-
 #ifndef ACTION_H_
 #define ACTION_H_
 

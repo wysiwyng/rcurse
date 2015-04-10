@@ -1,10 +1,3 @@
-/*
- * Action.cpp
- *
- *  Created on: Mar 2, 2015
- *      Author: wysiwyng
- */
-
 #include "Action.h"
 
 //ACTION_QUIT 0

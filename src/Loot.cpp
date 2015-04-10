@@ -1,20 +1,8 @@
-/*
- * Loot.cpp
- *
- *  Created on: Mar 14, 2015
- *      Author: wysiwyng
- */
-
 #include "Loot.h"
 
-Loot::Loot() {
-	// TODO Auto-generated constructor stub
+Loot::Loot() { }
 
-}
-
-Loot::~Loot() {
-	// TODO Auto-generated destructor stub
-}
+Loot::~Loot() { }
 
 Loot* Loot::instance() {
 	if(the_instance == 0) the_instance = new Loot();

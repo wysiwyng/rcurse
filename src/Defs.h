@@ -1,10 +1,3 @@
-/*
- * Defs.h
- *
- *  Created on: Feb 22, 2015
- *      Author: wysiwyng
- */
-
 #ifndef DEFS_H_
 #define DEFS_H_
 

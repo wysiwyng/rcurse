@@ -1,12 +1,5 @@
-/*
- * GameWindow.h
- *
- *  Created on: 10.04.2015
- *      Author: karsten
- */
-
-#ifndef SRC_GAMEWINDOW_H_
-#define SRC_GAMEWINDOW_H_
+#ifndef GAMEWINDOW_H_
+#define GAMEWINDOW_H_
 
 #include <curses.h>
 
@@ -33,4 +26,4 @@ public:
 	virtual void refresh() = 0;
 };
 
-#endif /* SRC_GAMEWINDOW_H_ */
+#endif /* GAMEWINDOW_H_ */

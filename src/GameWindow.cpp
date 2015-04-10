@@ -1,10 +1,3 @@
-/*
- * GameWindow.cpp
- *
- *  Created on: 10.04.2015
- *      Author: karsten
- */
-
 #include "GameWindow.h"
 
 GameWindow::GameWindow(int nr_rows, int nr_cols, int row_0, int col_0) :

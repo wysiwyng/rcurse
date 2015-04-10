@@ -1,17 +1,10 @@
-/*
- * Game.cpp
- *
- *  Created on: Mar 3, 2015
- *      Author: wysiwyng
- */
-
+#include <chrono>
+#include <iostream>
 #include "Game.h"
 #include "Character.h"
 #include "Defs.h"
 #include "Map.h"
 #include "Loot.h"
-#include <chrono>
-#include <iostream>
 
 Game::Game(int rows, int cols, int _actionbar_size) :
 hud(3, cols, 0, 0),

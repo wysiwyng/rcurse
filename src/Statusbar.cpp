@@ -1,10 +1,3 @@
-/*
- * Statusbar.cpp
- *
- *  Created on: Mar 3, 2015
- *      Author: wysiwyng
- */
-
 #include "Statusbar.h"
 
 Statusbar::Statusbar(int nr_rows, int nr_cols, int row_0, int col_0) :

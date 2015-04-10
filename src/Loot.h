@@ -1,12 +1,5 @@
-/*
- * Loot.h
- *
- *  Created on: Mar 14, 2015
- *      Author: wysiwyng
- */
-
-#ifndef SRC_LOOT_H_
-#define SRC_LOOT_H_
+#ifndef LOOT_H_
+#define LOOT_H_
 
 #include <unordered_set>
 #include "Position.h"
@@ -19,7 +12,6 @@ private:
 protected:
 	Loot();
 public:
-	//Loot();
 	static Loot* instance();
 	virtual ~Loot();
 
@@ -27,4 +19,4 @@ public:
 	static int digged(int y, int x);
 };
 
-#endif /* SRC_LOOT_H_ */
+#endif /* LOOT_H_ */

@@ -1,10 +1,10 @@
-#include "PerlinNoise.h"
 #include <iostream>
 #include <cmath>
 #include <random>
 #include <algorithm>
 #include <chrono>
 #include <numeric>
+#include "PerlinNoise.h"
 
 PerlinNoise::PerlinNoise() {
 	p.resize(256);

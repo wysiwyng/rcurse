@@ -1,10 +1,3 @@
-/*
- * Statusbar.h
- *
- *  Created on: Mar 3, 2015
- *      Author: wysiwyng
- */
-
 #ifndef STATUSBAR_H_
 #define STATUSBAR_H_
 

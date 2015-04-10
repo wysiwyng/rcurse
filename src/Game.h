@@ -1,19 +1,10 @@
-/*
- * Game.h
- *
- *  Created on: Mar 3, 2015
- *      Author: wysiwyng
- */
-
 #ifndef GAME_H_
 #define GAME_H_
 
 #include <curses.h>
-
 #include "Hud.h"
 #include "Actionbar.h"
 #include "Statusbar.h"
-
 
 class Game {
 private:
@@ -31,8 +22,6 @@ public:
 
 	void do_player(char key);
 	void do_menu(char key);
-
-
 };
 
 #endif /* GAME_H_ */
