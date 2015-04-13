@@ -107,6 +107,9 @@ int Game::game_loop() {
 
 	int ch = 0;
 	stat_bar.set_status("idle");
+
+	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
+
 	while (1) {
 		ch = getch();
 		stat_bar.set_status("", false);
@@ -160,34 +163,42 @@ int Game::game_loop() {
 
 		char target = map.target_position(player.y() + dy, player.x() + dx);
 
-		bool can_move = false, can_dig = false, hurt = false;
-
 		switch(target) {
 		case CHAR_TREASURE:
-			if(dx != 0 || dy != 0) act_bar.add_action(ACTION_DIG);
 			can_dig = true;
 			can_move = true;
+			hurt = false;
 			break;
 		case CHAR_GRASS: case CHAR_TALLGRASS: case CHAR_EMPTY:
-			act_bar.remove_action(ACTION_DIG);
+			can_dig = false;
+			hurt = false;
 			can_move = true;
 			break;
 		case CHAR_ENEMY:
-			stat_bar.set_status("ouch!", false);
 			can_move = false;
+			can_dig = false;
 			hurt = true;
 			break;
-		case CHAR_PLAYER:
-			break;
 		default:
-			act_bar.remove_action(ACTION_DIG);
 			stat_bar.set_status("can't move here!", false);
 			can_move = false;
+			can_dig = false;
+			hurt = false;
 		}
 
 		if(can_move) player.move(dy, dx);
-		if(hurt) player.lose_health(10);
+		if(hurt) {
+			stat_bar.set_status("ouch!", false);
+			player.lose_health(10);
+		}
+		if(can_dig && !could_dig) {
+			act_bar.add_action(ACTION_DIG);
+		}
+		if(!can_dig && could_dig) {
+			act_bar.remove_action(ACTION_DIG);
+		}
 
+		could_dig = can_dig;
 		//player.move(dy, dx);
 		//map.move(dy, dx);
 
