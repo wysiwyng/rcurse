@@ -198,6 +198,9 @@ void Map::add(Character * x) {
 	characters.push_back(x);
 }
 
-char Map::target_position(int _col, int _row) {
+char Map::target_position(int _col, int _row, bool with_characters) {
+	if(with_characters)
+		for(std::vector<Character*>::iterator it = characters.begin(); it != characters.end(); it++)
+			if((**it).y() == _col && (**it).x() == _row) return (**it).symbol();
 	return this->gen_from_perlin(_col, _row);
 }

@@ -84,8 +84,8 @@ int Game::game_loop() {
 	int x;
 	for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
 
-	Character player('@', 0, x);
-	Character bla('E', 20, 20);
+	Character player('@', 0, x, 100);
+	Character bla('E', 20, 20, 100);
 
 	map.init(0, 0);
 	map.center(player.y(), player.x());
@@ -141,7 +141,7 @@ int Game::game_loop() {
 			hud.set_auto_center(auto_center);
 			break;
 		case ACTION_DIG:
-			if(map.target_position(player.y(), player.x()) == CHAR_TREASURE) {
+			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
 				int loot = Loot::generate_loot(player.y(), player.x());
 				hud.add_points(loot);
 				stat_bar.set_status("collected loot");
@@ -151,25 +151,40 @@ int Game::game_loop() {
 
 		char target = map.target_position(player.y() + dy, player.x() + dx);
 
+		bool can_move = false, can_dig = false, hurt = false;
+
 		switch(target) {
 		case CHAR_TREASURE:
 			if(dx != 0 || dy != 0) act_bar.add_action(ACTION_DIG);
-			player.move(dy, dx);
+			can_dig = true;
+			can_move = true;
 			break;
 		case CHAR_GRASS: case CHAR_TALLGRASS: case CHAR_EMPTY:
 			act_bar.remove_action(ACTION_DIG);
-			player.move(dy, dx);
+			can_move = true;
+			break;
+		case CHAR_ENEMY:
+			stat_bar.set_status("ouch!", false);
+			can_move = false;
+			hurt = true;
+			break;
+		case CHAR_PLAYER:
 			break;
 		default:
 			act_bar.remove_action(ACTION_DIG);
 			stat_bar.set_status("can't move here!", false);
+			can_move = false;
 		}
+
+		if(can_move) player.move(dy, dx);
+		if(hurt) player.lose_health(10);
 
 		//player.move(dy, dx);
 		//map.move(dy, dx);
 
 		if(auto_center) map.center(player.y(), player.x());
 		hud.set_pos(player.x(), player.y());
+		hud.set_hp(player.health());
 
 		map.refresh();
 		stat_bar.refresh();

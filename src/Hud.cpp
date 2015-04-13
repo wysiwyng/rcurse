@@ -44,3 +44,7 @@ void Hud::add_points(int amount){
 void Hud::set_auto_center(bool ac) {
 	_auto_center = ac;
 }
+
+void Hud::set_hp(int hp){
+	_hp = hp;
+}

@@ -39,7 +39,7 @@ public:
 
 	void init(int _row, int _col);
 
-	char target_position(int _col, int _row);
+	char target_position(int _col, int _row, bool with_characters = true);
 	void move(int _dy, int _dx);
 	void move_fast(int _dy, int _dx);
 	void center(int _ypos, int _xpos);

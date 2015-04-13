@@ -20,6 +20,7 @@ public:
 	void set_pos(int x, int y);
 	void set_seed(unsigned int seed);
 	void set_auto_center(bool ac);
+	void set_hp(int hp);
 };
 
 #endif

@@ -1,7 +1,8 @@
 #include "Character.h"
 
-Character::Character(char symbol, int y, int x) :
+Character::Character(char symbol, int y, int x, int initial_health) :
 _row(y), _col(x), _old_row(y), _old_col(x),
+_health(initial_health),
 _redraw(true), _out_of_bounds(false),
 _symbol(symbol)
 {
@@ -62,4 +63,16 @@ void Character::reset_visible() {
 
 void Character::set_visible() {
 	_out_of_bounds = true;
+}
+
+void Character::add_health(int amount) {
+	_health += amount;
+}
+
+void Character::lose_health(int amount) {
+	_health -= amount;
+}
+
+int Character::health() {
+	return _health;
 }
