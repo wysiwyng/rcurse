@@ -20,16 +20,15 @@
 
 #include <functional>
 
+/**
+ * Action class, used in the rcurse menu
+ */
 class Action {
 private:
-	/**
-	 * the action number
-	 */
+	///the action number
 	unsigned _no;
 
-	/**
-	 * action drawn on screen?
-	 */
+	///action drawn on screen?
 	bool _touched;
 
 	//const char* _text;
