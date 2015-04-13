@@ -4,7 +4,7 @@
 class Character {
 	int _row, _col;
 	int _old_row, _old_col;
-	bool _redraw;
+	bool _redraw, _out_of_bounds;
 	char _symbol;
 public:
 	Character(char symbol, int y, int x);
@@ -22,6 +22,10 @@ public:
 	bool needs_redraw();
 	void reset_redraw();
 	void set_redraw();
+
+	bool is_visible();
+	void set_visible();
+	void reset_visible();
 };
 
 #endif

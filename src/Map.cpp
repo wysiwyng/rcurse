@@ -167,21 +167,28 @@ void Map::scroll_map(int dy, int dx) {
 
 void Map::refresh() {
 	for(std::vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it) {
-		Character tmp_char = **it;
-		if(!tmp_char.needs_redraw()) continue;
-		(**it).reset_redraw();
-		if(tmp_char.oldx() >= orig_x && tmp_char.oldy() >= orig_y && tmp_char.oldx() < orig_x + _width && tmp_char.oldy() < orig_y + _height) {
-			char chr = this->gen_from_perlin(tmp_char.oldy(), tmp_char.oldx());
+		if((**it).x() < orig_x && (**it).y() < orig_y && (**it).x() >= orig_x + _width && (**it).y() >= orig_y + _height) {
+			(**it).reset_visible();
+			(**it).set_redraw();
+		}
+		else
+			(**it).set_visible();
+
+		if((**it).oldx() >= orig_x && (**it).oldy() >= orig_y && (**it).oldx() < orig_x + _width && (**it).oldy() < orig_y + _height) {
+			char chr = this->gen_from_perlin((**it).oldy(), (**it).oldx());
 			Defs::set_color(_w, chr);
-			mvwaddch(_w, tmp_char.oldy() - orig_y, tmp_char.oldx() - orig_x, chr);
+			mvwaddch(_w, (**it).oldy() - orig_y, (**it).oldx() - orig_x, chr);
 			_needs_refresh = true;
 		}
 
-		if(tmp_char.x() >= orig_x && tmp_char.y() >= orig_y && tmp_char.x() < orig_x + _width && tmp_char.y() < orig_y + _height) {
-			Defs::set_color(_w, tmp_char.symbol());
-			mvwaddch(_w, tmp_char.y() - orig_y, tmp_char.x() - orig_x, tmp_char.symbol());
+		if(!(**it).is_visible() && !(**it).needs_redraw()) continue;
+
+		if((**it).x() >= orig_x && (**it).y() >= orig_y && (**it).x() < orig_x + _width && (**it).y() < orig_y + _height) {
+			Defs::set_color(_w, (**it).symbol());
+			mvwaddch(_w, (**it).y() - orig_y, (**it).x() - orig_x, (**it).symbol());
 			_needs_refresh = true;
-		} else (**it).set_redraw();
+			(**it).reset_redraw();
+		}
 	}
 	if(_needs_refresh) wrefresh(_w);
 	_needs_refresh = false;

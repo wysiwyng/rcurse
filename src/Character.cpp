@@ -2,7 +2,7 @@
 
 Character::Character(char symbol, int y, int x) :
 _row(y), _col(x), _old_row(y), _old_col(x),
-_redraw(true),
+_redraw(true), _out_of_bounds(false),
 _symbol(symbol)
 {
 
@@ -50,4 +50,16 @@ void Character::reset_redraw() {
 
 void Character::set_redraw() {
 	_redraw = true;
+}
+
+bool Character::is_visible() {
+	return _out_of_bounds;
+}
+
+void Character::reset_visible() {
+	_out_of_bounds = false;
+}
+
+void Character::set_visible() {
+	_out_of_bounds = true;
 }
