@@ -15,6 +15,7 @@ building
 9. ???
 10. profit!
 11. develop ai
+12. generate documentation by running doxygen Doxyfile in the root directory (graphviz required)
 
 windows build
 -------------
