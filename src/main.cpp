@@ -9,6 +9,9 @@
 #include "Game.h"
 #include "Defs.h"
 
+/**
+ * main entrypoint
+ */
 int main() {
 	initscr();
 	clear();
