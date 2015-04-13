@@ -183,7 +183,7 @@ void Map::refresh() {
 			_needs_refresh = true;
 		} else (**it).set_redraw();
 	}
-	wrefresh(_w);
+	if(_needs_refresh) wrefresh(_w);
 	_needs_refresh = false;
 }
 
