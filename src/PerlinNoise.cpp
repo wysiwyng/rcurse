@@ -1,3 +1,9 @@
+/**
+ * a perlin noise generator implemented after the java reference implementation
+ *
+ * @author wysiwyng
+ */
+
 #include <iostream>
 #include <cmath>
 #include <random>

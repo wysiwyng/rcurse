@@ -1,3 +1,10 @@
+/**
+ * Global definitions in a seperate namespace
+ *
+ * @author wysiwyng
+ */
+
+
 #ifndef DEFS_H_
 #define DEFS_H_
 
@@ -29,9 +36,23 @@
 
 namespace Defs {
 
+	/**
+	 * initializes color pairs
+	 */
 	void init_colors();
 
+	/**
+	 * gets the color pair code specific for a symbol
+	 * @param symbol the symbol
+	 * @returns the color pair code
+	 */
 	short get_color(char symbol);
+
+	/**
+	 * sets the color in the specified curses window to the specified character color
+	 * @param w the window
+	 * @param chr the character
+	 */
 	void set_color(WINDOW *w, char chr);
 }
 

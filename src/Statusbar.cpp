@@ -1,3 +1,9 @@
+/**
+ * a statusbar to show messages in rcurse
+ *
+ * @author wysiwyng
+ */
+
 #include "Statusbar.h"
 
 Statusbar::Statusbar(int nr_rows, int nr_cols, int row_0, int col_0) :

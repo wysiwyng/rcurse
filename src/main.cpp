@@ -1,3 +1,9 @@
+/**
+ * the main entrypoint for rcurse
+ *
+ * @author wysiwyng
+ */
+
 #include <curses.h>
 
 #include "Game.h"

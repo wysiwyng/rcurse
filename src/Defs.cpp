@@ -1,3 +1,9 @@
+/**
+ * Global definitions in a seperate namespace
+ *
+ * @author wysiwyng
+ */
+
 #include <curses.h>
 #include "Defs.h"
 #include "Loot.h"

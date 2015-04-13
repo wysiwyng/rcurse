@@ -1,3 +1,9 @@
+/**
+ * An action class, defines texts and numbers for rcurse menu actions
+ *
+ * @author wysiwyng
+ */
+
 #ifndef ACTION_H_
 #define ACTION_H_
 
@@ -16,15 +22,45 @@
 
 class Action {
 private:
+	/**
+	 * the action number
+	 */
 	unsigned _no;
+
+	/**
+	 * action drawn on screen?
+	 */
 	bool _touched;
+
 	//const char* _text;
 
 public:
+	/**
+	 * Constructor for Action
+	 * @param _action_no the action index
+	 */
 	Action(int _action_no);
+
+	/**
+	 * Action destructor
+	 */
 	virtual ~Action();
+
+	/**
+	 * getter for action_no
+	 * @returns _action_no
+	 */
 	unsigned action_no() const;
+
+	/**
+	 * gets the actual text of this action object
+	 * @returns action text
+	 */
 	const char* action_text() const;
+
+	/**
+	 * equals operator for usage in data structures
+	 */
 	bool operator==(const Action &other) const {
 		return _no == other._no;
 	}

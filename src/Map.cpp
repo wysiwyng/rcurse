@@ -1,3 +1,9 @@
+/**
+ * the map generation and display
+ *
+ * @author wysiwyng
+ */
+
 #include <cmath>
 #include <chrono>
 #include "Map.h"
@@ -5,14 +11,13 @@
 #include "lookup.h"
 #include "Loot.h"
 
+//different world generation algorithms, array seems to be the fastest
 //#define DOUBLE
 //#define INT
 #define ARRAY
 
 Map::Map(int _pos_y, int _pos_x, int _size_y, int _size_x, const unsigned int &seed, double _factor_y, double _factor_x) :
 GameWindow(_size_y, _size_x, _pos_y, _pos_x),
-old_col(0), old_row(0),
-old_char(0),
 center_x(0), center_y(0),
 orig_x(0), orig_y(0),
 factor_y(_factor_y), factor_x(_factor_x),
@@ -86,10 +91,6 @@ char Map::gen_from_perlin(int _ypos, int _xpos) {
 
 #endif
 }
-
-int Map::get_old_char() {return old_char;}
-int Map::get_old_col() {return old_col;}
-int Map::get_old_row() {return old_row;}
 
 int Map::get_xcenter() {return center_x;}
 int Map::get_ycenter() {return center_y;}

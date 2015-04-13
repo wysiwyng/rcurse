@@ -1,3 +1,9 @@
+/**
+ * A basic Character for rcurse
+ *
+ * @author wysiwyng
+ */
+
 #include "Character.h"
 
 Character::Character(char symbol, int y, int x, int initial_health) :

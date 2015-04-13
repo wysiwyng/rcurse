@@ -1,3 +1,5 @@
+#generates the lookup table for rcurse map generation
+
 f = open('lookup.h', 'w')
 f.write('static const char tiles[] = {\n')
 for i in range(0, 3400):

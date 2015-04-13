@@ -1,3 +1,9 @@
+/**
+ * the main game controller class
+ *
+ * @author wysiwyng
+ */
+
 #include <chrono>
 #include <iostream>
 #include "Game.h"
@@ -6,16 +12,20 @@
 #include "Map.h"
 #include "Loot.h"
 
+#define FACTOR_Y 0.08f
+#define FACTOR_X 0.04f
+
 Game::Game(int rows, int cols, int _actionbar_size) :
+height(rows),
+width(cols),
+viewport_cols(width - _actionbar_size - 4),
+viewport_rows(height - 5),
+actionbar_size(_actionbar_size),
 hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
-stat_bar(3, _actionbar_size + 2, rows - 3, 0){
+stat_bar(3, _actionbar_size + 2, rows - 3, 0)
+{
 	stat_bar.set_status("Early init");
-	height = rows;
-	width = cols;
-	actionbar_size = _actionbar_size;
-	viewport_rows = height - 5;
-	viewport_cols = width - actionbar_size - 4;
 
 	act_bar.add_action(ACTION_START);
 	act_bar.add_action(ACTION_QUIT);
@@ -24,7 +34,6 @@ stat_bar(3, _actionbar_size + 2, rows - 3, 0){
 	wattrset(viewport_border, A_BOLD);
 	box(viewport_border, 0, 0);
 
-	//refresh();
 	wrefresh(viewport_border);
 	hud.refresh();
 	act_bar.refresh();
@@ -79,7 +88,7 @@ int Game::game_loop() {
 	hud.set_seed(seed);
 	bool auto_center = false;
 
-	Map map(4, actionbar_size + 3, viewport_rows, viewport_cols, seed, 0.08, 0.04);
+	Map map(4, actionbar_size + 3, viewport_rows, viewport_cols, seed, FACTOR_Y, FACTOR_X);
 
 	int x;
 	for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);

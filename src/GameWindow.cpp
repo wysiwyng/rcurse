@@ -1,3 +1,9 @@
+/**
+ * An abstract curses window to use in rcurse
+ *
+ * @author wysiwyng
+ */
+
 #include "GameWindow.h"
 
 GameWindow::GameWindow(int nr_rows, int nr_cols, int row_0, int col_0) :

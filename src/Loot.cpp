@@ -1,3 +1,9 @@
+/**
+ * the loot generation
+ *
+ * @author wysiwyng
+ */
+
 #include "Loot.h"
 
 Loot::Loot() { }

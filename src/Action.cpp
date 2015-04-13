@@ -1,3 +1,9 @@
+/**
+ * An action class, defines texts and numbers for rcurse menu actions
+ *
+ * @author wysiwyng
+ */
+
 #include "Action.h"
 
 //ACTION_QUIT 0

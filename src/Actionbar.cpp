@@ -1,3 +1,9 @@
+/**
+ * The left sided window displaying actions
+ *
+ * @author wysiwyng
+ */
+
 #include "Actionbar.h"
 #include "Defs.h"
 

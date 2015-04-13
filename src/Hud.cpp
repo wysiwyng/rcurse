@@ -1,3 +1,9 @@
+/**
+ * A HUD for rcurse, displays score health etc
+ *
+ * @author wysiwyng
+ */
+
 #include "Hud.h"
 #include "Defs.h"
 
