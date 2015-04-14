@@ -17,6 +17,9 @@
 #define ACTION_CENTER 7
 #define ACTION_AUTO_CENTER 8
 #define ACTION_DIG 9
+#define ACTION_SETTINGS 10
+#define ACTION_SEED 11
+#define ACTION_TICKRATE 12
 
 #include <functional>
 

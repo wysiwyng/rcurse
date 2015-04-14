@@ -11,6 +11,7 @@
 #include "Hud.h"
 #include "Actionbar.h"
 #include "Statusbar.h"
+#include "Timer.h"
 
 class Game {
 private:
@@ -73,6 +74,11 @@ public:
 	 * @returns 1 if exit selected, else 0
 	 */
 	int main_menu();
+
+	/**
+	 * displays the settings menu
+	 */
+	int settings();
 
 	/**
 	 * runs the main game loop

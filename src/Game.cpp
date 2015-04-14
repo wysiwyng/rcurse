@@ -14,6 +14,8 @@
 
 #define FACTOR_Y 0.08f
 #define FACTOR_X 0.04f
+#define TICK_RATE 40
+#define TICK_MS 1 / TICK_RATE * 1000
 
 Game::Game(int rows, int cols, int _actionbar_size) :
 height(rows),
@@ -80,6 +82,10 @@ int Game::main_menu() {
 
 	act_bar.refresh();
 	return 1;
+}
+
+int Game::settings() {
+	return 0;
 }
 
 int Game::game_loop() {

@@ -27,7 +27,10 @@ static char const * const texts[] = {
 		"--TALK",
 		"==CENTER ON PLAYER",
 		"==TOGGLE AUTO CENTER",
-		"--DIG"
+		"--DIG",
+		"--SETTINGS",
+		"--SEED",
+		"--TICK RATE"
 };
 
 Action::Action(int _action_no) :
