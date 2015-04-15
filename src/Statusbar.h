@@ -7,6 +7,7 @@
 #ifndef STATUSBAR_H_
 #define STATUSBAR_H_
 
+#include <string>
 #include "GameWindow.h"
 
 class Statusbar : public GameWindow{
@@ -14,7 +15,7 @@ private:
 	/**
 	 * the displayed status text
 	 */
-	const char* _text;
+	std::string _text;
 public:
 	/**
 	 * Constructor for Statusbar
@@ -37,7 +38,13 @@ public:
 	 * @param text the message to display
 	 * @param _refresh set to refresh immediately
 	 */
-	void set_status(const char* text, bool _refresh = true);
+	void set_status(std::string text, bool _refresh = true);
+
+	/**
+	 * accepts numerical input with backspaces
+	 * @returns the entered number
+	 */
+	int read_num(std::string prompt = "");
 };
 
 #endif /* STATUSBAR_H_ */

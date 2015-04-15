@@ -20,13 +20,32 @@ Statusbar::~Statusbar() {
 void Statusbar::refresh() {
 	if(!_needs_refresh) return;
 	_needs_refresh = false;
-	mvwprintw(_w, 1, 3, "%-24s", _text);
+	mvwprintw(_w, 1, 3, "%-24s", _text.c_str());
 	wrefresh(_w);
 }
 
-void Statusbar::set_status(const char* text, bool _refresh) {
+void Statusbar::set_status(std::string text, bool _refresh) {
 	if(text == _text) return;
 	_needs_refresh = true;
 	_text = text;
 	if(_refresh) this->refresh();
+}
+
+int Statusbar::read_num(std::string prompt) {
+	char ch = -1;
+
+	set_status(prompt);
+
+	ch = getch();
+
+	set_status("");
+
+	while(ch != '\n' && ch != '\r') {
+		if(ch == '0' || ch == '1' || ch == '2' || ch == '3' || ch == '4' || ch == '5' || ch == '6' || ch == '7' || ch == '8' || ch == '9') {
+			set_status(_text + ch);
+		}
+		ch = getch();
+	}
+
+	return atoi(_text.c_str());
 }

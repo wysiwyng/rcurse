@@ -30,7 +30,7 @@ static char const * const texts[] = {
 		"--DIG",
 		"--SETTINGS",
 		"--SEED",
-		"--TICK RATE"
+		"--FPS"
 };
 
 Action::Action(int _action_no) :

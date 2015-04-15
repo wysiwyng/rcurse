@@ -41,6 +41,11 @@ private:
 	 */
 	unsigned int _seed;
 
+	/**
+	 * the tick rate (fps)
+	 */
+	unsigned int _fps;
+
 public:
 	/**
 	 * Constructor for Hud
@@ -88,6 +93,12 @@ public:
 	 * @param hp the health to display
 	 */
 	void set_hp(int hp);
+
+	/**
+	 * sets the fps
+	 * @param fps the current fps
+	 */
+	void set_fps(int fps);
 };
 
 #endif

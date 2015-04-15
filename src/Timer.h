@@ -9,12 +9,15 @@
 
 #include <functional>
 #include <thread>
+#include <vector>
+#include "TimerListener.h"
 
 /**
  * a very basic periodic timer
  */
 class Timer {
 private:
+	std::vector<TimerListener*> listeners;
 	volatile bool _running, _stop;
 	int _interval;
 	std::function<void(void)> _func;
@@ -64,6 +67,20 @@ public:
 	 * @param _int the new interval
 	 */
 	void interval(int _int);
+
+	/**
+	 * registers a listener
+	 * @param listener the listener
+	 */
+	void add_listener(TimerListener *listener);
+
+	/**
+	 * removes a listener
+	 * @param listener the listener to remove
+	 */
+
+	void remove_listener(TimerListener *listener);
+
 };
 
 #endif /* TIMER_H_ */

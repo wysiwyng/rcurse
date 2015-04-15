@@ -12,8 +12,9 @@
 #include "Actionbar.h"
 #include "Statusbar.h"
 #include "Timer.h"
+#include "TimerListener.h"
 
-class Game {
+class Game : public TimerListener {
 private:
 	/**
 	 * the height of the curses screen
@@ -60,6 +61,16 @@ private:
 	 */
 	unsigned int seed;
 
+	/**
+	 * the refresh rate in millisecends
+	 */
+	unsigned int tick_rate;
+
+	/**
+	 * renders everything
+	 */
+	void render();
+
 public:
 	/**
 	 * constructor for Game
@@ -89,6 +100,8 @@ public:
 	 * runs the main game loop
 	 */
 	int game_loop();
+
+	void on_timer();
 };
 
 #endif /* GAME_H_ */

@@ -26,7 +26,8 @@ actionbar_size(_actionbar_size),
 hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
-seed(0)
+seed(0),
+tick_rate(TICK_MS)
 {
 	stat_bar.set_status("Early init");
 
@@ -35,6 +36,9 @@ seed(0)
 	box(viewport_border, 0, 0);
 
 	wrefresh(viewport_border);
+
+	hud.set_fps(tick_rate);
+
 	hud.refresh();
 	act_bar.refresh();
 	stat_bar.set_status("Idle");
@@ -89,14 +93,17 @@ int Game::settings() {
 
 	act_bar.refresh();
 
-	stat_bar.set_status("Settings");
-
 	int ch = 0;
 	int act = -1;
 	int ret_code = -1;
+	stat_bar.set_status("Settings");
+
 
 	while(ret_code == -1) {
 		ch = getch();
+		stat_bar.set_status("Settings");
+
+		act = -1;
 		switch(ch) {
 		case KEY_UP:
 			act_bar.move_up();
@@ -111,8 +118,17 @@ int Game::settings() {
 
 		if(act == ACTION_QUIT) ret_code = 0;
 		else if(act == ACTION_SEED) {
-			stat_bar.set_status("Enter Seed:");
-
+			seed = stat_bar.read_num("Enter Seed:");
+			char temp[30];
+			sprintf(temp, "Seed: %d", seed);
+			stat_bar.set_status(temp);
+		}
+		else if(act == ACTION_TICKRATE) {
+			tick_rate = stat_bar.read_num("Enter FPS:");
+			char temp[30];
+			sprintf(temp, "FPS: %d", tick_rate);
+			stat_bar.set_status(temp);
+			tick_rate = 1000 / tick_rate;
 		}
 
 		act_bar.refresh();
@@ -132,7 +148,7 @@ int Game::game_loop() {
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
 	act_bar.refresh();
 	stat_bar.set_status("generating map");
-	seed = seed == 0 ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
+	if(seed == 0) seed = std::chrono::system_clock::now().time_since_epoch().count();
 	hud.set_seed(seed);
 	bool auto_center = false;
 
@@ -154,9 +170,11 @@ int Game::game_loop() {
 	hud.refresh();
 
 	int ch = 0;
-	stat_bar.set_status("idle");
+	stat_bar.set_status("idle", false);
 
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
+
+
 
 	while (1) {
 		ch = getch();
@@ -204,7 +222,7 @@ int Game::game_loop() {
 			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
 				int loot = Loot::generate_loot(player.y(), player.x());
 				hud.add_points(loot);
-				stat_bar.set_status("collected loot");
+				stat_bar.set_status("collected loot", false);
 			}
 			act_bar.remove_action(ACTION_DIG);
 		}
@@ -260,5 +278,9 @@ int Game::game_loop() {
 		act_bar.refresh();
 	}
 	return 0;
+
+}
+
+void Game::on_timer() {
 
 }

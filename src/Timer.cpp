@@ -43,7 +43,11 @@ void Timer::resume() {
 
 void Timer::do_work() {
 	while(!_stop) {
-		if(_running) _func();
+		if(_running) {
+			for(std::vector<TimerListener*>::iterator it = listeners.begin(); it != listeners.end(); it++) {
+				(**it).on_timer();
+			}
+		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(_interval));
 	}
 }
@@ -54,4 +58,8 @@ int Timer::interval() {
 
 void Timer::interval(int _int) {
 	_interval = _int;
+}
+
+void Timer::add_listener(TimerListener *listener) {
+	listeners.push_back(listener);
 }
