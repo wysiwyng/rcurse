@@ -25,12 +25,10 @@ viewport_rows(height - 5),
 actionbar_size(_actionbar_size),
 hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
-stat_bar(3, _actionbar_size + 2, rows - 3, 0)
+stat_bar(3, _actionbar_size + 2, rows - 3, 0),
+seed(0)
 {
 	stat_bar.set_status("Early init");
-
-	act_bar.add_action(ACTION_START);
-	act_bar.add_action(ACTION_QUIT);
 
 	WINDOW *viewport_border = newwin(viewport_rows + 2, viewport_cols + 2, 3, actionbar_size + 2);
 	wattrset(viewport_border, A_BOLD);
@@ -47,11 +45,16 @@ Game::~Game() {
 }
 
 int Game::main_menu() {
+	act_bar.add_action(ACTION_START);
+	act_bar.add_action(ACTION_SETTINGS);
+	act_bar.add_action(ACTION_QUIT);
+	act_bar.refresh();
 	stat_bar.set_status("Main Menu");
 	int ch = 0;
 	int act = -1;
+	int ret_code = -1;
 
-	while(1) {
+	while(ret_code == -1) {
 		ch = getch();
 		switch(ch) {
 		case KEY_UP:
@@ -65,32 +68,71 @@ int Game::main_menu() {
 			break;
 		}
 
-		if (act == ACTION_QUIT) return 0;
-		else if(act == ACTION_START) break;
+		if (act == ACTION_QUIT) ret_code = 0;
+		else if (act == ACTION_SETTINGS) ret_code = 2;
+		else if(act == ACTION_START) ret_code = 1;
 
 		act_bar.refresh();
 	}
 
 	act_bar.remove_action(ACTION_START);
+	act_bar.remove_action(ACTION_SETTINGS);
 	act_bar.remove_action(ACTION_QUIT);
+	act_bar.refresh();
+	return ret_code;
+}
 
+int Game::settings() {
+	act_bar.add_action(ACTION_SEED);
+	act_bar.add_action(ACTION_TICKRATE);
+	act_bar.add_action(ACTION_QUIT);
+
+	act_bar.refresh();
+
+	stat_bar.set_status("Settings");
+
+	int ch = 0;
+	int act = -1;
+	int ret_code = -1;
+
+	while(ret_code == -1) {
+		ch = getch();
+		switch(ch) {
+		case KEY_UP:
+			act_bar.move_up();
+			break;
+		case KEY_DOWN:
+			act_bar.move_down();
+			break;
+		case '\n': case ' ':
+			act = act_bar.get_action().action_no();
+			break;
+		}
+
+		if(act == ACTION_QUIT) ret_code = 0;
+		else if(act == ACTION_SEED) {
+			stat_bar.set_status("Enter Seed:");
+
+		}
+
+		act_bar.refresh();
+	}
+
+	act_bar.remove_action(ACTION_SEED);
+	act_bar.remove_action(ACTION_TICKRATE);
+	act_bar.remove_action(ACTION_QUIT);
+	return 0;
+}
+
+int Game::game_loop() {
 	act_bar.add_action(ACTION_CENTER);
 	act_bar.add_action(ACTION_AUTO_CENTER);
 	act_bar.add_action(ACTION_QUIT);
 
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
-
 	act_bar.refresh();
-	return 1;
-}
-
-int Game::settings() {
-	return 0;
-}
-
-int Game::game_loop() {
 	stat_bar.set_status("generating map");
-	unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
+	seed = seed == 0 ? std::chrono::system_clock::now().time_since_epoch().count() : seed;
 	hud.set_seed(seed);
 	bool auto_center = false;
 

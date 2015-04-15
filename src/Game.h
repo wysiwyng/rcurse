@@ -55,6 +55,11 @@ private:
 	 */
 	Statusbar stat_bar;
 
+	/**
+	 * the seed used for map generation
+	 */
+	unsigned int seed;
+
 public:
 	/**
 	 * constructor for Game
