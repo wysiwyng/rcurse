@@ -8,6 +8,7 @@
 #define GAME_H_
 
 #include <curses.h>
+#include <mutex>
 #include "Hud.h"
 #include "Actionbar.h"
 #include "Statusbar.h"
@@ -71,6 +72,11 @@ private:
 	 * the refresh rate in millisecends
 	 */
 	unsigned int tick_rate;
+
+	/**
+	 * a mutex to avoid rendering issues
+	 */
+	std::mutex mtx;
 
 	/**
 	 * renders everything

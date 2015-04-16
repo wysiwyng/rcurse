@@ -9,13 +9,12 @@
 #include "Game.h"
 #include "Character.h"
 #include "Defs.h"
-#include "Map.h"
 #include "Loot.h"
 
 #define FACTOR_Y 0.08f
 #define FACTOR_X 0.04f
 #define TICK_RATE 40
-#define TICK_MS TICK_RATE / 1000
+#define TICK_MS 1000 / TICK_RATE
 
 Game::Game(int rows, int cols, int _actionbar_size) :
 height(rows),
@@ -38,7 +37,7 @@ tick_rate(TICK_MS)
 
 	wrefresh(viewport_border);
 
-	hud.set_fps(tick_rate);
+	hud.set_fps(1000 / tick_rate);
 
 	hud.refresh();
 	act_bar.refresh();
@@ -142,19 +141,27 @@ int Game::settings() {
 }
 
 int Game::game_loop() {
+	bool auto_center = false;
+
+	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
+
+	int x, ch;
+
+	Timer t;
+
+	t.add_listener(this);
+	t.interval(tick_rate);
+
 	act_bar.add_action(ACTION_CENTER);
 	act_bar.add_action(ACTION_AUTO_CENTER);
 	act_bar.add_action(ACTION_QUIT);
 
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
-	act_bar.refresh();
-	stat_bar.set_status("generating map");
 	if(seed == 0) seed = std::chrono::system_clock::now().time_since_epoch().count();
+
 	hud.set_seed(seed);
 	map.set_seed(seed);
-	bool auto_center = false;
 
-	int x;
 	for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
 
 	Character player('@', 0, x, 100);
@@ -164,23 +171,19 @@ int Game::game_loop() {
 	map.center(player.y(), player.x());
 	map.add(&player);
 	map.add(&bla);
-	map.refresh();
 
+	hud.set_fps(1000 / tick_rate);
 	hud.set_pos(player.x(), player.y());
-	hud.refresh();
 
-	int ch = 0;
 	stat_bar.set_status("idle", false);
 
-	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
+	on_timer();
 
-	Timer t;
-	t.add_listener(this);
-	t.interval(tick_rate);
 	t.start();
 
 	while (1) {
 		ch = getch();
+		mtx.lock();
 		stat_bar.set_status("", false);
 		int dx = 0;
 		int dy = 0;
@@ -276,6 +279,7 @@ int Game::game_loop() {
 		hud.set_pos(player.x(), player.y());
 		hud.set_hp(player.health());
 
+		mtx.unlock();
 		//map.refresh();
 		//stat_bar.refresh();
 		//hud.refresh();
@@ -286,9 +290,12 @@ int Game::game_loop() {
 }
 
 void Game::on_timer() {
+	mtx.lock();
 	map.refresh();
 	stat_bar.refresh();
 	hud.refresh();
 	act_bar.refresh();
 	// ai actions
+
+	mtx.unlock();
 }
