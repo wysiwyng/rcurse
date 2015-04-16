@@ -20,7 +20,7 @@ private:
 	std::vector<TimerListener*> listeners;
 	volatile bool _running, _stop;
 	int _interval;
-	std::function<void(void)> _func;
+	//std::function<void(void)> _func;
 	std::thread worker;
 	void do_work();
 
@@ -30,7 +30,7 @@ public:
 	 * @param func the callback function
 	 * @param interval the delay between calls of the callback function
 	 */
-	Timer(std::function<void(void)> func, int interval);
+	Timer();
 
 	/**
 	 * Timer destructor

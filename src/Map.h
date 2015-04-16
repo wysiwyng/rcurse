@@ -64,6 +64,17 @@ private:
 	char gen_from_perlin(int _ypos, int _xpos);
 public:
 	/**
+	 * Map constructor without seed
+	 * @param _pos_y the window y coordinate
+	 * @param _pos_x the window x coordinate
+	 * @param _size_y the window height
+	 * @param _size_x the window width
+	 * @param _factor_y the y scaling factor
+	 * @param _factor_x the x scaling factor
+	 */
+	Map(int _pos_y, int _pos_x, int _size_y, int _size_x, double _factor_y, double _factor_x);
+
+	/**
 	 * Map constructor
 	 * @param _pos_y the window y coordinate
 	 * @param _pos_x the window x coordinate
@@ -156,6 +167,12 @@ public:
 	 * @param _dx the x distance to move
 	 */
 	void scroll_map(int dy, int dx);
+
+	/**
+	 * sets the seed
+	 * @param seed the seed to set
+	 */
+	void set_seed(unsigned int seed);
 };
 
 #endif /* MAP_H_ */

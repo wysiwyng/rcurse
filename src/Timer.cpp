@@ -7,13 +7,13 @@
 
 #include <iostream>
 #include <chrono>
+#include <algorithm>
 
 #include "Timer.h"
 
-Timer::Timer(std::function<void(void)> func, int interval) :
+Timer::Timer() :
 _running(false), _stop(false),
-_interval(interval),
-_func(func)
+_interval(20)
 {
 }
 
@@ -62,4 +62,10 @@ void Timer::interval(int _int) {
 
 void Timer::add_listener(TimerListener *listener) {
 	listeners.push_back(listener);
+}
+
+void Timer::remove_listener(TimerListener *listener) {
+	std::vector<TimerListener*>::iterator to_remove;
+	to_remove = std::find(listeners.begin(), listeners.end(), listener);
+	listeners.erase(to_remove);
 }

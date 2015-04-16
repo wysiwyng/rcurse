@@ -33,6 +33,12 @@ public:
 	 * @param z the z coordinate
 	 */
 	double noise(double x, double y, double z);
+
+	/**
+	 * sets the seed after construction
+	 * @param seed the new seed
+	 */
+	void set_seed(unsigned int seed);
 private:
 	/**
 	 * calculate fade curve
@@ -40,6 +46,12 @@ private:
 	double fade(double t);
 	double lerp(double t, double a, double b);
 	double grad(int hash, double x, double y, double z);
+
+	/**
+	 * initializes the p vector
+	 * @param seed the seed to shuffle the vector with
+	 */
+	void init_p_vec(unsigned int seed);
 };
 
 #endif

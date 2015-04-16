@@ -15,7 +15,7 @@
 #define FACTOR_Y 0.08f
 #define FACTOR_X 0.04f
 #define TICK_RATE 40
-#define TICK_MS 1 / TICK_RATE * 1000
+#define TICK_MS TICK_RATE / 1000
 
 Game::Game(int rows, int cols, int _actionbar_size) :
 height(rows),
@@ -26,6 +26,7 @@ actionbar_size(_actionbar_size),
 hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
+map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
 seed(0),
 tick_rate(TICK_MS)
 {
@@ -150,9 +151,8 @@ int Game::game_loop() {
 	stat_bar.set_status("generating map");
 	if(seed == 0) seed = std::chrono::system_clock::now().time_since_epoch().count();
 	hud.set_seed(seed);
+	map.set_seed(seed);
 	bool auto_center = false;
-
-	Map map(4, actionbar_size + 3, viewport_rows, viewport_cols, seed, FACTOR_Y, FACTOR_X);
 
 	int x;
 	for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
@@ -174,7 +174,10 @@ int Game::game_loop() {
 
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
 
-
+	Timer t;
+	t.add_listener(this);
+	t.interval(tick_rate);
+	t.start();
 
 	while (1) {
 		ch = getch();
@@ -210,6 +213,7 @@ int Game::game_loop() {
 
 		switch(act) {
 		case ACTION_QUIT:
+			t.stop();
 			return 0;
 		case ACTION_CENTER:
 			map.center(player.y(), player.x());
@@ -272,15 +276,19 @@ int Game::game_loop() {
 		hud.set_pos(player.x(), player.y());
 		hud.set_hp(player.health());
 
-		map.refresh();
-		stat_bar.refresh();
-		hud.refresh();
-		act_bar.refresh();
+		//map.refresh();
+		//stat_bar.refresh();
+		//hud.refresh();
+		//act_bar.refresh();
 	}
+	t.stop();
 	return 0;
-
 }
 
 void Game::on_timer() {
-
+	map.refresh();
+	stat_bar.refresh();
+	hud.refresh();
+	act_bar.refresh();
+	// ai actions
 }

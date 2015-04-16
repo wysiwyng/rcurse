@@ -13,18 +13,18 @@
 #include "PerlinNoise.h"
 
 PerlinNoise::PerlinNoise() {
-	p.resize(256);
-
-	std::iota(p.begin(), p.end(), 0);
-
-	std::default_random_engine engine(std::chrono::system_clock::now().time_since_epoch().count());
-
-	std::shuffle(p.begin(), p.end(), engine);
-
-	p.insert(p.end(), p.begin(), p.end());
+	init_p_vec(std::chrono::system_clock::now().time_since_epoch().count());
 }
 
 PerlinNoise::PerlinNoise(unsigned int seed) {
+	init_p_vec(seed);
+}
+
+void PerlinNoise::set_seed(unsigned int seed) {
+	init_p_vec(seed);
+}
+
+void PerlinNoise::init_p_vec(unsigned int seed) {
 	p.resize(256);
 
 	std::iota(p.begin(), p.end(), 0);

@@ -11,6 +11,7 @@
 #include "Hud.h"
 #include "Actionbar.h"
 #include "Statusbar.h"
+#include "Map.h"
 #include "Timer.h"
 #include "TimerListener.h"
 
@@ -55,6 +56,11 @@ private:
 	 * the Status bar
 	 */
 	Statusbar stat_bar;
+
+	/**
+	 * The Map
+	 */
+	Map map;
 
 	/**
 	 * the seed used for map generation

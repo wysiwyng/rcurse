@@ -16,6 +16,15 @@
 //#define INT
 #define ARRAY
 
+Map::Map(int _pos_y, int _pos_x, int _size_y, int _size_x, double _factor_y, double _factor_x) :
+GameWindow(_size_y, _size_x, _pos_y, _pos_x),
+center_x(0), center_y(0),
+orig_x(0), orig_y(0),
+factor_y(_factor_y), factor_x(_factor_x)
+{
+
+}
+
 Map::Map(int _pos_y, int _pos_x, int _size_y, int _size_x, const unsigned int &seed, double _factor_y, double _factor_x) :
 GameWindow(_size_y, _size_x, _pos_y, _pos_x),
 center_x(0), center_y(0),
@@ -207,4 +216,8 @@ char Map::target_position(int _col, int _row, bool with_characters) {
 		}
 	}
 	return this->gen_from_perlin(_col, _row);
+}
+
+void Map::set_seed(unsigned int seed) {
+	pn.set_seed(seed);
 }
