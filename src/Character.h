@@ -57,6 +57,21 @@ class Character {
 	 * the character's symbol
 	 */
 	char _symbol;
+
+	/**
+	 * can the character go over water?
+	 */
+	bool _water;
+
+	/**
+	 * can the character climb mountains?
+	 */
+	bool _climb;
+
+	/**
+	 * can the character go on ice
+	 */
+	bool _ice;
 public:
 	/**
 	 * Constructor of character
@@ -176,6 +191,18 @@ public:
 	 * @param amount the amount of health to add
 	 */
 	void add_health(int amount);
+
+	bool water();
+
+	bool climb();
+
+	bool ice();
+
+	void water(bool val);
+
+	void climb(bool val);
+
+	void ice(bool val);
 };
 
 #endif

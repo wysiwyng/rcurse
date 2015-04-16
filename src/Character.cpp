@@ -10,7 +10,8 @@ Character::Character(char symbol, int y, int x, int initial_health) :
 _row(y), _col(x), _temp_row(y), _temp_col(x), _old_row(y), _old_col(x),
 _health(initial_health),
 _redraw(true), _out_of_bounds(false),
-_symbol(symbol)
+_symbol(symbol),
+_water(false), _climb(false), _ice(false)
 {
 
 }
@@ -97,4 +98,28 @@ void Character::lose_health(int amount) {
 
 int Character::health() {
 	return _health;
+}
+
+bool Character::water() {
+	return _water;
+}
+
+bool Character::climb() {
+	return _climb;
+}
+
+bool Character::ice() {
+	return _ice;
+}
+
+void Character::water(bool val) {
+	_water = val;
+}
+
+void Character::climb(bool val) {
+	_climb = val;
+}
+
+void Character::ice(bool val) {
+	_ice = val;
 }

@@ -46,6 +46,21 @@ private:
 	 */
 	unsigned int _fps;
 
+	/**
+	 * climb?
+	 */
+	bool _climb;
+
+	/**
+	 * swim?
+	 */
+	bool _swim;
+
+	/**
+	 * ice
+	 */
+	bool _ice;
+
 public:
 	/**
 	 * Constructor for Hud
@@ -99,6 +114,12 @@ public:
 	 * @param fps the current fps
 	 */
 	void set_fps(int fps);
+
+	void set_swim(bool val);
+
+	void set_climb(bool val);
+
+	void set_ice(bool val);
 };
 
 #endif

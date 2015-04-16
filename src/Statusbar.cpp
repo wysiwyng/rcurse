@@ -20,7 +20,7 @@ Statusbar::~Statusbar() {
 void Statusbar::refresh() {
 	if(!_needs_refresh) return;
 	_needs_refresh = false;
-	mvwprintw(_w, 1, 3, "%-24s", _text.c_str());
+	mvwprintw(_w, 1, 3, "%-28s", _text.c_str());
 	wrefresh(_w);
 }
 

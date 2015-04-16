@@ -145,7 +145,7 @@ int Game::settings() {
 int Game::game_loop() {
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
 
-	int x, ch, score = 0;
+	int x, ch, score = 300;
 
 	Timer t;
 
@@ -174,6 +174,7 @@ int Game::game_loop() {
 
 	hud.set_fps(1000 / tick_rate);
 	hud.set_pos(player.x(), player.y());
+	hud.set_points(score);
 
 	stat_bar.set_status("idle", false);
 
@@ -245,10 +246,37 @@ int Game::game_loop() {
 			}
 			break;
 		case ACTION_UPGRADE_SWIM:
+			if(score > 20) {
+				score -= 20;
+				hud.set_points(score);
+				player.water(true);
+				stat_bar.set_status("you can now swim!");
+				hud.set_swim(true);
+			} else {
+				stat_bar.set_status("not enough points!");
+			}
 			break;
 		case ACTION_UPGRADE_CLIMB:
+			if(score > 50) {
+				score -= 50;
+				hud.set_points(score);
+				player.climb(true);
+				stat_bar.set_status("you can now climb mountains!");
+				hud.set_climb(true);
+			} else {
+				stat_bar.set_status("not enough points!");
+			}
 			break;
 		case ACTION_UPGRADE_ICE:
+			if(score > 30) {
+				score -= 30;
+				hud.set_points(score);
+				player.ice(true);
+				stat_bar.set_status("you can now go over ice!");
+				hud.set_ice(true);
+			} else {
+				stat_bar.set_status("not enough points!");
+			}
 			break;
 		}
 
@@ -270,8 +298,13 @@ int Game::game_loop() {
 			can_dig = false;
 			hurt = true;
 			break;
-		case CHAR_WATER:
-			//if(player.move_water())
+		case CHAR_WATER: case CHAR_WALL: case CHAR_ICE:
+			if((player.water() && target == CHAR_WATER) || (player.climb() && target == CHAR_WALL) || (player.ice() && target == CHAR_ICE)) {
+				can_dig = false;
+				hurt = false;
+				can_move = true;
+				break;
+			}
 		default:
 			stat_bar.set_status("can't move here!", false);
 			can_move = false;
@@ -293,7 +326,6 @@ int Game::game_loop() {
 
 		could_dig = can_dig;
 
-		hud.set_pos(player.x(), player.y());
 		hud.set_hp(player.health());
 
 		mtx.unlock();
@@ -306,6 +338,7 @@ void Game::on_timer() {
 	mtx.lock();
 	player.update();
 	if(auto_center) map.center(player.y(), player.x());
+	hud.set_pos(player.x(), player.y());
 	map.refresh();
 	stat_bar.refresh();
 	hud.refresh();
