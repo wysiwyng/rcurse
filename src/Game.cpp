@@ -243,6 +243,13 @@ int Game::game_loop() {
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
+			break;
+		case ACTION_UPGRADE_SWIM:
+			break;
+		case ACTION_UPGRADE_CLIMB:
+			break;
+		case ACTION_UPGRADE_ICE:
+			break;
 		}
 
 		char target = map.target_position(player.tempy() + dy, player.tempx() + dx);
@@ -263,6 +270,8 @@ int Game::game_loop() {
 			can_dig = false;
 			hurt = true;
 			break;
+		case CHAR_WATER:
+			//if(player.move_water())
 		default:
 			stat_bar.set_status("can't move here!", false);
 			can_move = false;
