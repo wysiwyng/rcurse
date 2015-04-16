@@ -40,9 +40,9 @@ void Hud::refresh() {
 	wrefresh(_w);
 }
 
-void Hud::add_points(int amount){
+void Hud::set_points(int amount){
 	_needs_refresh = true;
-	_score += amount;
+	_score = amount;
 }
 
 void Hud::set_auto_center(bool ac) {

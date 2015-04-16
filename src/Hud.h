@@ -67,7 +67,7 @@ public:
 	 * adds a specified amount of points
 	 * @param amount the amount of points to add
 	 */
-	void add_points(int amount);
+	void set_points(int amount);
 
 	/**
 	 * sets the position of the player

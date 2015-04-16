@@ -145,7 +145,7 @@ int Game::settings() {
 int Game::game_loop() {
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
 
-	int x, ch;
+	int x, ch, score = 0;
 
 	Timer t;
 
@@ -227,13 +227,25 @@ int Game::game_loop() {
 		case ACTION_DIG:
 			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
 				int loot = Loot::generate_loot(player.y(), player.x());
-				hud.add_points(loot);
+				score += loot;
+				hud.set_points(score);
 				stat_bar.set_status("collected loot", false);
 			}
 			act_bar.remove_action(ACTION_DIG);
+			break;
+		case ACTION_HEAL:
+			if(score > 30) {
+				score -= 30;
+				hud.set_points(score);
+				player.lose_health(-50);
+				hud.set_hp(player.health());
+				stat_bar.set_status("gained 50 hp");
+			} else {
+				stat_bar.set_status("not enough points!");
+			}
 		}
 
-		char target = map.target_position(player.y() + dy, player.x() + dx);
+		char target = map.target_position(player.tempy() + dy, player.tempx() + dx);
 
 		switch(target) {
 		case CHAR_TREASURE:

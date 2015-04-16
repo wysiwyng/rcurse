@@ -99,6 +99,17 @@ public:
 	int x();
 
 	/**
+	 * gets the temp y coordinate
+	 */
+	int tempy();
+
+	/**
+	 * gets the temp x coordinate
+	 */
+	int tempx();
+
+
+	/**
 	 * gets the old y coordinate
 	 * @returns the old y coordinate
 	 */

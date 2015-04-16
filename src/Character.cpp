@@ -43,6 +43,14 @@ int Character::x() {
 	return _col;
 }
 
+int Character::tempy() {
+	return _temp_row;
+}
+
+int Character::tempx() {
+	return _temp_col;
+}
+
 int Character::oldy() {
 	return _old_row;
 }
