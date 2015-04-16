@@ -19,6 +19,16 @@ class Character {
 	int _col;
 
 	/**
+	 * the temporary y position
+	 */
+	int _temp_row;
+
+	/**
+	 * the temporary x position
+	 */
+	int _temp_col;
+
+	/**
 	 * old y position
 	 */
 	int _old_row;
@@ -65,11 +75,16 @@ public:
 	void pos(int y, int x);
 
 	/**
-	 * moves the character
+	 * prepares to move the character
 	 * @param dy the distance to move in y direction
 	 * @param dx the distance to move in x direction
 	 */
 	void move(int dy, int dx);
+
+	/**
+	 * actually moves the character
+	 */
+	void update();
 
 	/**
 	 * gets the y coordinate

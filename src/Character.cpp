@@ -7,7 +7,7 @@
 #include "Character.h"
 
 Character::Character(char symbol, int y, int x, int initial_health) :
-_row(y), _col(x), _old_row(y), _old_col(x),
+_row(y), _col(x), _temp_row(y), _temp_col(x), _old_row(y), _old_col(x),
 _health(initial_health),
 _redraw(true), _out_of_bounds(false),
 _symbol(symbol)
@@ -21,10 +21,18 @@ void Character::pos(int y, int x) {
 	_old_col = _col;
 	_row = y;
 	_col = x;
+	_temp_row = y;
+	_temp_col = x;
 }
 
 void Character::move(int dy, int dx) {
-	pos(_row + dy, _col + dx);
+	//pos(_row + dy, _col + dx);
+	_temp_row += dy;
+	_temp_col += dx;
+}
+
+void Character::update() {
+	pos(_temp_row, _temp_col);
 }
 
 int Character::y() {

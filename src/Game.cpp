@@ -26,8 +26,10 @@ hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
 map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
+player(CHAR_PLAYER, 0, 0, 100),
 seed(0),
-tick_rate(TICK_MS)
+tick_rate(TICK_MS),
+auto_center(false)
 {
 	stat_bar.set_status("Early init");
 
@@ -141,8 +143,6 @@ int Game::settings() {
 }
 
 int Game::game_loop() {
-	bool auto_center = false;
-
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
 
 	int x, ch;
@@ -164,7 +164,7 @@ int Game::game_loop() {
 
 	for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
 
-	Character player('@', 0, x, 100);
+	player.pos(0, x);
 	Character bla('E', 20, 20, 100);
 
 	map.init(0, 0);
@@ -211,7 +211,6 @@ int Game::game_loop() {
 		case '\n': case ' ':
 			act = act_bar.get_action().action_no();
 			break;
-
 		}
 
 		switch(act) {
@@ -272,18 +271,11 @@ int Game::game_loop() {
 		}
 
 		could_dig = can_dig;
-		//player.move(dy, dx);
-		//map.move(dy, dx);
 
-		if(auto_center) map.center(player.y(), player.x());
 		hud.set_pos(player.x(), player.y());
 		hud.set_hp(player.health());
 
 		mtx.unlock();
-		//map.refresh();
-		//stat_bar.refresh();
-		//hud.refresh();
-		//act_bar.refresh();
 	}
 	t.stop();
 	return 0;
@@ -291,6 +283,8 @@ int Game::game_loop() {
 
 void Game::on_timer() {
 	mtx.lock();
+	player.update();
+	if(auto_center) map.center(player.y(), player.x());
 	map.refresh();
 	stat_bar.refresh();
 	hud.refresh();

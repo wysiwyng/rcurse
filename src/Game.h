@@ -13,6 +13,7 @@
 #include "Actionbar.h"
 #include "Statusbar.h"
 #include "Map.h"
+#include "Character.h"
 #include "Timer.h"
 #include "TimerListener.h"
 
@@ -64,6 +65,11 @@ private:
 	Map map;
 
 	/**
+	 * the player's character
+	 */
+	Character player;
+
+	/**
 	 * the seed used for map generation
 	 */
 	unsigned int seed;
@@ -72,6 +78,11 @@ private:
 	 * the refresh rate in millisecends
 	 */
 	unsigned int tick_rate;
+
+	/**
+	 * auto center on/off
+	 */
+	bool auto_center;
 
 	/**
 	 * a mutex to avoid rendering issues
