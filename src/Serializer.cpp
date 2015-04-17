@@ -20,6 +20,5 @@ Serializer& Serializer::instance() {
 }
 
 void Serializer::save(const char * fname) {
-	std::ofstream outfile;
-	outfile.open(fname);
+	pugi::xml_document doc;
 }
