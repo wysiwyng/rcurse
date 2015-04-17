@@ -4,7 +4,7 @@ roguelike (pd)curses game thingy
 building
 --------
 
-1. clone repo (in eclipse preferrably)
+1. clone repo (in eclipse preferrably) with submodules
 2. import into eclipse by doing file -> import -> existing project (if not cloned into eclipse right away)
 3. select build config, debug-linux / release-linux work as-is if you have the curses development headers installed
 4. for other configs follow instructions in pdcurses folder
