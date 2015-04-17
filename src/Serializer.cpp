@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <pugixml.hpp>
 #include "Serializer.h"
 
 Serializer::Serializer() :

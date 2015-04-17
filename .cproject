@@ -48,7 +48,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="bla.c|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="pugixml/contrib|pugixml/scripts|pugixml/tests|pugixml/docs|bla.c|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
@@ -102,7 +102,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="bla.c|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="pugixml/contrib|pugixml/scripts|pugixml/tests|pugixml/docs|bla.c|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
@@ -165,7 +165,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="bla.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="pugixml/contrib|pugixml/scripts|pugixml/tests|pugixml/docs|bla.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -227,7 +227,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="bla.c|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="pugixml/contrib|pugixml/scripts|pugixml/tests|pugixml/docs|bla.c|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
@@ -258,6 +258,7 @@
 								<option id="org.eclipse.cdt.msvc.cl.option.debugFormat.1951540425" name="Debug Information Format" superClass="org.eclipse.cdt.msvc.cl.option.debugFormat" value="org.eclipse.cdt.msvc.cl.option.debugFormat.complete" valueType="enumerated"/>
 								<option id="org.eclipse.cdt.msvc.cl.option.includes.1067726361" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.cl.option.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${VCInstallDir}\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/pugixml/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rcurse/pdcurses/win32}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.msvc.cl.inputType.203495843" superClass="org.eclipse.cdt.msvc.cl.inputType"/>
@@ -275,6 +276,9 @@
 							<tool id="org.eclipse.cdt.msvc.lib.1492582949" name="Library Manager (lib)" superClass="org.eclipse.cdt.msvc.lib"/>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="pugixml/contrib|pugixml/scripts|pugixml/tests|pugixml/docs" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -303,6 +307,7 @@
 								<option id="org.eclipse.cdt.msvc.cl.option.debugFormat.404851595" name="Debug Information Format" superClass="org.eclipse.cdt.msvc.cl.option.debugFormat"/>
 								<option id="org.eclipse.cdt.msvc.cl.option.includes.394308346" name="Include Path (/I)" superClass="org.eclipse.cdt.msvc.cl.option.includes" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${VCInstallDir}\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/pugixml/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rcurse/pdcurses/win32}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.msvc.cl.inputType.2133010559" superClass="org.eclipse.cdt.msvc.cl.inputType"/>
@@ -319,6 +324,9 @@
 							<tool id="org.eclipse.cdt.msvc.lib.1617437003" name="Library Manager (lib)" superClass="org.eclipse.cdt.msvc.lib"/>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="pugixml/contrib|pugixml/scripts|pugixml/tests|pugixml/docs" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
