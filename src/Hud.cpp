@@ -37,7 +37,7 @@ void Hud::set_pos(int x, int y) {
 void Hud::refresh() {
 	if(!_needs_refresh) return;
 	_needs_refresh = false;
-	mvwprintw(_w, 1, 2, "[HP:%03d] [PTS:%04d] [%04dx%04dy] [%4s] [FPS:%03d] [SEED:%u], [%1s%1s%1s]", _hp, _score, _xpos, _ypos, _auto_center ? "AUTO" : "MAN", _fps, _seed, _swim ? "S" : " ", _climb ? "C" : " ", _ice ? "I" : " ");
+	mvwprintw(_w, 1, 2, "[HP:%03d] [PTS:%04d] [%04dx%04dy] [%4s] [FPS:%03d] [SEED:%10u], [%1s%1s%1s]", _hp, _score, _xpos, _ypos, _auto_center ? "AUTO" : "MAN", _fps, _seed, _swim ? "S" : " ", _climb ? "C" : " ", _ice ? "I" : " ");
 	wrefresh(_w);
 }
 
