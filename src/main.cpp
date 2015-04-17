@@ -30,13 +30,14 @@ int main() {
 	Game game(_height, _width, 30);
 
 	int ret = -1;
-	while (ret != 1) {
+	while (1) {
 		ret = game.main_menu();
 		if(ret == 2) game.settings();
+		else if(ret == 1) game.game_loop();
 		else if(ret == 0) return 0;
 	}
 
-	game.game_loop();
+	//game.game_loop();
 
 	return 0;
 }

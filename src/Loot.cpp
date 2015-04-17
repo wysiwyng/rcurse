@@ -10,13 +10,10 @@ Loot::Loot() { }
 
 Loot::~Loot() { }
 
-Loot* Loot::instance() {
-	if(the_instance == 0) the_instance = new Loot();
-	return the_instance;
+Loot& Loot::instance() {
+	static Loot _instance;
+	return _instance;
 }
-
-std::unordered_set<position> Loot::positions;
-Loot* Loot::the_instance = 0;
 
 int Loot::generate_loot(int y, int x) {
 	if(digged(y, x)) return 0;

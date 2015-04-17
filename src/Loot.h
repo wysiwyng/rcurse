@@ -14,25 +14,26 @@
 class Loot {
 private:
 	/**
+	 * protected constructor for singleton
+	 */
+	Loot();
+	Loot(const Loot&);
+
+	/**
 	 * set of positions already looted
 	 */
-	static std::unordered_set<position> positions;
+	std::unordered_set<position> positions;
 
 	/**
 	 * a singelton instance of Loot
 	 */
-	static Loot *the_instance;
-protected:
-	/**
-	 * protected constructor for singleton
-	 */
-	Loot();
+	//Loot *the_instance;
 public:
 	/**
 	 * gets the singleton instance
 	 * @returns the instance
 	 */
-	static Loot* instance();
+	static Loot& instance();
 
 	/**
 	 * destructor
@@ -45,7 +46,7 @@ public:
 	 * @param x the x coordinate
 	 * @returns the amount of loot
 	 */
-	static int generate_loot(int y, int x);
+	int generate_loot(int y, int x);
 
 	/**
 	 * checks if a specified location was already looted
@@ -53,7 +54,7 @@ public:
 	 * @param x the x coordinate
 	 * @returns 1 if looted, 0 else
 	 */
-	static int digged(int y, int x);
+	int digged(int y, int x);
 };
 
 #endif /* LOOT_H_ */

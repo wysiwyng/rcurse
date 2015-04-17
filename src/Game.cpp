@@ -13,7 +13,7 @@
 
 #define FACTOR_Y 0.08f
 #define FACTOR_X 0.04f
-#define TICK_RATE 40
+#define TICK_RATE 200
 #define TICK_MS 1000 / TICK_RATE
 
 Game::Game(int rows, int cols, int _actionbar_size) :
@@ -144,7 +144,7 @@ int Game::settings() {
 
 int Game::game_loop() {
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
-
+	bool run = true;
 	int x, ch, score = 300;
 
 	Timer t;
@@ -182,7 +182,7 @@ int Game::game_loop() {
 
 	t.start();
 
-	while (1) {
+	while (run) {
 		ch = getch();
 		mtx.lock();
 		stat_bar.set_status("", false);
@@ -216,8 +216,9 @@ int Game::game_loop() {
 
 		switch(act) {
 		case ACTION_QUIT:
-			t.stop();
-			return 0;
+			//t.stop();
+			run = false;
+			break;
 		case ACTION_CENTER:
 			map.center(player.y(), player.x());
 			break;
@@ -227,7 +228,7 @@ int Game::game_loop() {
 			break;
 		case ACTION_DIG:
 			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
-				int loot = Loot::generate_loot(player.y(), player.x());
+				int loot = Loot::instance().generate_loot(player.y(), player.x());
 				score += loot;
 				hud.set_points(score);
 				stat_bar.set_status("collected loot", false);
@@ -331,6 +332,11 @@ int Game::game_loop() {
 		mtx.unlock();
 	}
 	t.stop();
+	act_bar.remove_action(ACTION_CENTER);
+	act_bar.remove_action(ACTION_AUTO_CENTER);
+	act_bar.remove_action(ACTION_QUIT);
+
+	for(int i = 2; i <= 6; i++) act_bar.remove_action(i);
 	return 0;
 }
 

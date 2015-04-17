@@ -44,7 +44,7 @@ char Map::gen_from_perlin(int _ypos, int _xpos) {
 #ifdef ARRAY
 	int m = n * 9999;
 	char temp = tiles[m];
-	if(temp == CHAR_TREASURE) if(Loot::digged(_ypos, _xpos)) return CHAR_GRASS;
+	if(temp == CHAR_TREASURE) if(Loot::instance().digged(_ypos, _xpos)) return CHAR_GRASS;
 	return temp;
 #endif
 #ifdef INT
