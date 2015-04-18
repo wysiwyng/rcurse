@@ -20,6 +20,8 @@
 #define ACTION_SETTINGS 10
 #define ACTION_SEED 11
 #define ACTION_TICKRATE 12
+#define ACTION_SAVE 13
+#define ACTION_LOAD 14
 
 #include <functional>
 

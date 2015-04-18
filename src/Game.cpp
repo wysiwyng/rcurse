@@ -10,6 +10,7 @@
 #include "Character.h"
 #include "Defs.h"
 #include "Loot.h"
+#include "Serializer.h"
 
 #define FACTOR_Y 0.08f
 #define FACTOR_X 0.04f
@@ -278,6 +279,9 @@ int Game::game_loop() {
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
+			break;
+		case ACTION_SAVE:
+			Serializer::instance().save("asd");
 			break;
 		}
 
