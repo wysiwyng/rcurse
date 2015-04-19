@@ -104,23 +104,24 @@ void Serializer::clear() {
 }
 
 bool Serializer::read(char * fname) {
-	bool ret = _doc.load_file(fname);
+	pugi::xml_parse_result bla = _doc.load_file(fname);
+	bool ret = false;//_doc.load_file(fname);
 
 	pugi::xml_node sg = _doc.child("savegame");
 
 	_score = sg.child("score").attribute("value").as_int();
 	_seed = sg.child("seed").attribute("value").as_uint();
 
-	pugi::xml_node positions = _doc.child("loot-positions");
+	pugi::xml_node positions = sg.child("loot-positions");
 
 	for(pugi::xml_node pos = positions.child("position"); pos; pos = pos.next_sibling("position")) {
 		position temp = {pos.attribute("y").as_int(), pos.attribute("x").as_int()};
 		_positions.insert(temp);
 	}
 
-	pugi::xml_node characters = _doc.child("characters");
+	pugi::xml_node characters = sg.child("characters");
 
-	for(pugi::xml_node chr = characters.child("char"); chr; chr.next_sibling("char")) {
+	for(pugi::xml_node chr = characters.child("char"); chr; chr = chr.next_sibling("char")) {
 		Character temp(chr.attribute("symbol").as_int(), chr.attribute("y").as_int(), chr.attribute("x").as_int(), chr.attribute("health").as_int());
 		temp.climb(chr.attribute("climb").as_bool());
 		temp.ice(chr.attribute("ice").as_bool());
