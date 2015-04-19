@@ -158,6 +158,7 @@ int Game::game_loop() {
 	act_bar.add_action(ACTION_QUIT);
 
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
+	act_bar.add_action(ACTION_SAVE);
 	if(seed == 0) seed = std::chrono::system_clock::now().time_since_epoch().count();
 
 	hud.set_seed(seed);
@@ -281,6 +282,11 @@ int Game::game_loop() {
 			}
 			break;
 		case ACTION_SAVE:
+			//Serializer ser = Serializer::instance();
+			Serializer::instance().clear();
+			Serializer::instance().add_seed(seed);
+			Serializer::instance().add_character(player);
+			Serializer::instance().add_score(score);
 			Serializer::instance().save("asd");
 			break;
 		}
@@ -331,6 +337,12 @@ int Game::game_loop() {
 
 		could_dig = can_dig;
 
+		if(player.health() <= 0) {
+			stat_bar.set_status("you died!");
+			run = false;
+			getch();
+		}
+
 		hud.set_hp(player.health());
 
 		mtx.unlock();
@@ -341,6 +353,8 @@ int Game::game_loop() {
 	act_bar.remove_action(ACTION_QUIT);
 
 	for(int i = 2; i <= 6; i++) act_bar.remove_action(i);
+
+	act_bar.remove_action(ACTION_SAVE);
 	return 0;
 }
 

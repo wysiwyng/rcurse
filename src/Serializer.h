@@ -18,8 +18,9 @@ private:
 	Serializer(const Serializer&);
 
 	unsigned int _seed;
-	std::vector<Character> chars;
-	std::vector<position> positions;
+	std::vector<Character> _chars;
+	std::vector<position> _positions;
+	int _score;
 
 public:
 	static Serializer& instance();
@@ -28,11 +29,17 @@ public:
 
 	void add_character(Character& chr);
 
+	void clear_characters();
+
 	void add_score(int score);
 
 	void add_loot_pos(int y, int x);
 
+	void clear_lot_pos();
+
 	void save(const char * fname);
+
+	void clear();
 };
 
 #endif /* SERIALIZER_H_ */
