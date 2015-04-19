@@ -9,7 +9,6 @@
 #include <fstream>
 #include <chrono>
 #include <ctime>
-#include <pugixml.hpp>
 #include "Serializer.h"
 
 Serializer::Serializer() :
@@ -61,9 +60,9 @@ void Serializer::save() {
 	char buf[80];
 	strftime(buf, sizeof(buf), "%d%m%Y-%H%M%S.xml", &tstruct);
 
-	pugi::xml_document doc;
+	_doc.reset();
 
-	pugi::xml_node save_game = doc.append_child("savegame");
+	pugi::xml_node save_game = _doc.append_child("savegame");
 
 	pugi::xml_node score = save_game.append_child("score");
 	score.append_attribute("value") = _score;
@@ -94,7 +93,7 @@ void Serializer::save() {
 	save_game.append_attribute("date") = buf;
 	//doc.print(std::cerr);
 
-	doc.save_file(buf);
+	_doc.save_file(buf);
 }
 
 void Serializer::clear() {

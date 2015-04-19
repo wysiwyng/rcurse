@@ -155,10 +155,11 @@ int Game::game_loop() {
 
 	act_bar.add_action(ACTION_CENTER);
 	act_bar.add_action(ACTION_AUTO_CENTER);
+	act_bar.add_action(ACTION_SAVE);
 	act_bar.add_action(ACTION_QUIT);
 
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
-	act_bar.add_action(ACTION_SAVE);
+
 	if(seed == 0) seed = std::chrono::system_clock::now().time_since_epoch().count();
 
 	hud.set_seed(seed);

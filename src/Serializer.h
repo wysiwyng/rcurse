@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <unordered_set>
+#include <pugixml.hpp>
 #include "Character.h"
 #include "Position.h"
 
@@ -18,9 +19,13 @@ private:
 	Serializer();
 	Serializer(const Serializer&);
 
-	unsigned int _seed;
 	std::vector<Character> _chars;
 	std::unordered_set<position> _positions;
+
+	pugi::xml_document _doc;
+
+	unsigned int _seed;
+
 	int _score;
 
 public:
@@ -45,6 +50,16 @@ public:
 	void save();
 
 	void clear();
+
+	void read(char* fname);
+
+	unsigned int seed();
+
+	int score();
+
+	std::vector<Character> char_vec();
+
+	std::unordered_set<position> pos_set();
 };
 
 #endif /* SERIALIZER_H_ */

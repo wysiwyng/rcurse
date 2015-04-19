@@ -85,8 +85,9 @@ void Actionbar::refresh() {
 		int tmp_row = 0;
 
 		if(_actions[i].action_no() == ACTION_QUIT) tmp_row = _height - 3;
-		else if(_actions[i].action_no() == ACTION_CENTER) tmp_row = _height - 5;
-		else if(_actions[i].action_no() == ACTION_AUTO_CENTER) tmp_row = _height - 4;
+		else if(_actions[i].action_no() == ACTION_CENTER) tmp_row = _height - 6;
+		else if(_actions[i].action_no() == ACTION_AUTO_CENTER) tmp_row = _height - 5;
+		else if(_actions[i].action_no() == ACTION_SAVE) tmp_row = _height - 4;
 		else tmp_row = r++;
 
 		if(_active == i) {
