@@ -162,6 +162,12 @@ public:
 	void add(Character *x);
 
 	/**
+	 * adds a vector of characters to the character vector and the map display
+	 * @param x the character vector to add
+	 */
+	void add(std::vector<Character>* x);
+
+	/**
 	 * scrolls the map without regenerating anything
 	 * @param _dy the y distance to move
 	 * @param _dx the x distance to move

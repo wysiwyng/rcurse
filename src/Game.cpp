@@ -168,11 +168,12 @@ int Game::game_loop() {
 
 	player.pos(0, x);
 	Character bla('E', 20, 20, 100);
+	enemies.push_back(bla);
 
 	map.init(0, 0);
 	map.center(player.y(), player.x());
 	map.add(&player);
-	map.add(&bla);
+	map.add(&enemies);
 
 	hud.set_fps(1000 / tick_rate);
 	hud.set_pos(player.x(), player.y());
@@ -286,6 +287,7 @@ int Game::game_loop() {
 			ser.clear();
 			ser.add_seed(seed);
 			ser.add_character(player);
+			ser.add_character(&enemies);
 			ser.add_loot_pos(Loot::instance().save_positions());
 			ser.add_score(score);
 			ser.save();

@@ -30,6 +30,8 @@ public:
 
 	void add_character(Character& chr);
 
+	void add_character(std::vector<Character>const * const chrs);
+
 	void clear_characters();
 
 	void add_score(int score);

@@ -208,6 +208,12 @@ void Map::add(Character * x) {
 	characters.push_back(x);
 }
 
+void Map::add(std::vector<Character>* x) {
+	for(std::vector<Character>::iterator it = (*x).begin(); it != (*x).end(); it++) {
+		characters.push_back(&(*it));
+	}
+}
+
 char Map::target_position(int _col, int _row, bool with_characters) {
 	if(with_characters) {
 		for(std::vector<Character*>::iterator it = characters.begin(); it != characters.end(); it++) {
