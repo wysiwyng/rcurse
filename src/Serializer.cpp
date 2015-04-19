@@ -102,3 +102,33 @@ void Serializer::clear() {
 	_seed = 0;
 	_score = 0;
 }
+
+bool Serializer::read(char * fname) {
+	bool ret = _doc.load_file(fname);
+
+	pugi::xml_node sg = _doc.child("savegame");
+
+	_score = sg.child("score").attribute("value").as_int();
+	_seed = sg.child("seed").attribute("value").as_uint();
+
+	pugi::xml_node positions = _doc.child("loot-positions");
+
+	for(pugi::xml_node pos = positions.child("position"); pos; pos = pos.next_sibling("position")) {
+		position temp = {pos.attribute("y").as_int(), pos.attribute("x").as_int()};
+		_positions.insert(temp);
+	}
+
+	pugi::xml_node characters = _doc.child("characters");
+
+	for(pugi::xml_node chr = characters.child("char"); chr; chr.next_sibling("char")) {
+		Character temp(chr.attribute("symbol").as_int(), chr.attribute("y").as_int(), chr.attribute("x").as_int(), chr.attribute("health").as_int());
+		temp.climb(chr.attribute("climb").as_bool());
+		temp.ice(chr.attribute("ice").as_bool());
+		temp.water(chr.attribute("water").as_bool());
+		if(!chr.attribute("is-visible").as_bool()) temp.reset_visible();
+		if(!chr.attribute("redraw").as_bool()) temp.reset_redraw();
+		_chars.push_back(temp);
+	}
+
+	return ret;
+}

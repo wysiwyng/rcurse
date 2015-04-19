@@ -6,10 +6,10 @@
 
 #include "Character.h"
 
-Character::Character(char symbol, int y, int x, int initial_health) :
+Character::Character(const char symbol, int y, int x, int initial_health) :
 _row(y), _col(x), _temp_row(y), _temp_col(x), _old_row(y), _old_col(x),
 _health(initial_health),
-_redraw(true), _out_of_bounds(false),
+_redraw(true), _is_visible(true),
 _symbol(symbol),
 _water(false), _climb(false), _ice(false)
 {
@@ -77,15 +77,15 @@ void Character::set_redraw() {
 }
 
 bool Character::is_visible() {
-	return _out_of_bounds;
+	return _is_visible;
 }
 
 void Character::reset_visible() {
-	_out_of_bounds = false;
+	_is_visible = false;
 }
 
 void Character::set_visible() {
-	_out_of_bounds = true;
+	_is_visible = true;
 }
 
 void Character::add_health(int amount) {

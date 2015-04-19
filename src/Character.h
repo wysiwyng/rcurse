@@ -51,7 +51,7 @@ class Character {
 	/**
 	 * is set by map if character gets out of visible area
 	 */
-	bool _out_of_bounds;
+	bool _is_visible;
 
 	/**
 	 * the character's symbol
@@ -80,7 +80,7 @@ public:
 	 * @param x the initial x position
 	 * @param initial_health the initial health
 	 */
-	Character(char symbol, int y, int x, int initial_health);
+	Character(const char symbol, int y, int x, int initial_health);
 
 	/**
 	 * sets the characters position
@@ -160,17 +160,17 @@ public:
 
 	/**
 	 * set if character is out of visible bounds
-	 * @returns _out_of_bounds
+	 * @returns _is_visible
 	 */
 	bool is_visible();
 
 	/**
-	 * sets _out_of_bounds
+	 * sets _is_visible
 	 */
 	void set_visible();
 
 	/**
-	 * resets _out_of_bounds
+	 * resets _is_visible
 	 */
 	void reset_visible();
 

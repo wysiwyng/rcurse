@@ -51,7 +51,7 @@ public:
 
 	void clear();
 
-	void read(char* fname);
+	bool read(char* fname);
 
 	unsigned int seed();
 
