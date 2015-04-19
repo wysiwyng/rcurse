@@ -282,12 +282,13 @@ int Game::game_loop() {
 			}
 			break;
 		case ACTION_SAVE:
-			//Serializer ser = Serializer::instance();
-			Serializer::instance().clear();
-			Serializer::instance().add_seed(seed);
-			Serializer::instance().add_character(player);
-			Serializer::instance().add_score(score);
-			Serializer::instance().save("asd");
+			Serializer& ser = Serializer::instance();
+			ser.clear();
+			ser.add_seed(seed);
+			ser.add_character(player);
+			ser.add_loot_pos(Loot::instance().save_positions());
+			ser.add_score(score);
+			ser.save();
 			break;
 		}
 

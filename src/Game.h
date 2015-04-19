@@ -90,6 +90,11 @@ private:
 	std::mutex mtx;
 
 	/**
+	 * enemy vector
+	 */
+	std::vector<Character> enemies;
+
+	/**
 	 * renders everything
 	 */
 	void render();

@@ -8,6 +8,7 @@
 #define LOOT_H_
 
 #include <unordered_set>
+#include <vector>
 #include "Position.h"
 
 
@@ -23,11 +24,6 @@ private:
 	 * set of positions already looted
 	 */
 	std::unordered_set<position> positions;
-
-	/**
-	 * a singelton instance of Loot
-	 */
-	//Loot *the_instance;
 public:
 	/**
 	 * gets the singleton instance
@@ -55,6 +51,12 @@ public:
 	 * @returns 1 if looted, 0 else
 	 */
 	int digged(int y, int x);
+
+	/**
+	 *
+	 * @returns the position vector
+	 */
+	std::unordered_set<position>* save_positions();
 };
 
 #endif /* LOOT_H_ */

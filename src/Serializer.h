@@ -9,6 +9,7 @@
 #define SERIALIZER_H_
 
 #include <vector>
+#include <unordered_set>
 #include "Character.h"
 #include "Position.h"
 
@@ -19,7 +20,7 @@ private:
 
 	unsigned int _seed;
 	std::vector<Character> _chars;
-	std::vector<position> _positions;
+	std::unordered_set<position> _positions;
 	int _score;
 
 public:
@@ -35,9 +36,11 @@ public:
 
 	void add_loot_pos(int y, int x);
 
+	void add_loot_pos(std::unordered_set<position>const * const pos);
+
 	void clear_lot_pos();
 
-	void save(const char * fname);
+	void save();
 
 	void clear();
 };

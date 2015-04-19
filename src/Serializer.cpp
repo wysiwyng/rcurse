@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <chrono>
+#include <ctime>
 #include <pugixml.hpp>
 #include "Serializer.h"
 
@@ -31,7 +32,11 @@ void Serializer::clear_characters() {
 
 void Serializer::add_loot_pos(int y, int x) {
 	position temp{y, x};
-	_positions.push_back(temp);
+	_positions.insert(temp);
+}
+
+void Serializer::add_loot_pos(std::unordered_set<position> const * const pos) {
+	_positions.insert((*pos).begin(), (*pos).end());
 }
 
 void Serializer::clear_lot_pos() {
@@ -46,7 +51,12 @@ void Serializer::add_seed(unsigned int seed) {
 	_seed = seed;
 }
 
-void Serializer::save(const char * fname) {
+void Serializer::save() {
+	time_t now = time(0);
+	struct tm tstruct = *localtime(&now);
+	char buf[80];
+	strftime(buf, sizeof(buf), "%d%m%Y-%H%M%S", &tstruct);
+
 	pugi::xml_document doc;
 
 	pugi::xml_node save_game = doc.append_child("savegame");
@@ -58,7 +68,7 @@ void Serializer::save(const char * fname) {
 	seed.append_attribute("value") = _seed;
 
 	pugi::xml_node positions = save_game.append_child("loot-positions");
-	for(std::vector<position>::iterator it = _positions.begin(); it != _positions.end(); it++) {
+	for(std::unordered_set<position>::iterator it = _positions.begin(); it != _positions.end(); it++) {
 		pugi::xml_node pos = positions.append_child("position");
 		pos.append_child("y").append_attribute("value") = (*it).y;
 		pos.append_child("x").append_attribute("value") = (*it).x;
@@ -81,7 +91,7 @@ void Serializer::save(const char * fname) {
 		chr.append_child("climb").append_attribute("value") = (*it).climb();
 		chr.append_child("ice").append_attribute("value") = (*it).ice();
 	}
-	save_game.append_attribute("date") = (unsigned int)std::chrono::system_clock::now().time_since_epoch().count();
+	save_game.append_attribute("date") = buf;
 	doc.print(std::cerr);
 }
 

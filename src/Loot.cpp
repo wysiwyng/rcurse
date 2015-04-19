@@ -26,3 +26,7 @@ int Loot::digged(int y, int x) {
 	position pos = {y, x};
 	return positions.count(pos);
 }
+
+std::unordered_set<position>* Loot::save_positions() {
+	return &positions;
+}
