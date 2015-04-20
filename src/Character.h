@@ -181,16 +181,10 @@ public:
 	int health();
 
 	/**
-	 * makes the character lose a specified amount of health
-	 * @param amount the amount of health to lose
+	 * sets the character's health
+	 * @param health the hp the character should have
 	 */
-	void lose_health(int amount);
-
-	/**
-	 * adds a specified amount of health
-	 * @param amount the amount of health to add
-	 */
-	void add_health(int amount);
+	void set_health(int health);
 
 	bool water();
 

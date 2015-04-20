@@ -88,12 +88,18 @@ void Character::set_visible() {
 	_is_visible = true;
 }
 
+/*
 void Character::add_health(int amount) {
 	_health += amount;
 }
 
 void Character::lose_health(int amount) {
 	_health -= amount;
+}
+*/
+
+void Character::set_health(int health) {
+	_health = health;
 }
 
 int Character::health() {

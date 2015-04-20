@@ -22,6 +22,8 @@ private:
 	std::vector<Character> _chars;
 	std::unordered_set<position> _positions;
 
+	Character _player;
+
 	pugi::xml_document _doc;
 
 	unsigned int _seed;
@@ -36,6 +38,8 @@ public:
 	void add_character(Character& chr);
 
 	void add_character(std::vector<Character>const * const chrs);
+
+	void add_player(Character player);
 
 	void clear_characters();
 
@@ -56,6 +60,8 @@ public:
 	unsigned int seed();
 
 	int score();
+
+	Character player();
 
 	std::vector<Character> char_vec();
 

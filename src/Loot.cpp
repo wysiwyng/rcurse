@@ -30,3 +30,11 @@ int Loot::digged(int y, int x) {
 std::unordered_set<position>* Loot::save_positions() {
 	return &positions;
 }
+
+void Loot::add_positions(std::unordered_set<position> pos) {
+	positions.insert(pos.begin(), pos.end());
+}
+
+void Loot::clear() {
+	positions.clear();
+}

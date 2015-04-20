@@ -75,6 +75,11 @@ private:
 	unsigned int seed;
 
 	/**
+	 * the score
+	 */
+	int score;
+
+	/**
 	 * the refresh rate in millisecends
 	 */
 	unsigned int tick_rate;
@@ -127,7 +132,7 @@ public:
 	/**
 	 * runs the main game loop
 	 */
-	int game_loop();
+	int game_loop(bool from_save);
 
 	void on_timer();
 };

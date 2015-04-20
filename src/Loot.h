@@ -57,6 +57,16 @@ public:
 	 * @returns the position vector
 	 */
 	std::unordered_set<position>* save_positions();
+
+	/**
+	 * adds a range of positions
+	 */
+	void add_positions(std::unordered_set<position> pos);
+
+	/**
+	 * clears the digged loot vector
+	 */
+	void clear();
 };
 
 #endif /* LOOT_H_ */

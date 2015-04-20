@@ -30,13 +30,14 @@ int main() {
 
 	Game game(_height, _width, 30);
 
-	Serializer::instance().read("19042015-215601.xml");
+	//Serializer::instance().read("20042015-082434.xml");
 
 	int ret = -1;
 	while (1) {
 		ret = game.main_menu();
 		if(ret == 2) game.settings();
-		else if(ret == 1) game.game_loop();
+		else if(ret == 1) game.game_loop(false);
+		else if(ret == 3) game.game_loop(true);
 		else if(ret == 0) return 0;
 	}
 

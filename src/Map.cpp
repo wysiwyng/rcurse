@@ -177,7 +177,7 @@ void Map::scroll_map(int dy, int dx) {
 
 void Map::refresh() {
 	for(std::vector<Character*>::iterator it = characters.begin(); it != characters.end(); ++it) {
-		if((**it).x() < orig_x && (**it).y() < orig_y && (**it).x() >= orig_x + _width && (**it).y() >= orig_y + _height) {
+		if((**it).x() < orig_x || (**it).y() < orig_y || (**it).x() >= orig_x + _width || (**it).y() >= orig_y + _height) {
 			(**it).reset_visible();
 			(**it).set_redraw();
 		}

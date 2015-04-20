@@ -28,7 +28,7 @@ act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
 map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
 player(CHAR_PLAYER, 0, 0, 100),
-seed(0),
+seed(0), score(0),
 tick_rate(TICK_MS),
 auto_center(false)
 {
@@ -53,6 +53,7 @@ Game::~Game() {
 
 int Game::main_menu() {
 	act_bar.add_action(ACTION_START);
+	act_bar.add_action(ACTION_LOAD);
 	act_bar.add_action(ACTION_SETTINGS);
 	act_bar.add_action(ACTION_QUIT);
 	act_bar.refresh();
@@ -78,11 +79,25 @@ int Game::main_menu() {
 		if (act == ACTION_QUIT) ret_code = 0;
 		else if (act == ACTION_SETTINGS) ret_code = 2;
 		else if(act == ACTION_START) ret_code = 1;
+		else if(act == ACTION_LOAD) {
+			Serializer& ser = Serializer::instance();
+			if(!ser.read("rcurse-save.xml")) stat_bar.set_status("error loading save!");
+			else {
+				stat_bar.set_status("last save loaded");
+				seed = ser.seed();
+				score = ser.score();
+				player = ser.player();
+				enemies = ser.char_vec();
+				Loot::instance().add_positions(ser.pos_set());
+				ret_code = 3;
+			}
+		}
 
 		act_bar.refresh();
 	}
 
 	act_bar.remove_action(ACTION_START);
+	act_bar.remove_action(ACTION_LOAD);
 	act_bar.remove_action(ACTION_SETTINGS);
 	act_bar.remove_action(ACTION_QUIT);
 	act_bar.refresh();
@@ -143,10 +158,10 @@ int Game::settings() {
 	return 0;
 }
 
-int Game::game_loop() {
+int Game::game_loop(bool from_save) {
 	bool can_move = false, can_dig = false, could_dig = false, hurt = false;
 	bool run = true;
-	int x, ch, score = 300;
+	int x, ch;
 
 	Timer t;
 
@@ -165,11 +180,13 @@ int Game::game_loop() {
 	hud.set_seed(seed);
 	map.set_seed(seed);
 
-	for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
+	if(!from_save) {
+		for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
 
-	player.pos(0, x);
-	Character bla('E', 20, 20, 100);
-	enemies.push_back(bla);
+		player.pos(0, x);
+		Character bla('E', 20, 20, 100);
+		enemies.push_back(bla);
+	}
 
 	map.init(0, 0);
 	map.center(player.y(), player.x());
@@ -179,7 +196,9 @@ int Game::game_loop() {
 	hud.set_fps(1000 / tick_rate);
 	hud.set_pos(player.x(), player.y());
 	hud.set_points(score);
-
+	hud.set_climb(player.climb());
+	hud.set_ice(player.ice());
+	hud.set_swim(player.water());
 	stat_bar.set_status("idle", false);
 
 	on_timer();
@@ -243,7 +262,7 @@ int Game::game_loop() {
 			if(score > 30) {
 				score -= 30;
 				hud.set_points(score);
-				player.lose_health(-50);
+				player.set_health(player.health() + 50);
 				hud.set_hp(player.health());
 				stat_bar.set_status("gained 50 hp");
 			} else {
@@ -287,7 +306,7 @@ int Game::game_loop() {
 			Serializer& ser = Serializer::instance();
 			ser.clear();
 			ser.add_seed(seed);
-			ser.add_character(player);
+			ser.add_player(player);
 			ser.add_character(&enemies);
 			ser.add_loot_pos(Loot::instance().save_positions());
 			ser.add_score(score);
@@ -330,7 +349,7 @@ int Game::game_loop() {
 		if(can_move) player.move(dy, dx);
 		if(hurt) {
 			stat_bar.set_status("ouch!", false);
-			player.lose_health(10);
+			player.set_health(player.health() + 10);
 		}
 		if(can_dig && !could_dig) {
 			act_bar.add_action(ACTION_DIG);
@@ -359,6 +378,12 @@ int Game::game_loop() {
 	for(int i = 2; i <= 6; i++) act_bar.remove_action(i);
 
 	act_bar.remove_action(ACTION_SAVE);
+	seed = 0;
+	score = 0;
+	enemies.clear();
+	Loot::instance().clear();
+	player.pos(0, 0);
+	player.set_health(100);
 	return 0;
 }
 

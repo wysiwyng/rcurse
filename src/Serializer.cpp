@@ -12,6 +12,7 @@
 #include "Serializer.h"
 
 Serializer::Serializer() :
+_player('@', 0, 0, 0),
 _seed(0),
 _score(0)
 { }
@@ -27,6 +28,10 @@ void Serializer::add_character(Character & chr) {
 
 void Serializer::add_character(std::vector<Character> const * const chrs) {
 	_chars.insert(_chars.end(), (*chrs).begin(), (*chrs).end());
+}
+
+void Serializer::add_player(Character player) {
+	_player = player;
 }
 
 void Serializer::clear_characters() {
@@ -78,8 +83,20 @@ void Serializer::save() {
 	}
 
 	pugi::xml_node chars = save_game.append_child("characters");
+
+	pugi::xml_node player = chars.append_child("player");
+	player.append_attribute("y") = _player.y();
+	player.append_attribute("x") = _player.x();
+	player.append_attribute("symbol") = _player.symbol();
+	player.append_attribute("needs-redraw") = _player.needs_redraw();
+	player.append_attribute("is-visible") = _player.is_visible();
+	player.append_attribute("health") = _player.health();
+	player.append_attribute("water") = _player.water();
+	player.append_attribute("climb") = _player.climb();
+	player.append_attribute("ice") = _player.ice();
+
 	for(std::vector<Character>::iterator it = _chars.begin(); it != _chars.end(); it++) {
-		pugi::xml_node chr = chars.append_child("char");
+		pugi::xml_node chr = chars.append_child("enemy");
 		chr.append_attribute("y") = (*it).y();
 		chr.append_attribute("x") = (*it).x();
 		chr.append_attribute("symbol") = (*it).symbol();
@@ -93,7 +110,7 @@ void Serializer::save() {
 	save_game.append_attribute("date") = buf;
 	//doc.print(std::cerr);
 
-	_doc.save_file(buf);
+	_doc.save_file("rcurse-save.xml");
 }
 
 void Serializer::clear() {
@@ -104,8 +121,8 @@ void Serializer::clear() {
 }
 
 bool Serializer::read(char * fname) {
-	pugi::xml_parse_result bla = _doc.load_file(fname);
-	bool ret = false;//_doc.load_file(fname);
+	//pugi::xml_parse_result bla = _doc.load_file(fname);
+	bool ret = _doc.load_file(fname);
 
 	pugi::xml_node sg = _doc.child("savegame");
 
@@ -121,7 +138,17 @@ bool Serializer::read(char * fname) {
 
 	pugi::xml_node characters = sg.child("characters");
 
-	for(pugi::xml_node chr = characters.child("char"); chr; chr = chr.next_sibling("char")) {
+	pugi::xml_node player = characters.child("player");
+
+	Character temp_player(player.attribute("symbol").as_int(), player.attribute("y").as_int(), player.attribute("x").as_int(), player.attribute("health").as_int());
+	temp_player.climb(player.attribute("climb").as_bool());
+	temp_player.ice(player.attribute("ice").as_bool());
+	temp_player.water(player.attribute("water").as_bool());
+	if(!player.attribute("is-visible").as_bool()) temp_player.reset_visible();
+	if(!player.attribute("redraw").as_bool()) temp_player.reset_redraw();
+	_player = temp_player;
+
+	for(pugi::xml_node chr = characters.child("enemy"); chr; chr = chr.next_sibling("enemy")) {
 		Character temp(chr.attribute("symbol").as_int(), chr.attribute("y").as_int(), chr.attribute("x").as_int(), chr.attribute("health").as_int());
 		temp.climb(chr.attribute("climb").as_bool());
 		temp.ice(chr.attribute("ice").as_bool());
@@ -132,4 +159,24 @@ bool Serializer::read(char * fname) {
 	}
 
 	return ret;
+}
+
+int Serializer::score() {
+	return _score;
+}
+
+unsigned int Serializer::seed() {
+	return _seed;
+}
+
+Character Serializer::player() {
+	return _player;
+}
+
+std::vector<Character> Serializer::char_vec() {
+	return _chars;
+}
+
+std::unordered_set<position> Serializer::pos_set() {
+	return _positions;
 }
