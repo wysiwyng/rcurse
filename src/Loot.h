@@ -15,9 +15,13 @@
 class Loot {
 private:
 	/**
-	 * protected constructor for singleton
+	 * private constructor for singleton
 	 */
 	Loot();
+
+	/**
+	 * private copy constructor for singleton
+	 */
 	Loot(const Loot&);
 
 	/**
@@ -53,7 +57,6 @@ public:
 	int digged(int y, int x);
 
 	/**
-	 *
 	 * @returns the position vector
 	 */
 	std::unordered_set<position>* save_positions();

@@ -1,8 +1,8 @@
 /*
  * TimerListener.h
- *
+ * a timer listener event interface
  *  Created on: Apr 15, 2015
- *      Author: wysiwyng
+ * @author: wysiwyng
  */
 
 #ifndef TIMERLISTENER_H_
@@ -12,8 +12,20 @@
 
 class TimerListener {
 public:
+	/**
+	 * TimerListener default constructor, will generate an id or use the given one if != 0
+	 * @param the listeners default UID
+	 */
 	TimerListener(int newid = 0);
+
+	/**
+	 * TimerListener destructor
+	 */
 	virtual ~TimerListener();
+
+	/**
+	 * the callback funtion
+	 */
 	virtual void on_timer() = 0;
 
 	/**
@@ -23,11 +35,20 @@ public:
 		return _id == other._id;
 	}
 
+	/**
+	 * @returns the listeners id
+	 */
 	int id() const;
 private:
+	/**
+	 * the listeners id
+	 */
 	int _id;
 };
 
+/**
+ * a hash function for a TimerListener
+ */
 namespace std {
 template<>
 class hash<TimerListener> {

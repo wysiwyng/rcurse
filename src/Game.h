@@ -131,6 +131,7 @@ public:
 
 	/**
 	 * runs the main game loop
+	 * @param from_save set to true if the game was loaded from save
 	 */
 	int game_loop(bool from_save);
 

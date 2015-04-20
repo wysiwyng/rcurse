@@ -8,7 +8,6 @@
 
 #include "Game.h"
 #include "Defs.h"
-#include "Serializer.h"
 
 /**
  * main entrypoint
@@ -30,8 +29,6 @@ int main() {
 
 	Game game(_height, _width, 30);
 
-	//Serializer::instance().read("20042015-082434.xml");
-
 	int ret = -1;
 	while (1) {
 		ret = game.main_menu();
@@ -40,8 +37,6 @@ int main() {
 		else if(ret == 3) game.game_loop(true);
 		else if(ret == 0) return 0;
 	}
-
-	//game.game_loop();
 
 	return 0;
 }

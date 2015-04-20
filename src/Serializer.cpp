@@ -1,8 +1,8 @@
 /*
- * Serializer.cpp
- *
+ * Serializer.h
+ * a serializer class to save and load game data to xml
  *  Created on: Apr 17, 2015
- *      Author: wysiwyng
+ *  @author: wysiwyng
  */
 
 #include <iostream>

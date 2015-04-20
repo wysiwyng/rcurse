@@ -186,16 +186,37 @@ public:
 	 */
 	void set_health(int health);
 
+	/**
+	 * @returns true, if the character can swim
+	 */
 	bool water();
 
+	/**
+	 * @returns true, if the character can climb
+	 */
 	bool climb();
 
+	/**
+	 * @returns true, if the character can go over ice
+	 */
 	bool ice();
 
+	/**
+	 * sets the characters swimming ability
+	 * @param val set to true if the character should be able to swim
+	 */
 	void water(bool val);
 
+	/**
+	 * sets the characters climbing ability
+	 * @param val set to true if the character should be able to climb
+	 */
 	void climb(bool val);
 
+	/**
+	 * sets the characters going-over-ice ability
+	 * @param val set to true if the character should be able to go over ice
+	 */
 	void ice(bool val);
 };
 
