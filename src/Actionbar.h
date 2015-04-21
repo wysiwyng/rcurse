@@ -88,6 +88,11 @@ public:
 	 * @paramn act_no the action number to remove
 	 */
 	void remove_action(unsigned act_no);
+
+	/**
+	 * removes all actions
+	 */
+	void clear();
 };
 
 #endif /* ACTIONBAR_H_ */

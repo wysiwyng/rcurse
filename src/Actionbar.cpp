@@ -70,6 +70,12 @@ void Actionbar::remove_action(unsigned act_no) {
 	if(_active > _actions.size() - 1) _active = _actions.size() - 1;
 }
 
+void Actionbar::clear() {
+	_actions_set.clear();
+	_actions.clear();
+	_active = 0;
+}
+
 void Actionbar::refresh() {
 	if(!_needs_refresh) return;
 	_needs_refresh = false;

@@ -18,6 +18,7 @@ void init_colors(){
 	init_pair(COLOR_WALL,COLOR_WHITE,COLOR_BLACK);
 	init_pair(COLOR_ICE,COLOR_BLACK,COLOR_WHITE);
 	init_pair(COLOR_TREASURE,COLOR_YELLOW,COLOR_BLACK);
+	init_pair(COLOR_FLOWER,COLOR_CYAN,COLOR_BLACK);
 }
 
 short get_color(char symbol){
@@ -37,7 +38,11 @@ short get_color(char symbol){
 	case CHAR_TREASURE:
 		return COLOR_TREASURE;
 	case CHAR_LOOTED:
-		return CHAR_GRASS;
+		return COLOR_GRASS;
+	case CHAR_TREE:
+		return COLOR_GRASS;
+	case CHAR_FLOWER:
+		return COLOR_FLOWER;
 	}
 	return 0;
 }
@@ -53,7 +58,7 @@ void set_color(WINDOW *w, char chr) {
 	case CHAR_WATER:
 		wattrset(w, A_DIM | COLOR_PAIR(COLOR_WATER));
 		break;
-	case CHAR_GRASS:
+	case CHAR_GRASS: case CHAR_TREE:
 		wattrset(w, COLOR_PAIR(COLOR_GRASS));
 		break;
 	case CHAR_TALLGRASS:
@@ -67,6 +72,9 @@ void set_color(WINDOW *w, char chr) {
 		break;
 	case CHAR_TREASURE:
 		wattrset(w, A_BOLD | COLOR_PAIR(COLOR_TREASURE));
+		break;
+	case CHAR_FLOWER:
+		wattrset(w, A_BOLD | COLOR_PAIR(COLOR_FLOWER));
 		break;
 	case CHAR_EMPTY:
 		wattrset(w, 0);

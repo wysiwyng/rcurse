@@ -21,6 +21,8 @@
 #define CHAR_TREASURE '.'
 #define CHAR_LOOTED '_'
 #define CHAR_EMPTY ' '
+#define CHAR_TREE 'T'
+#define CHAR_FLOWER '*'
 
 #define COLOR_PLAYER 1
 #define COLOR_ENEMY 2
@@ -31,6 +33,7 @@
 #define COLOR_TREASURE 7
 #define COLOR_STD 0
 #define COLOR_HIGHLIGHT 7
+#define COLOR_FLOWER 8
 
 #define COLOR_HUD 6
 

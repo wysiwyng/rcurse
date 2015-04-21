@@ -96,11 +96,7 @@ int Game::main_menu() {
 		act_bar.refresh();
 	}
 
-	act_bar.remove_action(ACTION_START);
-	act_bar.remove_action(ACTION_LOAD);
-	act_bar.remove_action(ACTION_SETTINGS);
-	act_bar.remove_action(ACTION_QUIT);
-	act_bar.refresh();
+	act_bar.clear();
 	return ret_code;
 }
 
@@ -152,9 +148,7 @@ int Game::settings() {
 		act_bar.refresh();
 	}
 
-	act_bar.remove_action(ACTION_SEED);
-	act_bar.remove_action(ACTION_TICKRATE);
-	act_bar.remove_action(ACTION_QUIT);
+	act_bar.clear();
 	return 0;
 }
 
@@ -270,7 +264,7 @@ int Game::game_loop(bool from_save) {
 			}
 			break;
 		case ACTION_UPGRADE_SWIM:
-			if(score > 20) {
+			if(score >= 20) {
 				score -= 20;
 				hud.set_points(score);
 				player.water(true);
@@ -281,7 +275,7 @@ int Game::game_loop(bool from_save) {
 			}
 			break;
 		case ACTION_UPGRADE_CLIMB:
-			if(score > 50) {
+			if(score >= 50) {
 				score -= 50;
 				hud.set_points(score);
 				player.climb(true);
@@ -292,7 +286,7 @@ int Game::game_loop(bool from_save) {
 			}
 			break;
 		case ACTION_UPGRADE_ICE:
-			if(score > 30) {
+			if(score >= 30) {
 				score -= 30;
 				hud.set_points(score);
 				player.ice(true);
@@ -322,7 +316,7 @@ int Game::game_loop(bool from_save) {
 			can_move = true;
 			hurt = false;
 			break;
-		case CHAR_GRASS: case CHAR_TALLGRASS: case CHAR_EMPTY:
+		case CHAR_GRASS: case CHAR_TALLGRASS: case CHAR_EMPTY: case CHAR_FLOWER:
 			can_dig = false;
 			hurt = false;
 			can_move = true;
@@ -371,13 +365,7 @@ int Game::game_loop(bool from_save) {
 		mtx.unlock();
 	}
 	t.stop();
-	act_bar.remove_action(ACTION_CENTER);
-	act_bar.remove_action(ACTION_AUTO_CENTER);
-	act_bar.remove_action(ACTION_QUIT);
-
-	for(int i = 2; i <= 6; i++) act_bar.remove_action(i);
-
-	act_bar.remove_action(ACTION_SAVE);
+	act_bar.clear();
 	seed = 0;
 	score = 0;
 	enemies.clear();
