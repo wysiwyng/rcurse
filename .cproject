@@ -24,7 +24,7 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.536513780" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.2006368543" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.1061244041" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -std=c++11" valueType="string"/>
-								<option id="gnu.cpp.compiler.option.include.paths.1450306883" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.1450306883" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/pugixml/src}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1672335202" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -37,7 +37,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.511586003" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1541570403" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.libs.105164734" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="curses"/>
+									<listOptionValue builtIn="false" value="ncurses"/>
 									<listOptionValue builtIn="false" value="pthread"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.578999589" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -81,7 +81,7 @@
 								<option id="gnu.cpp.compiler.exe.release.option.optimization.level.1119861923" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.release.option.debugging.level.1704463473" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.421973009" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -std=c++11" valueType="string"/>
-								<option id="gnu.cpp.compiler.option.include.paths.1151069558" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.1151069558" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/pugixml/src}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1792115027" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -94,7 +94,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.324660559" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.1761713534" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
 								<option id="gnu.cpp.link.option.libs.1046936569" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="curses"/>
+									<listOptionValue builtIn="false" value="ncurses"/>
 									<listOptionValue builtIn="false" value="pthread"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.791229318" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
@@ -300,7 +300,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" description="" id="org.eclipse.cdt.msvc.exe.release.1739736294" name="release-win" parent="org.eclipse.cdt.msvc.exe.release">
+				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" description="" id="org.eclipse.cdt.msvc.exe.release.1739736294" name="release-win" parent="org.eclipse.cdt.msvc.exe.release">
 					<folderInfo id="org.eclipse.cdt.msvc.exe.release.1739736294." name="/" resourcePath="">
 						<toolChain id="org.eclipse.cdt.msvc.toolchain.exe.release.16478034" name="Microsoft Visual C++" superClass="org.eclipse.cdt.msvc.toolchain.exe.release">
 							<targetPlatform id="org.eclipse.cdt.msvc.targetPlatform.exe.release.1393651755" superClass="org.eclipse.cdt.msvc.targetPlatform.exe.release"/>
@@ -345,18 +345,18 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="debug-linux">
+		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/rcurse"/>
 		</configuration>
 		<configuration configurationName="release-sdl"/>
-		<configuration configurationName="release-win">
-			<resource resourceType="PROJECT" workspacePath="/rcurse"/>
-		</configuration>
 		<configuration configurationName="release-linux"/>
 		<configuration configurationName="debug-sdl">
 			<resource resourceType="PROJECT" workspacePath="/rcurse"/>
 		</configuration>
-		<configuration configurationName="Release">
+		<configuration configurationName="release-win">
+			<resource resourceType="PROJECT" workspacePath="/rcurse"/>
+		</configuration>
+		<configuration configurationName="debug-linux">
 			<resource resourceType="PROJECT" workspacePath="/rcurse"/>
 		</configuration>
 		<configuration configurationName="Debug">

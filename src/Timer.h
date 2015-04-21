@@ -17,12 +17,12 @@
 class Timer {
 private:
 	std::vector<TimerListener*> listeners;
+	std::thread worker;
+
 	volatile bool _running, _stop;
 	int _interval;
-	//std::function<void(void)> _func;
-	std::thread worker;
-	void do_work();
 
+	void do_work();
 public:
 	/**
 	 * Timer Constructor
