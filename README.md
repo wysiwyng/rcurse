@@ -5,11 +5,11 @@ building
 --------
 1. clone repo
 2. run:
-```
-git submodule init
-git submodule update
-make all
-```
+  ```
+  git submodule init
+  git submodule update
+  make all
+  ```
 3. wait a bit
 4. cd to one of the build directories
 5. run rcurse
