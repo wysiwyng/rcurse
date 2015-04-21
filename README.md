@@ -1,4 +1,4 @@
-# rcurse
+# rcurse [![Build Status](https://travis-ci.org/wysiwyng/rcurse.svg)](https://travis-ci.org/wysiwyng/rcurse)
 roguelike (pd)curses game thingy
 
 building
