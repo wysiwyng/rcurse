@@ -3,6 +3,21 @@ roguelike (pd)curses game thingy
 
 building
 --------
+1. clone repo
+2. run:
+```
+git submodule init
+git submodule update
+make all
+```
+3. wait a bit
+4. cd to one of the build directories
+5. run rcurse
+6. ???
+7. profit?
+
+building ("advanced")
+---------------------
 
 1. clone repo (in eclipse preferrably) with submodules
 2. import into eclipse by doing file -> import -> existing project (if not cloned into eclipse right away)
