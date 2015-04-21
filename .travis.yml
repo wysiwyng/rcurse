@@ -3,4 +3,4 @@ compiler: gcc
 install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq libncurses5-dev
-script: make
+script: make all
