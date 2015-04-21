@@ -193,6 +193,7 @@ int Game::game_loop(bool from_save) {
 	hud.set_climb(player.climb());
 	hud.set_ice(player.ice());
 	hud.set_swim(player.water());
+
 	stat_bar.set_status("idle", false);
 
 	on_timer();
