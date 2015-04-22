@@ -44,6 +44,13 @@ int Statusbar::read_num(std::string prompt) {
 		if(ch == '0' || ch == '1' || ch == '2' || ch == '3' || ch == '4' || ch == '5' || ch == '6' || ch == '7' || ch == '8' || ch == '9') {
 			set_status(_text + ch);
 		}
+		else if(ch == 127 || ch == 8) {
+			if(_text.length() > 0) {
+				_text.pop_back();
+				_needs_refresh = true;
+				refresh();
+			}
+		}
 		ch = getch();
 	}
 

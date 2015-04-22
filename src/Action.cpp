@@ -32,7 +32,7 @@ static char const * const texts[] = {
 		"--SEED",
 		"--FPS",
 		"==SAVE GAME",
-		"==LOAD LATEST SAVE"
+		"==LOAD SAVED GAME"
 };
 
 Action::Action(int _action_no) :

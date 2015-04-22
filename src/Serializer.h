@@ -118,7 +118,7 @@ public:
 	/**
 	 * saves the gamedata to filesystem
 	 */
-	void save();
+	int save();
 
 	/**
 	 * clears everything

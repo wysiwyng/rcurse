@@ -64,6 +64,7 @@ int Game::main_menu() {
 
 	while(ret_code == -1) {
 		ch = getch();
+		act = -1;
 		switch(ch) {
 		case KEY_UP:
 			act_bar.move_up();
@@ -81,7 +82,14 @@ int Game::main_menu() {
 		else if(act == ACTION_START) ret_code = 1;
 		else if(act == ACTION_LOAD) {
 			Serializer& ser = Serializer::instance();
-			if(!ser.read("rcurse-save.xml")) stat_bar.set_status("error loading save!");
+
+			int no = stat_bar.read_num("Enter save number>");
+
+			char buf[80];
+
+			sprintf(buf, "rsave-%04d.xml", no);
+
+			if(!ser.read(buf)) stat_bar.set_status("error loading save!");
 			else {
 				stat_bar.set_status("last save loaded");
 				seed = ser.seed();
@@ -305,7 +313,13 @@ int Game::game_loop(bool from_save) {
 			ser.add_character(&enemies);
 			ser.add_loot_pos(Loot::instance().save_positions());
 			ser.add_score(score);
-			ser.save();
+			int no = ser.save();
+			if(no == -1) stat_bar.set_status("saving failed!");
+			else {
+				char buf[80];
+				sprintf(buf, "save no: %04d", no);
+				stat_bar.set_status(buf);
+			}
 			break;
 		}
 

@@ -59,11 +59,11 @@ void Serializer::add_seed(unsigned int seed) {
 	_seed = seed;
 }
 
-void Serializer::save() {
+int Serializer::save() {
 	time_t now = time(0);
 	struct tm tstruct = *localtime(&now);
 	char buf[80];
-	strftime(buf, sizeof(buf), "%d%m%Y-%H%M%S.xml", &tstruct);
+	strftime(buf, sizeof(buf), "%d%m%Y-%H%M%S", &tstruct);
 
 	_doc.reset();
 
@@ -110,7 +110,14 @@ void Serializer::save() {
 	save_game.append_attribute("date") = buf;
 	//doc.print(std::cerr);
 
-	_doc.save_file("rcurse-save.xml");
+	int i = 0;
+	for(i = 0; i < 1000; i++) {
+		sprintf(buf, "rsave-%04d.xml", i);
+		std::ifstream file(buf);
+		if(!file.good()) break;
+	}
+	_doc.save_file(buf);
+	return i;
 }
 
 void Serializer::clear() {
