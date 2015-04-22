@@ -99,16 +99,14 @@ release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo ' '
 
 release-dirs:
-	mkdir release-linux
-	mkdir release-linux/src
-	mkdir release-linux/pugixml
-	mkdir release-linux/pugixml/src
+	mkdir -p release-linux/src
+	mkdir -p release-linux/pugixml/src
 
 debug-dirs:
-	mkdir debug-linux
-	mkdir debug-linux/src
-	mkdir debug-linux/pugixml
-	mkdir debug-linux/pugixml/src
+	mkdir -p debug-linux/src
+	mkdir -p debug-linux/pugixml/src
 
 clean:
 	rm -rf ./release-linux ./debug-linux
+
+.PHONY: clean all debug-dirs release-dirs
