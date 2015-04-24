@@ -139,14 +139,14 @@ debug-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 release-linux/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -O2 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -O2 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -167,14 +167,14 @@ debug-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 release-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O2 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 release-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O2 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
