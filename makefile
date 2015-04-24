@@ -153,14 +153,14 @@ release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 debug-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 debug-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
