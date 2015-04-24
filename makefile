@@ -89,36 +89,36 @@ OBJS_RELEASE_SDL += \
 ./release-sdl/pugixml/src/pugixml.o
 
 LIBS := -lncurses -lpthread
-LIBS_SDL_DBG := -lpdcurses_d -lSDL -lpthread
-LIBS_SDL := -lpdcurses -lSDL -lpthread
+LIBS_SDL_DBG := -lSDL -lpdcurses_d -lpthread
+LIBS_SDL := -lSDL -lpdcurses -lpthread
 
 all: debug-linux release-linux debug-sdl release-sdl
 
 debug-sdl: debug-dirs-sdl $(OBJS_DEBUG_SDL)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	$(CXX)	 -o "./debug-sdl/rcurse" -L"./pdcurses/sdl" $(OBJS_DEBUG) $(LIBS_SDL_DBG)
+	$(CXX) -L"./pdcurses/sdl" -o "./debug-sdl/rcurse" $(OBJS_DEBUG_SDL) $(LIBS_SDL_DBG)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 release-sdl: release-dirs-sdl $(OBJS_RELEASE_SDL)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	$(CXX)	 -o "./release-sdl/rcurse" -L"./pdcurses/sdl" $(OBJS_RELEASE) $(LIBS_SDL)
+	$(CXX) -L"./pdcurses/sdl" -o "./release-sdl/rcurse" $(OBJS_RELEASE_SDL) $(LIBS_SDL)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 debug-linux: debug-dirs $(OBJS_DEBUG)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	$(CXX)	 -o "./debug-linux/rcurse" $(OBJS_DEBUG) $(LIBS)
+	$(CXX) -o "./debug-linux/rcurse" $(OBJS_DEBUG) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 release-linux: release-dirs $(OBJS_RELEASE)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	$(CXX)	 -o "./release-linux/rcurse" $(OBJS_RELEASE) $(LIBS)
+	$(CXX) -o "./release-linux/rcurse" $(OBJS_RELEASE) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -153,14 +153,14 @@ release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 debug-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 debug-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
