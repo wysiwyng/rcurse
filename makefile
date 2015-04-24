@@ -97,14 +97,14 @@ all: debug-linux release-linux debug-sdl release-sdl
 debug-sdl: debug-dirs-sdl $(OBJS_DEBUG_SDL)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++	 -o "./debug-linux/rcurse" -L"./pdcurses/sdl/" $(OBJS_DEBUG) $(LIBS_SDL_DBG)
+	g++	 -o "./debug-linux/rcurse" -L"./pdcurses/sdl" $(OBJS_DEBUG) $(LIBS_SDL_DBG)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 release-sdl: release-dirs-sdl $(OBJS_RELEASE_SDL)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++	 -o "./release-linux/rcurse" -L"./pdcurses/sdl/" $(OBJS_RELEASE) $(LIBS_SDL)
+	g++	 -o "./release-linux/rcurse" -L"./pdcurses/sdl" $(OBJS_RELEASE) $(LIBS_SDL)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -153,28 +153,28 @@ release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 debug-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 debug-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 release-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 release-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
