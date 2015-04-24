@@ -97,14 +97,14 @@ all: debug-linux release-linux debug-sdl release-sdl
 debug-sdl: debug-dirs-sdl $(OBJS_DEBUG_SDL)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++	 -o "./debug-linux/rcurse" -L"./pdcurses/sdl" $(OBJS_DEBUG) $(LIBS_SDL_DBG)
+	g++	 -o "./debug-sdl/rcurse" -L"./pdcurses/sdl" $(OBJS_DEBUG) $(LIBS_SDL_DBG)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 release-sdl: release-dirs-sdl $(OBJS_RELEASE_SDL)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++	 -o "./release-linux/rcurse" -L"./pdcurses/sdl" $(OBJS_RELEASE) $(LIBS_SDL)
+	g++	 -o "./release-sdl/rcurse" -L"./pdcurses/sdl" $(OBJS_RELEASE) $(LIBS_SDL)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
