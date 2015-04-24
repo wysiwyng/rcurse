@@ -195,6 +195,6 @@ debug-dirs-sdl:
 	mkdir -p debug-sdl/pugixml/src
 
 clean:
-	rm -rf ./release-linux ./debug-linux
+	rm -rf ./release-linux ./debug-linux ./release-sdl ./debug-sdl
 
 .PHONY: clean all debug-dirs release-dirs
