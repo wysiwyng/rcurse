@@ -22,6 +22,8 @@ int main() {
 
 	int _height, _width;
 	getmaxyx(stdscr, _height, _width);
+	if(_height <= 1) _height = 25;
+	if(_width <= 1) _width = 80;
 	start_color();
 	Defs::init_colors();
 
