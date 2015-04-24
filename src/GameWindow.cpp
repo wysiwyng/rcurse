@@ -12,9 +12,10 @@ _width(nr_cols),
 _row(row_0),
 _col(col_0),
 _needs_refresh(true),
-_needs_clear(true),
-_w(newwin(_height, _width, _row, _col))
+_needs_clear(true)//,
+//_w(newwin(_height, _width, _row, _col))
 {
+	_w = newwin(_height, _width, _row, _col);
 	wattrset(_w, A_BOLD);
 	box(_w, 0, 0);
 }
