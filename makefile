@@ -52,9 +52,61 @@ OBJS_RELEASE += \
 ./release-linux/src/main.o \
 ./release-linux/pugixml/src/pugixml.o
 
-LIBS := -lncurses -lpthread
+OBJS_DEBUG_SDL += \
+./debug-sdl/src/Action.o \
+./debug-sdl/src/Actionbar.o \
+./debug-sdl/src/Character.o \
+./debug-sdl/src/Defs.o \
+./debug-sdl/src/Game.o \
+./debug-sdl/src/GameWindow.o \
+./debug-sdl/src/Hud.o \
+./debug-sdl/src/Loot.o \
+./debug-sdl/src/Map.o \
+./debug-sdl/src/PerlinNoise.o \
+./debug-sdl/src/Serializer.o \
+./debug-sdl/src/Statusbar.o \
+./debug-sdl/src/Timer.o \
+./debug-sdl/src/TimerListener.o \
+./debug-sdl/src/main.o \
+./debug-sdl/pugixml/src/pugixml.o
 
-all: debug-linux release-linux
+OBJS_RELEASE_SDL += \
+./release-sdl/src/Action.o \
+./release-sdl/src/Actionbar.o \
+./release-sdl/src/Character.o \
+./release-sdl/src/Defs.o \
+./release-sdl/src/Game.o \
+./release-sdl/src/GameWindow.o \
+./release-sdl/src/Hud.o \
+./release-sdl/src/Loot.o \
+./release-sdl/src/Map.o \
+./release-sdl/src/PerlinNoise.o \
+./release-sdl/src/Serializer.o \
+./release-sdl/src/Statusbar.o \
+./release-sdl/src/Timer.o \
+./release-sdl/src/TimerListener.o \
+./release-sdl/src/main.o \
+./release-sdl/pugixml/src/pugixml.o
+
+LIBS := -lncurses -lpthread
+LIBS_SDL_DBG := -lpdcurses_d -lSDL -lpthread
+LIBS_SDL := -lpdcurses -lSDL -lpthread
+
+all: debug-linux release-linux debug-sdl release-sdl
+
+debug-sdl: debug-dirs-sdl $(OBJS_DEBUG_SDL)
+	@echo 'Building target: $@'
+	@echo 'Invoking: GCC C++ Linker'
+	g++	 -o "./debug-linux/rcurse" -L"./pdcurses/sdl/" $(OBJS_DEBUG) $(LIBS_SDL_DBG)
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+release-sdl: release-dirs-sdl $(OBJS_RELEASE_SDL)
+	@echo 'Building target: $@'
+	@echo 'Invoking: GCC C++ Linker'
+	g++	 -o "./release-linux/rcurse" -L"./pdcurses/sdl/" $(OBJS_RELEASE) $(LIBS_SDL)
+	@echo 'Finished building target: $@'
+	@echo ' '
 
 debug-linux: debug-dirs $(OBJS_DEBUG)
 	@echo 'Building target: $@'
@@ -98,6 +150,34 @@ release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 	@echo 'Finished building: $<'
 	@echo ' '
 
+debug-sdl/src/%.o: ./src/%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+debug-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O0 -g3 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+release-sdl/src/%.o: ./src/%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+release-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C++ Compiler'
+	g++ -I"./pugixml/src" -I"./pdcurses/sdl/" -O3 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 release-dirs:
 	mkdir -p release-linux/src
 	mkdir -p release-linux/pugixml/src
@@ -105,6 +185,14 @@ release-dirs:
 debug-dirs:
 	mkdir -p debug-linux/src
 	mkdir -p debug-linux/pugixml/src
+
+release-dirs-sdl:
+	mkdir -p release-sdl/src
+	mkdir -p release-sdl/pugixml/src
+
+debug-dirs-sdl:
+	mkdir -p debug-sdl/src
+	mkdir -p debug-sdl/pugixml/src
 
 clean:
 	rm -rf ./release-linux ./debug-linux
