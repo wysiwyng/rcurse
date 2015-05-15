@@ -358,7 +358,7 @@ int Game::game_loop(bool from_save) {
 		if(can_move) player.move(dy, dx);
 		if(hurt) {
 			stat_bar.set_status("ouch!", false);
-			player.set_health(player.health() + 10);
+			player.set_health(player.health() - 10);
 		}
 		if(can_dig && !could_dig) {
 			act_bar.add_action(ACTION_DIG);
