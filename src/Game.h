@@ -105,6 +105,12 @@ private:
 	void render();
 
 public:
+	const static int RET_CONTINUE = -1;
+	const static int RET_QUIT = 0;
+	const static int RET_START = 1;
+	const static int RET_SETTINGS = 2;
+	const static int RET_LOAD = 3;
+
 	/**
 	 * constructor for Game
 	 * @param rows the width of the curses screen

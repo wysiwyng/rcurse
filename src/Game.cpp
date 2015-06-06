@@ -60,9 +60,9 @@ int Game::main_menu() {
 	stat_bar.set_status("Main Menu");
 	int ch = 0;
 	int act = -1;
-	int ret_code = -1;
+	int ret_code = RET_CONTINUE;
 
-	while(ret_code == -1) {
+	while(ret_code == RET_CONTINUE) {
 		ch = getch();
 		act = -1;
 		switch(ch) {
@@ -77,9 +77,9 @@ int Game::main_menu() {
 			break;
 		}
 
-		if (act == ACTION_QUIT) ret_code = 0;
-		else if (act == ACTION_SETTINGS) ret_code = 2;
-		else if(act == ACTION_START) ret_code = 1;
+		if (act == ACTION_QUIT) ret_code = RET_QUIT;
+		else if (act == ACTION_SETTINGS) ret_code = RET_SETTINGS;
+		else if(act == ACTION_START) ret_code = RET_START;
 		else if(act == ACTION_LOAD) {
 			Serializer& ser = Serializer::instance();
 
@@ -97,7 +97,7 @@ int Game::main_menu() {
 				player = ser.player();
 				enemies = ser.char_vec();
 				Loot::instance().add_positions(ser.pos_set());
-				ret_code = 3;
+				ret_code = RET_LOAD;
 			}
 		}
 
@@ -117,11 +117,11 @@ int Game::settings() {
 
 	int ch = 0;
 	int act = -1;
-	int ret_code = -1;
+	int ret_code = RET_CONTINUE;
 	stat_bar.set_status("Settings");
 
 
-	while(ret_code == -1) {
+	while(ret_code == RET_CONTINUE) {
 		ch = getch();
 		stat_bar.set_status("Settings");
 
