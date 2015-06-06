@@ -7,21 +7,7 @@
 #ifndef ACTION_H_
 #define ACTION_H_
 
-#define ACTION_QUIT 0
-#define ACTION_START 1
-#define ACTION_UPGRADE_SWIM 2
-#define ACTION_UPGRADE_CLIMB 3
-#define ACTION_UPGRADE_ICE 4
-#define ACTION_HEAL 5
-#define ACTION_TALK 6
-#define ACTION_CENTER 7
-#define ACTION_AUTO_CENTER 8
-#define ACTION_DIG 9
-#define ACTION_SETTINGS 10
-#define ACTION_SEED 11
-#define ACTION_TICKRATE 12
-#define ACTION_SAVE 13
-#define ACTION_LOAD 14
+
 
 #include <functional>
 
@@ -37,8 +23,22 @@ private:
 	bool _touched;
 
 	//const char* _text;
-
 public:
+	const static int ACTION_QUIT = 0;
+	const static int ACTION_START = 1;
+	const static int ACTION_UPGRADE_SWIM = 2;
+	const static int ACTION_UPGRADE_CLIMB = 3;
+	const static int ACTION_UPGRADE_ICE = 4;
+	const static int ACTION_HEAL = 5;
+	const static int ACTION_TALK = 6;
+	const static int ACTION_CENTER = 7;
+	const static int ACTION_AUTO_CENTER = 8;
+	const static int ACTION_DIG = 9;
+	const static int ACTION_SETTINGS = 10;
+	const static int ACTION_SEED = 11;
+	const static int ACTION_TICKRATE = 12;
+	const static int ACTION_SAVE = 13;
+	const static int ACTION_LOAD = 14;
 	/**
 	 * Constructor for Action
 	 * @param _action_no the action index

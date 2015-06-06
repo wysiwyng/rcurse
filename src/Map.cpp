@@ -44,7 +44,7 @@ char Map::gen_from_perlin(int _ypos, int _xpos) {
 #ifdef ARRAY
 	int m = n * 9999;
 	char temp = tiles[m];
-	if(temp == CHAR_TREASURE) if(Loot::instance().digged(_ypos, _xpos)) return CHAR_GRASS;
+	if(temp == Defs::CHAR_TREASURE) if(Loot::instance().digged(_ypos, _xpos)) return Defs::CHAR_GRASS;
 	return temp;
 #endif
 #ifdef INT
@@ -217,7 +217,7 @@ void Map::add(std::vector<Character>* x) {
 char Map::target_position(int _col, int _row, bool with_characters) {
 	if(with_characters) {
 		for(std::vector<Character*>::iterator it = characters.begin(); it != characters.end(); it++) {
-			if((**it).symbol() == CHAR_PLAYER) continue;
+			if((**it).symbol() == Defs::CHAR_PLAYER) continue;
 			if((**it).y() == _col && (**it).x() == _row) return (**it).symbol();
 		}
 	}

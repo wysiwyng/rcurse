@@ -10,35 +10,35 @@
 
 #include <curses.h>
 
-#define CHAR_PLAYER '@'
-#define CHAR_ENEMY 'E'
 
-#define CHAR_GRASS ','
-#define CHAR_TALLGRASS ';'
-#define CHAR_WATER '~'
-#define CHAR_WALL '#'
-#define CHAR_ICE '+'
-#define CHAR_TREASURE '.'
-#define CHAR_LOOTED '_'
-#define CHAR_EMPTY ' '
-#define CHAR_TREE 'T'
-#define CHAR_FLOWER '*'
-
-#define COLOR_PLAYER 1
-#define COLOR_ENEMY 2
-#define COLOR_GRASS 3
-#define COLOR_WATER 4
-#define COLOR_WALL 5
-#define COLOR_ICE 6
-#define COLOR_TREASURE 7
-#define COLOR_STD 0
-#define COLOR_HIGHLIGHT 7
-#define COLOR_FLOWER 8
-
-#define COLOR_HUD 6
 
 namespace Defs {
+	const static char CHAR_PLAYER = '@';
+	const static char CHAR_ENEMY = 'E';
 
+	const static char CHAR_GRASS = ',';
+	const static char CHAR_TALLGRASS = ';';
+	const static char CHAR_WATER = '~';
+	const static char CHAR_WALL = '#';
+	const static char CHAR_ICE = '+';
+	const static char CHAR_TREASURE = '.';
+	const static char CHAR_LOOTED = '_';
+	const static char CHAR_EMPTY = ' ';
+	const static char CHAR_TREE = 'T';
+	const static char CHAR_FLOWER = '*';
+
+	const static int COLOR_PLAYER = 1;
+	const static int COLOR_ENEMY = 2;
+	const static int COLOR_GRASS = 3;
+	const static int COLOR_WATER = 4;
+	const static int COLOR_WALL = 5;
+	const static int COLOR_ICE = 6;
+	const static int COLOR_TREASURE = 7;
+	const static int COLOR_STD = 0;
+	const static int COLOR_HIGHLIGHT = 7;
+	const static int COLOR_FLOWER = 8;
+
+	const static int COLOR_HUD = 6;
 	/**
 	 * initializes color pairs
 	 */

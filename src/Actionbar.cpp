@@ -90,16 +90,16 @@ void Actionbar::refresh() {
 	for(unsigned i = 0; i < _actions.size(); i++) {
 		int tmp_row = 0;
 
-		if(_actions[i].action_no() == ACTION_QUIT) tmp_row = _height - 3;
-		else if(_actions[i].action_no() == ACTION_CENTER) tmp_row = _height - 6;
-		else if(_actions[i].action_no() == ACTION_AUTO_CENTER) tmp_row = _height - 5;
-		else if(_actions[i].action_no() == ACTION_SAVE) tmp_row = _height - 4;
+		if(_actions[i].action_no() == Action::ACTION_QUIT) tmp_row = _height - 3;
+		else if(_actions[i].action_no() == Action::ACTION_CENTER) tmp_row = _height - 6;
+		else if(_actions[i].action_no() == Action::ACTION_AUTO_CENTER) tmp_row = _height - 5;
+		else if(_actions[i].action_no() == Action::ACTION_SAVE) tmp_row = _height - 4;
 		else tmp_row = r++;
 
 		if(_active == i) {
-			wattron(_w, COLOR_PAIR(COLOR_HIGHLIGHT) | A_BOLD);
+			wattron(_w, COLOR_PAIR(Defs::COLOR_HIGHLIGHT) | A_BOLD);
 			mvwprintw(_w, tmp_row, 1, ">> %-24s <<", _actions[i].action_text());
-			wattroff(_w, COLOR_PAIR(COLOR_HIGHLIGHT) | A_BOLD);
+			wattroff(_w, COLOR_PAIR(Defs::COLOR_HIGHLIGHT) | A_BOLD);
 		}
 		else {
 			mvwprintw(_w, tmp_row, 1, "   %-24s   ", _actions[i].action_text());

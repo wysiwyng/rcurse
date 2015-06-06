@@ -27,7 +27,7 @@ hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
 map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
-player(CHAR_PLAYER, 0, 0, 100),
+player(Defs::CHAR_PLAYER, 0, 0, 100),
 seed(0), score(0),
 tick_rate(TICK_MS),
 auto_center(false)
@@ -52,10 +52,10 @@ Game::~Game() {
 }
 
 int Game::main_menu() {
-	act_bar.add_action(ACTION_START);
-	act_bar.add_action(ACTION_LOAD);
-	act_bar.add_action(ACTION_SETTINGS);
-	act_bar.add_action(ACTION_QUIT);
+	act_bar.add_action(Action::ACTION_START);
+	act_bar.add_action(Action::ACTION_LOAD);
+	act_bar.add_action(Action::ACTION_SETTINGS);
+	act_bar.add_action(Action::ACTION_QUIT);
 	act_bar.refresh();
 	stat_bar.set_status("Main Menu");
 	int ch = 0;
@@ -77,10 +77,10 @@ int Game::main_menu() {
 			break;
 		}
 
-		if (act == ACTION_QUIT) ret_code = RET_QUIT;
-		else if (act == ACTION_SETTINGS) ret_code = RET_SETTINGS;
-		else if(act == ACTION_START) ret_code = RET_START;
-		else if(act == ACTION_LOAD) {
+		if (act == Action::ACTION_QUIT) ret_code = RET_QUIT;
+		else if (act == Action::ACTION_SETTINGS) ret_code = RET_SETTINGS;
+		else if(act == Action::ACTION_START) ret_code = RET_START;
+		else if(act == Action::ACTION_LOAD) {
 			Serializer& ser = Serializer::instance();
 
 			int no = stat_bar.read_num("Enter save number>");
@@ -109,9 +109,9 @@ int Game::main_menu() {
 }
 
 int Game::settings() {
-	act_bar.add_action(ACTION_SEED);
-	act_bar.add_action(ACTION_TICKRATE);
-	act_bar.add_action(ACTION_QUIT);
+	act_bar.add_action(Action::ACTION_SEED);
+	act_bar.add_action(Action::ACTION_TICKRATE);
+	act_bar.add_action(Action::ACTION_QUIT);
 
 	act_bar.refresh();
 
@@ -138,14 +138,14 @@ int Game::settings() {
 			break;
 		}
 
-		if(act == ACTION_QUIT) ret_code = 0;
-		else if(act == ACTION_SEED) {
+		if(act == Action::ACTION_QUIT) ret_code = 0;
+		else if(act == Action::ACTION_SEED) {
 			seed = stat_bar.read_num("Enter Seed:");
 			char temp[30];
 			sprintf(temp, "Seed: %d", seed);
 			stat_bar.set_status(temp);
 		}
-		else if(act == ACTION_TICKRATE) {
+		else if(act == Action::ACTION_TICKRATE) {
 			tick_rate = stat_bar.read_num("Enter FPS:");
 			char temp[30];
 			sprintf(temp, "FPS: %d", tick_rate);
@@ -170,10 +170,10 @@ int Game::game_loop(bool from_save) {
 	t.add_listener(this);
 	t.interval(tick_rate);
 
-	act_bar.add_action(ACTION_CENTER);
-	act_bar.add_action(ACTION_AUTO_CENTER);
-	act_bar.add_action(ACTION_SAVE);
-	act_bar.add_action(ACTION_QUIT);
+	act_bar.add_action(Action::ACTION_CENTER);
+	act_bar.add_action(Action::ACTION_AUTO_CENTER);
+	act_bar.add_action(Action::ACTION_SAVE);
+	act_bar.add_action(Action::ACTION_QUIT);
 
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
 
@@ -183,7 +183,7 @@ int Game::game_loop(bool from_save) {
 	map.set_seed(seed);
 
 	if(!from_save) {
-		for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
+		for(x = 0; map.target_position(0, x) != Defs::CHAR_EMPTY; x++);
 
 		player.pos(0, x);
 		Character bla('E', 20, 20, 100);
@@ -241,27 +241,27 @@ int Game::game_loop(bool from_save) {
 		}
 
 		switch(act) {
-		case ACTION_QUIT:
+		case Action::ACTION_QUIT:
 			//t.stop();
 			run = false;
 			break;
-		case ACTION_CENTER:
+		case Action::ACTION_CENTER:
 			map.center(player.y(), player.x());
 			break;
-		case ACTION_AUTO_CENTER:
+		case Action::ACTION_AUTO_CENTER:
 			auto_center = !auto_center;
 			hud.set_auto_center(auto_center);
 			break;
-		case ACTION_DIG:
-			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
+		case Action::ACTION_DIG:
+			if(map.target_position(player.y(), player.x(), false) == Defs::CHAR_TREASURE) {
 				int loot = Loot::instance().generate_loot(player.y(), player.x());
 				score += loot;
 				hud.set_points(score);
 				stat_bar.set_status("collected loot", false);
 			}
-			act_bar.remove_action(ACTION_DIG);
+			act_bar.remove_action(Action::ACTION_DIG);
 			break;
-		case ACTION_HEAL:
+		case Action::ACTION_HEAL:
 			if(score > 30) {
 				score -= 30;
 				hud.set_points(score);
@@ -272,7 +272,7 @@ int Game::game_loop(bool from_save) {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
-		case ACTION_UPGRADE_SWIM:
+		case Action::ACTION_UPGRADE_SWIM:
 			if(score >= 20) {
 				score -= 20;
 				hud.set_points(score);
@@ -283,7 +283,7 @@ int Game::game_loop(bool from_save) {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
-		case ACTION_UPGRADE_CLIMB:
+		case Action::ACTION_UPGRADE_CLIMB:
 			if(score >= 50) {
 				score -= 50;
 				hud.set_points(score);
@@ -294,7 +294,7 @@ int Game::game_loop(bool from_save) {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
-		case ACTION_UPGRADE_ICE:
+		case Action::ACTION_UPGRADE_ICE:
 			if(score >= 30) {
 				score -= 30;
 				hud.set_points(score);
@@ -305,7 +305,7 @@ int Game::game_loop(bool from_save) {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
-		case ACTION_SAVE:
+		case Action::ACTION_SAVE:
 			Serializer& ser = Serializer::instance();
 			ser.clear();
 			ser.add_seed(seed);
@@ -326,23 +326,23 @@ int Game::game_loop(bool from_save) {
 		char target = map.target_position(player.tempy() + dy, player.tempx() + dx);
 
 		switch(target) {
-		case CHAR_TREASURE:
+		case Defs::CHAR_TREASURE:
 			can_dig = true;
 			can_move = true;
 			hurt = false;
 			break;
-		case CHAR_GRASS: case CHAR_TALLGRASS: case CHAR_EMPTY: case CHAR_FLOWER:
+		case Defs::CHAR_GRASS: case Defs::CHAR_TALLGRASS: case Defs::CHAR_EMPTY: case Defs::CHAR_FLOWER:
 			can_dig = false;
 			hurt = false;
 			can_move = true;
 			break;
-		case CHAR_ENEMY:
+		case Defs::CHAR_ENEMY:
 			can_move = false;
 			can_dig = false;
 			hurt = true;
 			break;
-		case CHAR_WATER: case CHAR_WALL: case CHAR_ICE:
-			if((player.water() && target == CHAR_WATER) || (player.climb() && target == CHAR_WALL) || (player.ice() && target == CHAR_ICE)) {
+		case Defs::CHAR_WATER: case Defs::CHAR_WALL: case Defs::CHAR_ICE:
+			if((player.water() && target == Defs::CHAR_WATER) || (player.climb() && target == Defs::CHAR_WALL) || (player.ice() && target == Defs::CHAR_ICE)) {
 				can_dig = false;
 				hurt = false;
 				can_move = true;
@@ -361,10 +361,10 @@ int Game::game_loop(bool from_save) {
 			player.set_health(player.health() - 10);
 		}
 		if(can_dig && !could_dig) {
-			act_bar.add_action(ACTION_DIG);
+			act_bar.add_action(Action::ACTION_DIG);
 		}
 		if(!can_dig && could_dig) {
-			act_bar.remove_action(ACTION_DIG);
+			act_bar.remove_action(Action::ACTION_DIG);
 		}
 
 		could_dig = can_dig;
