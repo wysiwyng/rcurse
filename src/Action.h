@@ -23,6 +23,7 @@ private:
 	bool _touched;
 
 	//const char* _text;
+	static const char * const texts[];
 public:
 	const static int ACTION_QUIT = 0;
 	const static int ACTION_START = 1;

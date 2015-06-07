@@ -17,7 +17,7 @@
 // ACTION_AUTO_CENTER 8
 // ACTION_DIG 9
 
-static char const * const texts[] = {
+char const * const Action::texts[] = {
 		"==!! QUIT !!",
 		"==START!",
 		"--LVL UP SWIM--(20 TK)",
