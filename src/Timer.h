@@ -9,6 +9,7 @@
 
 #include <thread>
 #include <vector>
+#include <unordered_set>
 #include "TimerListener.h"
 
 /**
@@ -16,7 +17,7 @@
  */
 class Timer {
 private:
-	std::vector<TimerListener*> listeners;
+	std::unordered_set<TimerListener*> listeners;
 	std::thread worker;
 
 	volatile bool _running, _stop;

@@ -44,7 +44,7 @@ void Timer::resume() {
 void Timer::do_work() {
 	while(!_stop) {
 		if(_running) {
-			for(std::vector<TimerListener*>::iterator it = listeners.begin(); it != listeners.end(); it++) {
+			for(std::unordered_set<TimerListener*>::iterator it = listeners.begin(); it != listeners.end(); it++) {
 				(**it).on_timer();
 			}
 		}
@@ -61,11 +61,11 @@ void Timer::interval(int _int) {
 }
 
 void Timer::add_listener(TimerListener *listener) {
-	listeners.push_back(listener);
+	listeners.insert(listener);
 }
 
 void Timer::remove_listener(TimerListener *listener) {
-	std::vector<TimerListener*>::iterator to_remove;
-	to_remove = std::find(listeners.begin(), listeners.end(), listener);
-	listeners.erase(to_remove);
+	//std::vector<TimerListener*>::iterator to_remove;
+	//to_remove = std::find(listeners.begin(), listeners.end(), listener);
+	listeners.erase(listener);
 }
