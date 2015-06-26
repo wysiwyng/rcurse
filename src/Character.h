@@ -6,7 +6,7 @@
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
-
+namespace rcurse {
 class Character {
 	/**
 	 * y position
@@ -219,5 +219,6 @@ public:
 	 */
 	void ice(bool val);
 };
+}
 
 #endif

@@ -11,6 +11,8 @@
 
 #include "Timer.h"
 
+namespace rcurse {
+
 Timer::Timer() :
 _running(false), _stop(false),
 _interval(20)
@@ -68,4 +70,5 @@ void Timer::remove_listener(TimerListener *listener) {
 	//std::vector<TimerListener*>::iterator to_remove;
 	//to_remove = std::find(listeners.begin(), listeners.end(), listener);
 	listeners.erase(listener);
+}
 }

@@ -17,6 +17,8 @@
 // ACTION_AUTO_CENTER 8
 // ACTION_DIG 9
 
+namespace rcurse {
+
 char const * const Action::texts[] = {
 		"==!! QUIT !!",
 		"==START!",
@@ -52,4 +54,6 @@ unsigned Action::action_no() const{
 
 const char* Action::action_text() const{
 	return texts[_no];
+}
+
 }

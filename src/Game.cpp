@@ -12,6 +12,8 @@
 #include "Loot.h"
 #include "Serializer.h"
 
+namespace rcurse {
+
 #define FACTOR_Y 0.08f
 #define FACTOR_X 0.04f
 #define TICK_RATE 200
@@ -27,7 +29,7 @@ hud(3, cols, 0, 0),
 act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
 map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
-player(Defs::CHAR_PLAYER, 0, 0, 100),
+player(CHAR_PLAYER, 0, 0, 100),
 seed(0), score(0),
 tick_rate(TICK_MS),
 auto_center(false)
@@ -183,7 +185,7 @@ int Game::game_loop(bool from_save) {
 	map.set_seed(seed);
 
 	if(!from_save) {
-		for(x = 0; map.target_position(0, x) != Defs::CHAR_EMPTY; x++);
+		for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
 
 		player.pos(0, x);
 		Character bla('E', 20, 20, 100);
@@ -253,7 +255,7 @@ int Game::game_loop(bool from_save) {
 			hud.set_auto_center(auto_center);
 			break;
 		case Action::ACTION_DIG:
-			if(map.target_position(player.y(), player.x(), false) == Defs::CHAR_TREASURE) {
+			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
 				int loot = Loot::instance().generate_loot(player.y(), player.x());
 				score += loot;
 				hud.set_points(score);
@@ -326,23 +328,23 @@ int Game::game_loop(bool from_save) {
 		char target = map.target_position(player.tempy() + dy, player.tempx() + dx);
 
 		switch(target) {
-		case Defs::CHAR_TREASURE:
+		case CHAR_TREASURE:
 			can_dig = true;
 			can_move = true;
 			hurt = false;
 			break;
-		case Defs::CHAR_GRASS: case Defs::CHAR_TALLGRASS: case Defs::CHAR_EMPTY: case Defs::CHAR_FLOWER:
+		case CHAR_GRASS: case CHAR_TALLGRASS: case CHAR_EMPTY: case CHAR_FLOWER:
 			can_dig = false;
 			hurt = false;
 			can_move = true;
 			break;
-		case Defs::CHAR_ENEMY:
+		case CHAR_ENEMY:
 			can_move = false;
 			can_dig = false;
 			hurt = true;
 			break;
-		case Defs::CHAR_WATER: case Defs::CHAR_WALL: case Defs::CHAR_ICE:
-			if((player.water() && target == Defs::CHAR_WATER) || (player.climb() && target == Defs::CHAR_WALL) || (player.ice() && target == Defs::CHAR_ICE)) {
+		case CHAR_WATER: case CHAR_WALL: case CHAR_ICE:
+			if((player.water() && target == CHAR_WATER) || (player.climb() && target == CHAR_WALL) || (player.ice() && target == CHAR_ICE)) {
 				can_dig = false;
 				hurt = false;
 				can_move = true;
@@ -402,4 +404,5 @@ void Game::on_timer() {
 	// ai actions
 
 	mtx.unlock();
+}
 }

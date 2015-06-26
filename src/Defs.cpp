@@ -8,7 +8,7 @@
 #include "Defs.h"
 #include "Loot.h"
 
-namespace Defs {
+namespace rcurse {
 
 void init_colors(){
 	init_pair(COLOR_PLAYER,COLOR_MAGENTA,COLOR_BLACK);

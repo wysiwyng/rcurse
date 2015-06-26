@@ -5,7 +5,7 @@
  */
 
 #include "Character.h"
-
+namespace rcurse {
 Character::Character(const char symbol, int y, int x, int initial_health) :
 _row(y), _col(x), _temp_row(y), _temp_col(x), _old_row(y), _old_col(x),
 _health(initial_health),
@@ -128,4 +128,5 @@ void Character::climb(bool val) {
 
 void Character::ice(bool val) {
 	_ice = val;
+}
 }

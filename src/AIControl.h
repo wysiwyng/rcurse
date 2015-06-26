@@ -7,7 +7,7 @@
 
 #ifndef AICONTROL_H_
 #define AICONTROL_H_
-
+namespace rcurse {
 class AIControl {
 private:
 	AIControl();
@@ -18,5 +18,5 @@ public:
 	virtual ~AIControl();
 
 };
-
+}
 #endif /* AICONTROL_H_ */

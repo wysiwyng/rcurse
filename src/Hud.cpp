@@ -6,7 +6,7 @@
 
 #include "Hud.h"
 #include "Defs.h"
-
+namespace rcurse {
 Hud::Hud(int nr_rows, int nr_cols, int row_0, int col_0) :
 GameWindow(nr_rows, nr_cols, row_0, col_0),
 _hp(0), _score(0), _xpos(0), _ypos(0),
@@ -71,4 +71,5 @@ void Hud::set_climb(bool val) {
 
 void Hud::set_ice(bool val) {
 	_ice = val;
+}
 }

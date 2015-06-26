@@ -10,7 +10,7 @@
 
 
 #include <functional>
-
+namespace rcurse {
 /**
  * Action class, used in the rcurse menu
  */
@@ -70,12 +70,12 @@ public:
 		return _no == other._no;
 	}
 };
-
+}
 namespace std {
 template<>
-class hash<Action> {
+class hash<rcurse::Action> {
 public:
-	size_t operator()(const Action &action) const {
+	size_t operator()(const rcurse::Action &action) const {
 		return hash<unsigned>()(action.action_no());
 	}
 };

@@ -12,6 +12,8 @@
 #include <unordered_set>
 #include "TimerListener.h"
 
+namespace rcurse {
+
 /**
  * a very basic periodic timer
  */
@@ -82,5 +84,5 @@ public:
 	void remove_listener(TimerListener *listener);
 
 };
-
+}
 #endif /* TIMER_H_ */

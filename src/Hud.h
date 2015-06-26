@@ -8,7 +8,7 @@
 #define HUD_H
 
 #include "GameWindow.h"
-
+namespace rcurse {
 class Hud : public GameWindow{
 private:
 	/**
@@ -121,5 +121,5 @@ public:
 
 	void set_ice(bool val);
 };
-
+}
 #endif

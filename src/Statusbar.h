@@ -10,6 +10,8 @@
 #include <string>
 #include "GameWindow.h"
 
+namespace rcurse {
+
 class Statusbar : public GameWindow{
 private:
 	/**
@@ -46,5 +48,5 @@ public:
 	 */
 	int read_num(std::string prompt = "");
 };
-
+}
 #endif /* STATUSBAR_H_ */

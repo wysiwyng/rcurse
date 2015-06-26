@@ -11,7 +11,7 @@
 #include <unordered_set>
 #include "Action.h"
 #include "GameWindow.h"
-
+namespace rcurse {
 class Actionbar : public GameWindow{
 private:
 	/**
@@ -94,5 +94,5 @@ public:
 	 */
 	void clear();
 };
-
+}
 #endif /* ACTIONBAR_H_ */

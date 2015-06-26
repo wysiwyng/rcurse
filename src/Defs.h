@@ -12,7 +12,7 @@
 
 
 
-namespace Defs {
+namespace rcurse {
 	const static char CHAR_PLAYER = '@';
 	const static char CHAR_ENEMY = 'E';
 

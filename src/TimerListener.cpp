@@ -7,6 +7,8 @@
 #include <chrono>
 #include "TimerListener.h"
 
+namespace rcurse {
+
 TimerListener::TimerListener(int newid) {
 	if(!newid) _id = newid;
 	else {
@@ -20,4 +22,5 @@ TimerListener::~TimerListener() {
 
 int TimerListener::id() const{
 	return _id;
+}
 }

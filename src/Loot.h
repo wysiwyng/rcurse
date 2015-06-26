@@ -11,6 +11,7 @@
 #include <vector>
 #include "Position.h"
 
+namespace rcurse {
 
 class Loot {
 private:
@@ -71,5 +72,5 @@ public:
 	 */
 	void clear();
 };
-
+}
 #endif /* LOOT_H_ */

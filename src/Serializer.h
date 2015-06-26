@@ -14,6 +14,8 @@
 #include "Character.h"
 #include "Position.h"
 
+namespace rcurse {
+
 class Serializer {
 private:
 	/**
@@ -157,5 +159,5 @@ public:
 	 */
 	std::unordered_set<position> pos_set();
 };
-
+}
 #endif /* SERIALIZER_H_ */

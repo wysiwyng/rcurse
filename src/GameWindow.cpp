@@ -5,7 +5,7 @@
  */
 
 #include "GameWindow.h"
-
+namespace rcurse {
 GameWindow::GameWindow(int nr_rows, int nr_cols, int row_0, int col_0) :
 _height(nr_rows),
 _width(nr_cols),
@@ -37,4 +37,5 @@ int GameWindow::row(){
 
 int GameWindow::col(){
 	return _col;
+}
 }

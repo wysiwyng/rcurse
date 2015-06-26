@@ -9,6 +9,8 @@
 
 #include <vector>
 
+namespace rcurse {
+
 class PerlinNoise {
 	/**
 	 * the internal permutation vector
@@ -53,5 +55,5 @@ private:
 	 */
 	void init_p_vec(unsigned int seed);
 };
-
+}
 #endif

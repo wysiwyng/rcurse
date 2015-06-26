@@ -6,7 +6,7 @@
 
 #include "Actionbar.h"
 #include "Defs.h"
-
+namespace rcurse {
 Actionbar::Actionbar(int nr_rows, int nr_cols, int row_0, int col_0) :
 GameWindow(nr_rows, nr_cols, row_0, col_0),
 _active(0)
@@ -97,13 +97,14 @@ void Actionbar::refresh() {
 		else tmp_row = r++;
 
 		if(_active == i) {
-			wattron(_w, COLOR_PAIR(Defs::COLOR_HIGHLIGHT) | A_BOLD);
+			wattron(_w, COLOR_PAIR(COLOR_HIGHLIGHT) | A_BOLD);
 			mvwprintw(_w, tmp_row, 1, ">> %-24s <<", _actions[i].action_text());
-			wattroff(_w, COLOR_PAIR(Defs::COLOR_HIGHLIGHT) | A_BOLD);
+			wattroff(_w, COLOR_PAIR(COLOR_HIGHLIGHT) | A_BOLD);
 		}
 		else {
 			mvwprintw(_w, tmp_row, 1, "   %-24s   ", _actions[i].action_text());
 		}
 	}
 	wrefresh(_w);
+}
 }

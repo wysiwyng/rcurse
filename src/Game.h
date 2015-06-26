@@ -17,6 +17,8 @@
 #include "Timer.h"
 #include "TimerListener.h"
 
+namespace rcurse {
+
 class Game : public TimerListener {
 private:
 	/**
@@ -143,5 +145,5 @@ public:
 
 	void on_timer();
 };
-
+}
 #endif /* GAME_H_ */

@@ -5,7 +5,7 @@
  */
 
 #include "Loot.h"
-
+namespace rcurse {
 Loot::Loot() { }
 
 Loot::~Loot() { }
@@ -37,4 +37,5 @@ void Loot::add_positions(std::unordered_set<position> pos) {
 
 void Loot::clear() {
 	positions.clear();
+}
 }

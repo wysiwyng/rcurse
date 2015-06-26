@@ -6,7 +6,7 @@
  */
 
 #include "AIControl.h"
-
+namespace rcurse {
 AIControl::AIControl() {
 	// TODO Auto-generated constructor stub
 
@@ -19,4 +19,5 @@ AIControl::~AIControl() {
 AIControl& AIControl::instance() {
 	static AIControl _instance;
 	return _instance;
+}
 }

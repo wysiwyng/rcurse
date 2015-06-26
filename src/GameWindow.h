@@ -8,7 +8,7 @@
 #define GAMEWINDOW_H_
 
 #include <curses.h>
-
+namespace rcurse {
 class GameWindow {
 protected:
 	/**
@@ -93,5 +93,5 @@ public:
 	 */
 	virtual void refresh() = 0;
 };
-
+}
 #endif /* GAMEWINDOW_H_ */

@@ -12,6 +12,8 @@
 #include <numeric>
 #include "PerlinNoise.h"
 
+namespace rcurse {
+
 PerlinNoise::PerlinNoise() {
 	init_p_vec(std::chrono::system_clock::now().time_since_epoch().count());
 }
@@ -73,4 +75,5 @@ double PerlinNoise::grad(int hash, double x, double y, double z) {
 	double u = h < 8 ? x : y,
 		   v = h < 4 ? y : h == 12 || h == 14 ? x : z;
 	return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
+}
 }

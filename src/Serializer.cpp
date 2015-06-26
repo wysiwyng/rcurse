@@ -11,6 +11,8 @@
 #include <ctime>
 #include "Serializer.h"
 
+namespace rcurse {
+
 Serializer::Serializer() :
 _player('@', 0, 0, 0),
 _seed(0),
@@ -186,4 +188,5 @@ std::vector<Character> Serializer::char_vec() {
 
 std::unordered_set<position> Serializer::pos_set() {
 	return _positions;
+}
 }

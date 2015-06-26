@@ -13,6 +13,8 @@
 #include "Defs.h"
 #include "GameWindow.h"
 
+namespace rcurse {
+
 class Map : public GameWindow{
 private:
 	/**
@@ -180,5 +182,5 @@ public:
 	 */
 	void set_seed(unsigned int seed);
 };
-
+}
 #endif /* MAP_H_ */

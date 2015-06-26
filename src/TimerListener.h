@@ -10,6 +10,8 @@
 
 #include <functional>
 
+namespace rcurse {
+
 class TimerListener {
 public:
 	/**
@@ -45,15 +47,15 @@ private:
 	 */
 	int _id;
 };
-
+}
 /**
  * a hash function for a TimerListener
  */
 namespace std {
 template<>
-class hash<TimerListener> {
+class hash<rcurse::TimerListener> {
 public:
-	size_t operator()(const TimerListener &listener) const {
+	size_t operator()(const rcurse::TimerListener &listener) const {
 		return hash<int>()(listener.id());
 	}
 };

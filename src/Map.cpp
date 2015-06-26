@@ -11,6 +11,7 @@
 #include "lookup.h"
 #include "Loot.h"
 
+namespace rcurse {
 //different world generation algorithms, array seems to be the fastest
 //#define DOUBLE
 //#define INT
@@ -44,7 +45,7 @@ char Map::gen_from_perlin(int _ypos, int _xpos) {
 #ifdef ARRAY
 	int m = n * 9999;
 	char temp = tiles[m];
-	if(temp == Defs::CHAR_TREASURE) if(Loot::instance().digged(_ypos, _xpos)) return Defs::CHAR_GRASS;
+	if(temp == CHAR_TREASURE) if(Loot::instance().digged(_ypos, _xpos)) return CHAR_GRASS;
 	return temp;
 #endif
 #ifdef INT
@@ -114,7 +115,7 @@ void Map::init(int _row, int _col) {
 	for(int i = 0; i < _height; i++) {
 		for(int j = 0; j < _width; j++) {
 			int chr = gen_from_perlin(i + orig_y, j + orig_x);
-			Defs::set_color(_w, chr);
+			set_color(_w, chr);
 			mvwaddch(_w, i, j, chr);
 		}
 	}
@@ -140,7 +141,7 @@ void Map::move_fast(int _dy, int _dx) {
 		for(int j = 0; j < _width; j++) {
 			int temp = _dy > 0 ? orig_y + _height - 1 - i : orig_y + i;
 			char chr = this->gen_from_perlin(temp, orig_x + j);
-			Defs::set_color(_w, chr);
+			set_color(_w, chr);
 			mvwaddch(_w, temp - orig_y, j, chr);
 		}
 	}
@@ -148,7 +149,7 @@ void Map::move_fast(int _dy, int _dx) {
 		for(int j = 0; j < _height; j++) {
 			int temp = _dx > 0 ? orig_x + _width - 1 - i : orig_x + i;
 			int chr = this->gen_from_perlin(orig_y + j, temp);
-			Defs::set_color(_w, chr);
+			set_color(_w, chr);
 			mvwaddch(_w, j, temp - orig_x, chr);
 		}
 	}
@@ -168,7 +169,7 @@ void Map::scroll_map(int dy, int dx) {
 	for(int i = 0; i < _height - _dy; i++) {
 		for(int j = 0; j < _width - _dx; j++) {
 			char chr = mvwinch(_w, dy >= 0 ? i + dy : _height - i - _dy - 1, dx >= 0 ? j + dx : _width - j - _dx - 1);
-			Defs::set_color(_w, chr);
+			set_color(_w, chr);
 			mvwaddch(_w, dy >= 0 ? i : _height - i - 1, dx >= 0 ? j : _width - j - 1, chr);
 		}
 	}
@@ -186,7 +187,7 @@ void Map::refresh() {
 
 		if((**it).oldx() >= orig_x && (**it).oldy() >= orig_y && (**it).oldx() < orig_x + _width && (**it).oldy() < orig_y + _height) {
 			char chr = this->gen_from_perlin((**it).oldy(), (**it).oldx());
-			Defs::set_color(_w, chr);
+			set_color(_w, chr);
 			mvwaddch(_w, (**it).oldy() - orig_y, (**it).oldx() - orig_x, chr);
 			_needs_refresh = true;
 		}
@@ -194,7 +195,7 @@ void Map::refresh() {
 		if(!(**it).is_visible() && !(**it).needs_redraw()) continue;
 
 		if((**it).x() >= orig_x && (**it).y() >= orig_y && (**it).x() < orig_x + _width && (**it).y() < orig_y + _height) {
-			Defs::set_color(_w, (**it).symbol());
+			set_color(_w, (**it).symbol());
 			mvwaddch(_w, (**it).y() - orig_y, (**it).x() - orig_x, (**it).symbol());
 			_needs_refresh = true;
 			(**it).reset_redraw();
@@ -217,7 +218,7 @@ void Map::add(std::vector<Character>* x) {
 char Map::target_position(int _col, int _row, bool with_characters) {
 	if(with_characters) {
 		for(std::vector<Character*>::iterator it = characters.begin(); it != characters.end(); it++) {
-			if((**it).symbol() == Defs::CHAR_PLAYER) continue;
+			if((**it).symbol() == CHAR_PLAYER) continue;
 			if((**it).y() == _col && (**it).x() == _row) return (**it).symbol();
 		}
 	}
@@ -226,4 +227,5 @@ char Map::target_position(int _col, int _row, bool with_characters) {
 
 void Map::set_seed(unsigned int seed) {
 	pn.set_seed(seed);
+}
 }

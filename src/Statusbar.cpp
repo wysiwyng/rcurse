@@ -6,6 +6,8 @@
 
 #include "Statusbar.h"
 
+namespace rcurse {
+
 Statusbar::Statusbar(int nr_rows, int nr_cols, int row_0, int col_0) :
 GameWindow(nr_rows, nr_cols, row_0, col_0),
 _text("")
@@ -55,4 +57,5 @@ int Statusbar::read_num(std::string prompt) {
 	}
 
 	return atoi(_text.c_str());
+}
 }
