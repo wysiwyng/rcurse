@@ -62,6 +62,10 @@ void Serializer::add_seed(unsigned int seed) {
 }
 
 int Serializer::save() {
+	return save(-1);
+}
+
+int Serializer::save(int slot) {
 	time_t now = time(0);
 	struct tm tstruct = *localtime(&now);
 	char buf[80];
@@ -111,15 +115,17 @@ int Serializer::save() {
 	}
 	save_game.append_attribute("date") = buf;
 	//doc.print(std::cerr);
-
-	int i = 0;
-	for(i = 0; i < 1000; i++) {
-		sprintf(buf, "rsave-%04d.xml", i);
-		std::ifstream file(buf);
-		if(!file.good()) break;
+	
+	if(slot == -1) {
+		for(slot = 0; slot < 1000; slot++) {
+			sprintf(buf, "rsave-%04d.xml", slot);
+			std::ifstream file(buf);
+			if(!file.good()) break;
+		}
 	}
+	sprintf(buf, "rsave-%04d.xml", slot);
 	_doc.save_file(buf);
-	return i;
+	return slot;	
 }
 
 void Serializer::clear() {

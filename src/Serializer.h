@@ -121,6 +121,10 @@ public:
 	 * saves the gamedata to filesystem
 	 */
 	int save();
+	/**
+	 * saves the gamedata to specified slot
+	 */
+	int save(int slot);
 
 	/**
 	 * clears everything

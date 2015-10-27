@@ -315,7 +315,8 @@ int Game::game_loop(bool from_save) {
 			ser.add_character(&enemies);
 			ser.add_loot_pos(Loot::instance().save_positions());
 			ser.add_score(score);
-			int no = ser.save();
+			int no = stat_bar.read_num("Enter save number>");
+			no = ser.save(no);
 			if(no == -1) stat_bar.set_status("saving failed!");
 			else {
 				char buf[80];
