@@ -4,8 +4,8 @@
  * @author wysiwyng
  */
 
-#include "Hud.h"
-#include "Defs.h"
+#include "Hud.hpp"
+#include "Defs.hpp"
 namespace rcurse {
 Hud::Hud(int nr_rows, int nr_cols, int row_0, int col_0) :
 GameWindow(nr_rows, nr_cols, row_0, col_0),

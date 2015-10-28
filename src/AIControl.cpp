@@ -5,7 +5,7 @@
  *      Author: wysiwyng
  */
 
-#include "AIControl.h"
+#include "AIControl.hpp"
 namespace rcurse {
 AIControl::AIControl() {
 	// TODO Auto-generated constructor stub

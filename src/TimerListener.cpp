@@ -5,7 +5,7 @@
  *      Author: wysiwyng
  */
 #include <chrono>
-#include "TimerListener.h"
+#include "TimerListener.hpp"
 
 namespace rcurse {
 

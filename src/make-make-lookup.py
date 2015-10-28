@@ -1,9 +1,9 @@
-infile = open("lookup.h", "r")
+infile = open("lookup.hpp", "r")
 outfile = open("make-lookup.py", "w")
 
 old = infile.readline()
 count = 0
-outfile.write("f = open('lookup.h', 'w')\n")
+outfile.write("f = open('lookup.hpp', 'w')\n")
 
 for line in infile:
     count += 1

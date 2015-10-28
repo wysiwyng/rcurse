@@ -6,8 +6,8 @@
 
 #include <curses.h>
 
-#include "Game.h"
-#include "Defs.h"
+#include "Game.hpp"
+#include "Defs.hpp"
 
 /**
  * main entrypoint

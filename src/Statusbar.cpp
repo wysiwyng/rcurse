@@ -4,7 +4,7 @@
  * @author wysiwyng
  */
 
-#include "Statusbar.h"
+#include "Statusbar.hpp"
 
 namespace rcurse {
 

@@ -4,7 +4,7 @@
  * @author wysiwyng
  */
 
-#include "Character.h"
+#include "Character.hpp"
 namespace rcurse {
 Character::Character(const char symbol, int y, int x, int initial_health) :
 _row(y), _col(x), _temp_row(y), _temp_col(x), _old_row(y), _old_col(x),

@@ -4,8 +4,8 @@
  * @author wysiwyng
  */
 
-#include "Actionbar.h"
-#include "Defs.h"
+#include "Actionbar.hpp"
+#include "Defs.hpp"
 namespace rcurse {
 Actionbar::Actionbar(int nr_rows, int nr_cols, int row_0, int col_0) :
 GameWindow(nr_rows, nr_cols, row_0, col_0),

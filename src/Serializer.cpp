@@ -1,5 +1,5 @@
 /*
- * Serializer.h
+ * Serializer.hpp
  * a serializer class to save and load game data to xml
  *  Created on: Apr 17, 2015
  *  @author: wysiwyng
@@ -9,7 +9,7 @@
 #include <fstream>
 #include <chrono>
 #include <ctime>
-#include "Serializer.h"
+#include "Serializer.hpp"
 
 namespace rcurse {
 

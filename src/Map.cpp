@@ -6,10 +6,10 @@
 
 #include <cmath>
 #include <chrono>
-#include "Map.h"
-#include "PerlinNoise.h"
+#include "Map.hpp"
+#include "PerlinNoise.hpp"
 #include "lookup.h"
-#include "Loot.h"
+#include "Loot.hpp"
 
 namespace rcurse {
 //different world generation algorithms, array seems to be the fastest

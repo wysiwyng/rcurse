@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <chrono>
 #include <numeric>
-#include "PerlinNoise.h"
+#include "PerlinNoise.hpp"
 
 namespace rcurse {
 

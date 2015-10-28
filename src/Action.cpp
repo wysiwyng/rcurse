@@ -4,7 +4,7 @@
  * @author wysiwyng
  */
 
-#include "Action.h"
+#include "Action.hpp"
 
 //ACTION_QUIT 0
 //ACTION_START 1

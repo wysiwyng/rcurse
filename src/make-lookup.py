@@ -1,4 +1,4 @@
-f = open('lookup.h', 'w')
+f = open('lookup.hpp', 'w')
 for i in range(1):
     f.write("static const char tiles[] = {\n")
 for i in range(3400):

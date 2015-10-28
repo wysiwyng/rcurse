@@ -4,7 +4,7 @@
  * @author wysiwyng
  */
 
-#include "Loot.h"
+#include "Loot.hpp"
 namespace rcurse {
 Loot::Loot() { }
 

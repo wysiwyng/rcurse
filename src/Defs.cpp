@@ -5,8 +5,8 @@
  */
 
 #include <curses.h>
-#include "Defs.h"
-#include "Loot.h"
+#include "Defs.hpp"
+#include "Loot.hpp"
 
 namespace rcurse {
 

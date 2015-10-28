@@ -6,11 +6,11 @@
 
 #include <chrono>
 #include <iostream>
-#include "Game.h"
-#include "Character.h"
-#include "Defs.h"
-#include "Loot.h"
-#include "Serializer.h"
+#include "Game.hpp"
+#include "Character.hpp"
+#include "Defs.hpp"
+#include "Loot.hpp"
+#include "Serializer.hpp"
 
 namespace rcurse {
 
@@ -18,6 +18,7 @@ namespace rcurse {
 #define FACTOR_X 0.04f
 #define TICK_RATE 200
 #define TICK_MS 1000 / TICK_RATE
+#define ACTION_RATE 10
 
 Game::Game(int rows, int cols, int _actionbar_size) :
 height(rows),
@@ -32,8 +33,10 @@ map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
 player(CHAR_PLAYER, 0, 0, 100),
 seed(0), score(0),
 tick_rate(TICK_MS),
+action_counter(0),
 auto_center(false)
 {
+	movement = {0,0,0};
 	stat_bar.set_status("Early init");
 
 	WINDOW *viewport_border = newwin(viewport_rows + 2, viewport_cols + 2, 3, actionbar_size + 2);
@@ -358,7 +361,10 @@ int Game::game_loop(bool from_save) {
 			hurt = false;
 		}
 
-		if(can_move) player.move(dy, dx);
+		if(can_move) {
+			movement.dy = dy;
+			movement.dx = dx;
+		}
 		if(hurt) {
 			stat_bar.set_status("ouch!", false);
 			player.set_health(player.health() - 10);
@@ -395,7 +401,15 @@ int Game::game_loop(bool from_save) {
 
 void Game::on_timer() {
 	mtx.lock();
-	player.update();
+	if(action_counter > TICK_RATE / ACTION_RATE) {
+		action_counter = 0;
+		player.move(movement.dy, movement.dx);
+		player.update();
+		movement.dy = 0;
+		movement.dx = 0;
+		movement.sprint = 0;
+	} else action_counter++;
+
 	if(auto_center) map.center(player.y(), player.x());
 	hud.set_pos(player.x(), player.y());
 	map.refresh();

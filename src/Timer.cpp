@@ -9,7 +9,7 @@
 #include <chrono>
 #include <algorithm>
 
-#include "Timer.h"
+#include "Timer.hpp"
 
 namespace rcurse {
 
