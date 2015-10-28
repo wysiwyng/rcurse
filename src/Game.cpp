@@ -19,6 +19,7 @@ namespace rcurse {
 #define TICK_RATE 200
 #define TICK_MS 1000 / TICK_RATE
 #define ACTION_RATE 10
+#define RUN_RATE 20
 
 Game::Game(int rows, int cols, int _actionbar_size) :
 height(rows),
@@ -33,7 +34,8 @@ map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
 player(CHAR_PLAYER, 0, 0, 100),
 seed(0), score(0),
 tick_rate(TICK_MS),
-action_counter(0),
+walk_counter(0),
+run_counter(0),
 auto_center(false)
 {
 	movement = {0,0,0};
@@ -222,16 +224,16 @@ int Game::game_loop(bool from_save) {
 		int act = -1;
 
 		switch(ch) {
-		case 'a':
+		case 'a': case 'A':
 			dx = -1;
 			break;
-		case 'd':
+		case 'd': case 'D':
 			dx = 1;
 			break;
-		case 'w':
+		case 'w': case 'W':
 			dy = -1;
 			break;
-		case 's':
+		case 's': case 'S':
 			dy = 1;
 			break;
 		case KEY_UP:
@@ -244,6 +246,10 @@ int Game::game_loop(bool from_save) {
 			act = act_bar.get_action().action_no();
 			break;
 		}
+		
+		if(ch == 'A' || ch == 'D' || ch == 'S' || ch == 'W')
+			movement.sprint = true;
+		else movement.sprint = false;
 
 		switch(act) {
 		case Action::ACTION_QUIT:
@@ -401,14 +407,21 @@ int Game::game_loop(bool from_save) {
 
 void Game::on_timer() {
 	mtx.lock();
-	if(action_counter > TICK_RATE / ACTION_RATE) {
-		action_counter = 0;
+	if(walk_counter > TICK_RATE / ACTION_RATE && movement.sprint == false) {
+		walk_counter = 0;
 		player.move(movement.dy, movement.dx);
 		player.update();
 		movement.dy = 0;
 		movement.dx = 0;
-		movement.sprint = 0;
-	} else action_counter++;
+	} else walk_counter++;
+
+	if(run_counter > TICK_RATE / RUN_RATE && movement.sprint == true) {
+		run_counter = 0;
+		player.move(movement.dy, movement.dx);
+		player.update();
+		movement.dy = 0;
+		movement.dx = 0;
+	} else run_counter++;
 
 	if(auto_center) map.center(player.y(), player.x());
 	hud.set_pos(player.x(), player.y());
