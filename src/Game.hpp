@@ -72,21 +72,6 @@ private:
 	Character player;
 
 	/**
-	 * the seed used for map generation
-	 */
-	unsigned int seed;
-
-	/**
-	 * the score
-	 */
-	int score;
-
-	/**
-	 * the refresh rate in millisecends
-	 */
-	unsigned int tick_rate;
-	
-	/**
 	 * the scaling counter for walking
 	 */
 	unsigned int walk_counter;
@@ -101,11 +86,8 @@ private:
 		int dx;
 		bool sprint;
 	} movement;
-		
-	/**
-	 * auto center on/off
-	 */
-	bool auto_center;
+
+	game_options_t game_options;
 
 	/**
 	 * a mutex to avoid rendering issues

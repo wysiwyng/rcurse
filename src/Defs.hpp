@@ -39,6 +39,13 @@ namespace rcurse {
 	const static int COLOR_FLOWER = 8;
 
 	const static int COLOR_HUD = 6;
+
+	struct game_options_t {
+		int score;
+		bool auto_center;
+		unsigned int seed;
+		unsigned int tick_rate;
+	};
 	/**
 	 * initializes color pairs
 	 */

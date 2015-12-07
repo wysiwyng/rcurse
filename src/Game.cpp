@@ -32,12 +32,13 @@ act_bar(rows - 6, _actionbar_size + 2, 3, 0),
 stat_bar(3, _actionbar_size + 2, rows - 3, 0),
 map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
 player(CHAR_PLAYER, 0, 0, 100),
-seed(0), score(0),
-tick_rate(TICK_MS),
 walk_counter(0),
-run_counter(0),
-auto_center(false)
+run_counter(0)
 {
+	game_options.seed = 0;
+	game_options.score = 0;
+	game_options.tick_rate = TICK_MS;
+	game_options.auto_center = false;
 	movement = {0,0,0};
 	stat_bar.set_status("Early init");
 
@@ -47,7 +48,8 @@ auto_center(false)
 
 	wrefresh(viewport_border);
 
-	hud.set_fps(1000 / tick_rate);
+	hud.add_game_options(&game_options);
+	hud.add_player(&player);
 
 	hud.refresh();
 	act_bar.refresh();
@@ -99,8 +101,8 @@ int Game::main_menu() {
 			if(!ser.read(buf)) stat_bar.set_status("error loading save!");
 			else {
 				stat_bar.set_status("last save loaded");
-				seed = ser.seed();
-				score = ser.score();
+				game_options.seed = ser.seed();
+				game_options.score = ser.score();
 				player = ser.player();
 				enemies = ser.char_vec();
 				Loot::instance().add_positions(ser.pos_set());
@@ -147,17 +149,17 @@ int Game::settings() {
 
 		if(act == Action::ACTION_QUIT) ret_code = 0;
 		else if(act == Action::ACTION_SEED) {
-			seed = stat_bar.read_num("Enter Seed:");
+			game_options.seed = stat_bar.read_num("Enter Seed:");
 			char temp[30];
-			sprintf(temp, "Seed: %d", seed);
+			sprintf(temp, "Seed: %d", game_options.seed);
 			stat_bar.set_status(temp);
 		}
 		else if(act == Action::ACTION_TICKRATE) {
-			tick_rate = stat_bar.read_num("Enter FPS:");
+			game_options.tick_rate = stat_bar.read_num("Enter FPS:");
 			char temp[30];
-			sprintf(temp, "FPS: %d", tick_rate);
+			sprintf(temp, "FPS: %d", game_options.tick_rate);
 			stat_bar.set_status(temp);
-			tick_rate = 1000 / tick_rate;
+			game_options.tick_rate = 1000 / game_options.tick_rate;
 		}
 
 		act_bar.refresh();
@@ -175,7 +177,7 @@ int Game::game_loop(bool from_save) {
 	Timer t;
 
 	t.add_listener(this);
-	t.interval(tick_rate);
+	t.interval(game_options.tick_rate);
 
 	act_bar.add_action(Action::ACTION_CENTER);
 	act_bar.add_action(Action::ACTION_AUTO_CENTER);
@@ -184,10 +186,10 @@ int Game::game_loop(bool from_save) {
 
 	for(int i = 2; i <= 6; i++) act_bar.add_action(i);
 
-	if(seed == 0) seed = std::chrono::system_clock::now().time_since_epoch().count();
+	if(game_options.seed == 0) game_options.seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-	hud.set_seed(seed);
-	map.set_seed(seed);
+	//hud.set_seed(seed);
+	map.set_seed(game_options.seed);
 
 	if(!from_save) {
 		for(x = 0; map.target_position(0, x) != CHAR_EMPTY; x++);
@@ -202,13 +204,14 @@ int Game::game_loop(bool from_save) {
 	map.add(&player);
 	map.add(&enemies);
 
+	/*
 	hud.set_fps(1000 / tick_rate);
 	hud.set_pos(player.x(), player.y());
 	hud.set_points(score);
 	hud.set_climb(player.climb());
 	hud.set_ice(player.ice());
 	hud.set_swim(player.water());
-
+	*/
 	stat_bar.set_status("idle", false);
 
 	on_timer();
@@ -260,58 +263,58 @@ int Game::game_loop(bool from_save) {
 			map.center(player.y(), player.x());
 			break;
 		case Action::ACTION_AUTO_CENTER:
-			auto_center = !auto_center;
-			hud.set_auto_center(auto_center);
+			game_options.auto_center = !game_options.auto_center;
+			//hud.set_auto_center(auto_center);
 			break;
 		case Action::ACTION_DIG:
 			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
 				int loot = Loot::instance().generate_loot(player.y(), player.x());
-				score += loot;
-				hud.set_points(score);
+				game_options.score += loot;
+				//hud.set_points(score);
 				stat_bar.set_status("collected loot", false);
 			}
 			act_bar.remove_action(Action::ACTION_DIG);
 			break;
 		case Action::ACTION_HEAL:
-			if(score > 30) {
-				score -= 30;
-				hud.set_points(score);
+			if(game_options.score > 30) {
+				game_options.score -= 30;
+				//hud.set_points(score);
 				player.set_health(player.health() + 50);
-				hud.set_hp(player.health());
+				//hud.set_hp(player.health());
 				stat_bar.set_status("gained 50 hp");
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
 		case Action::ACTION_UPGRADE_SWIM:
-			if(score >= 20) {
-				score -= 20;
-				hud.set_points(score);
+			if(game_options.score >= 20) {
+				game_options.score -= 20;
+				//hud.set_points(score);
 				player.water(true);
 				stat_bar.set_status("you can now swim!");
-				hud.set_swim(true);
+				//hud.set_swim(true);
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
 		case Action::ACTION_UPGRADE_CLIMB:
-			if(score >= 50) {
-				score -= 50;
-				hud.set_points(score);
+			if(game_options.score >= 50) {
+				game_options.score -= 50;
+				//hud.set_points(score);
 				player.climb(true);
 				stat_bar.set_status("you can now climb mountains!");
-				hud.set_climb(true);
+				//hud.set_climb(true);
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
 			break;
 		case Action::ACTION_UPGRADE_ICE:
-			if(score >= 30) {
-				score -= 30;
-				hud.set_points(score);
+			if(game_options.score >= 30) {
+				game_options.score -= 30;
+				//hud.set_points(score);
 				player.ice(true);
 				stat_bar.set_status("you can now go over ice!");
-				hud.set_ice(true);
+				//hud.set_ice(true);
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
@@ -319,11 +322,11 @@ int Game::game_loop(bool from_save) {
 		case Action::ACTION_SAVE:
 			Serializer& ser = Serializer::instance();
 			ser.clear();
-			ser.add_seed(seed);
+			ser.add_seed(game_options.seed);
 			ser.add_player(player);
 			ser.add_character(&enemies);
 			ser.add_loot_pos(Loot::instance().save_positions());
-			ser.add_score(score);
+			ser.add_score(game_options.score);
 			int no = stat_bar.read_num("Enter save number>");
 			no = ser.save(no);
 			if(no == -1) stat_bar.set_status("saving failed!");
@@ -390,14 +393,14 @@ int Game::game_loop(bool from_save) {
 			getch();
 		}
 
-		hud.set_hp(player.health());
+		//hud.set_hp(player.health());
 
 		mtx.unlock();
 	}
 	t.stop();
 	act_bar.clear();
-	seed = 0;
-	score = 0;
+	game_options.seed = 0;
+	game_options.score = 0;
 	enemies.clear();
 	Loot::instance().clear();
 	player.pos(0, 0);
@@ -423,8 +426,8 @@ void Game::on_timer() {
 		movement.dx = 0;
 	} else run_counter++;
 
-	if(auto_center) map.center(player.y(), player.x());
-	hud.set_pos(player.x(), player.y());
+	if(game_options.auto_center) map.center(player.y(), player.x());
+	//hud.set_pos(player.x(), player.y());
 	map.refresh();
 	stat_bar.refresh();
 	hud.refresh();
