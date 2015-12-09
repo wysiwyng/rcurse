@@ -89,8 +89,8 @@ OBJS_RELEASE_SDL += \
 ./release-sdl/pugixml/src/pugixml.o
 
 LIBS := -lncurses -lpthread
-LIBS_SDL_DBG := -lSDL -lpdcurses_d -lpthread
-LIBS_SDL := -lSDL -lpdcurses -lpthread
+LIBS_SDL_DBG := -lX11 -lSDL -lpdcurses_d -lpthread
+LIBS_SDL := -lX11 -lSDL -lpdcurses -lpthread
 
 all: debug-linux release-linux debug-sdl release-sdl
 
@@ -153,7 +153,7 @@ release-linux/pugixml/src/%.o: ./pugixml/src/%.cpp
 debug-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -Wextra -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O0 -g3 -Wall -DSDL -Wextra -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
@@ -167,7 +167,7 @@ debug-sdl/pugixml/src/%.o: ./pugixml/src/%.cpp
 release-sdl/src/%.o: ./src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O2 -g0 -Wall -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
+	$(CXX) -I"./pugixml/src" -I"./pdcurses/sdl" -O2 -g0 -Wall -DSDL -c -fmessage-length=0 -std=c++11 -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

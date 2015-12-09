@@ -5,6 +5,7 @@
  */
 
 #include <curses.h>
+#include <X11/Xlib.h>
 
 #include "Game.hpp"
 #include "Defs.hpp"
@@ -13,6 +14,9 @@
  * main entrypoint
  */
 int main() {
+	#ifdef SDL
+	XInitThreads();
+	#endif
 	initscr();
 	clear();
 	noecho();
@@ -21,6 +25,9 @@ int main() {
 	curs_set(0);
 
 	int _height, _width;
+	#ifdef SDL
+	resize_term(48, 160);
+	#endif
 	getmaxyx(stdscr, _height, _width);
 	start_color();
 	rcurse::init_colors();
