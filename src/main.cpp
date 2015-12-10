@@ -5,7 +5,9 @@
  */
 
 #include <curses.h>
+#ifdef SDL
 #include <X11/Xlib.h>
+#endif
 
 #include "Game.hpp"
 #include "Defs.hpp"
