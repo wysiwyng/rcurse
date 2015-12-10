@@ -28,8 +28,8 @@ void Hud::add_player(Character * player) {
 }
 
 void Hud::refresh() {
-	if(!_needs_refresh) return;
-	_needs_refresh = false;
+	//if(!_needs_refresh) return;
+	//_needs_refresh = false;
 	mvwprintw(_w, 1, 2, "[HP:%03d] [PTS:%04d] [%04dx%04dy] [%4s] [FPS:%03d] [SEED:%10u], [%1s%1s%1s]", _player->health(), _game_options->score, _player->x(), _player->y(), _game_options->auto_center ? "AUTO" : "MAN", 1000 / _game_options->tick_rate, _game_options->seed, _player->water() ? "S" : " ", _player->climb() ? "C" : " ", _player->ice() ? "I" : " ");
 	wrefresh(_w);
 }

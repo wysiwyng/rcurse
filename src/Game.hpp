@@ -85,7 +85,7 @@ private:
 		int dy;
 		int dx;
 		bool sprint;
-	} movement;
+	} movement, old_movement;
 
 	game_options_t game_options;
 
@@ -103,6 +103,7 @@ private:
 	 * renders everything
 	 */
 	void render();
+	void do_move();
 
 public:
 	const static int RET_CONTINUE = -1;

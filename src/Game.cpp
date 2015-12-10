@@ -28,9 +28,9 @@ viewport_cols(width - _actionbar_size - 4),
 viewport_rows(height - 5),
 actionbar_size(_actionbar_size),
 hud(3, cols, 0, 0),
-act_bar(rows - 6, _actionbar_size + 2, 3, 0),
-stat_bar(3, _actionbar_size + 2, rows - 3, 0),
-map(4, actionbar_size + 3, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
+act_bar(rows - 6, _actionbar_size + 2, 3, cols - _actionbar_size - 2),
+stat_bar(3, _actionbar_size + 2, rows - 3, cols - _actionbar_size - 2),
+map(4, 1, viewport_rows, viewport_cols, FACTOR_Y, FACTOR_X),
 player(CHAR_PLAYER, 0, 0, 100),
 walk_counter(0),
 run_counter(0)
@@ -42,7 +42,7 @@ run_counter(0)
 	movement = {0,0,0};
 	stat_bar.set_status("Early init");
 
-	WINDOW *viewport_border = newwin(viewport_rows + 2, viewport_cols + 2, 3, actionbar_size + 2);
+	WINDOW *viewport_border = newwin(viewport_rows + 2, viewport_cols + 2, 3, 0);
 	wattrset(viewport_border, A_BOLD);
 	box(viewport_border, 0, 0);
 
@@ -188,7 +188,6 @@ int Game::game_loop(bool from_save) {
 
 	if(game_options.seed == 0) game_options.seed = std::chrono::system_clock::now().time_since_epoch().count();
 
-	//hud.set_seed(seed);
 	map.set_seed(game_options.seed);
 
 	if(!from_save) {
@@ -204,14 +203,6 @@ int Game::game_loop(bool from_save) {
 	map.add(&player);
 	map.add(&enemies);
 
-	/*
-	hud.set_fps(1000 / tick_rate);
-	hud.set_pos(player.x(), player.y());
-	hud.set_points(score);
-	hud.set_climb(player.climb());
-	hud.set_ice(player.ice());
-	hud.set_swim(player.water());
-	*/
 	stat_bar.set_status("idle", false);
 
 	on_timer();
@@ -264,13 +255,11 @@ int Game::game_loop(bool from_save) {
 			break;
 		case Action::ACTION_AUTO_CENTER:
 			game_options.auto_center = !game_options.auto_center;
-			//hud.set_auto_center(auto_center);
 			break;
 		case Action::ACTION_DIG:
 			if(map.target_position(player.y(), player.x(), false) == CHAR_TREASURE) {
 				int loot = Loot::instance().generate_loot(player.y(), player.x());
 				game_options.score += loot;
-				//hud.set_points(score);
 				stat_bar.set_status("collected loot", false);
 			}
 			act_bar.remove_action(Action::ACTION_DIG);
@@ -278,9 +267,7 @@ int Game::game_loop(bool from_save) {
 		case Action::ACTION_HEAL:
 			if(game_options.score > 30) {
 				game_options.score -= 30;
-				//hud.set_points(score);
 				player.set_health(player.health() + 50);
-				//hud.set_hp(player.health());
 				stat_bar.set_status("gained 50 hp");
 			} else {
 				stat_bar.set_status("not enough points!");
@@ -289,10 +276,8 @@ int Game::game_loop(bool from_save) {
 		case Action::ACTION_UPGRADE_SWIM:
 			if(game_options.score >= 20) {
 				game_options.score -= 20;
-				//hud.set_points(score);
 				player.water(true);
 				stat_bar.set_status("you can now swim!");
-				//hud.set_swim(true);
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
@@ -311,10 +296,8 @@ int Game::game_loop(bool from_save) {
 		case Action::ACTION_UPGRADE_ICE:
 			if(game_options.score >= 30) {
 				game_options.score -= 30;
-				//hud.set_points(score);
 				player.ice(true);
 				stat_bar.set_status("you can now go over ice!");
-				//hud.set_ice(true);
 			} else {
 				stat_bar.set_status("not enough points!");
 			}
@@ -393,8 +376,6 @@ int Game::game_loop(bool from_save) {
 			getch();
 		}
 
-		//hud.set_hp(player.health());
-
 		mtx.unlock();
 	}
 	t.stop();
@@ -408,26 +389,37 @@ int Game::game_loop(bool from_save) {
 	return 0;
 }
 
+void Game::do_move() {
+	old_movement.dx = movement.dx;
+	old_movement.dy = movement.dy;
+	player.move(movement.dy, movement.dx);
+	movement.dy = 0;
+	movement.dx = 0;
+	player.update();
+}
+
 void Game::on_timer() {
 	mtx.lock();
-	if(walk_counter > TICK_RATE / ACTION_RATE && movement.sprint == false) {
-		walk_counter = 0;
-		player.move(movement.dy, movement.dx);
-		player.update();
-		movement.dy = 0;
-		movement.dx = 0;
-	} else walk_counter++;
-
-	if(run_counter > TICK_RATE / RUN_RATE && movement.sprint == true) {
-		run_counter = 0;
-		player.move(movement.dy, movement.dx);
-		player.update();
-		movement.dy = 0;
-		movement.dx = 0;
-	} else run_counter++;
+	
+	if(movement.dx != 0 || movement.dy != 0) {
+		if(old_movement.dx == 0 && old_movement.dy == 0) {
+			do_move();
+			walk_counter = 0;
+			run_counter = 0;
+		}
+		if(walk_counter > TICK_RATE / ACTION_RATE && movement.sprint == false) {
+			do_move();
+			walk_counter = 0;
+		}
+		if(run_counter > TICK_RATE / RUN_RATE && movement.sprint == true) {
+			do_move();
+			run_counter = 0;
+		}
+		run_counter++;
+		walk_counter++;	
+	}
 
 	if(game_options.auto_center) map.center(player.y(), player.x());
-	//hud.set_pos(player.x(), player.y());
 	map.refresh();
 	stat_bar.refresh();
 	hud.refresh();
