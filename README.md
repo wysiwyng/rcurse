@@ -7,12 +7,14 @@ building
 2. run:
   - `git submodule init`
   - `git submodule update`
+  - `cd src`
   - `make all`
 3. wait a bit
 4. cd to one of the build directories
 5. run rcurse
 6. ???
 7. profit?
+8. build documentation: `doxygen Doxyfile`
 
 building ("advanced")
 ---------------------
